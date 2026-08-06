@@ -1,11 +1,11 @@
 # 📚 VBook - 도서 쇼핑몰 및 사내 백오피스 통합 플랫폼
-> **일반 고객을 위한 인터넷 서점 프론트엔드와 재고(WMS)·발주·정산 관리를 위한 사내 백오피스가 결합된 통합 웹 서비스**
+> **일반 사용자를 위한 도서 이커머스 프론트엔드와 재고(WMS)·발주·정산·상품 마스터 데이터를 관리하는 사내 백오피스를 유기적으로 결합한 통합 웹 플랫폼**
 
-[![Java](https://img.shields.io/badge/Java-007396?style=for-the-badge&logo=java&logoColor=white)](https://www.oracle.com/java/)
-[![Spring](https://img.shields.io/badge/Spring-6DB33F?style=for-the-badge&logo=spring&logoColor=white)](https://spring.io/)
-[![Oracle](https://img.shields.io/badge/Oracle-F80000?style=for-the-badge&logo=oracle&logoColor=white)](https://www.oracle.com/java/)
-[![MyBatis](https://img.shields.io/badge/MyBatis-000000?style=for-the-badge&logo=apache&logoColor=white)](https://mybatis.org/)
-[![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg?style=for-the-badge)](https://opensource.org/licenses/MIT)
+[![Java](https://img.shields.io/badge/Java-11-007396?style=for-the-badge&logo=java&logoColor=white)](https://www.oracle.com/java/)
+[![Spring](https://img.shields.io/badge/Spring-STS3-6DB33F?style=for-the-badge&logo=spring&logoColor=white)](https://spring.io/)
+[![Oracle](https://img.shields.io/badge/Oracle-Database-F80000?style=for-the-badge&logo=oracle&logoColor=white)](https://www.oracle.com/)
+[![MyBatis](https://img.shields.io/badge/MyBatis-Framework-000000?style=for-the-badge&logo=apache&logoColor=white)](https://mybatis.org/)
+[![PortOne](https://img.shields.io/badge/PortOne-PG%20Integration-00C7AE?style=for-the-badge)](https://portone.io/)
 
 ---
 
@@ -14,34 +14,50 @@
 데이터베이스 설계부터 PG 결제 연동, 동적 UI 구현에 이르기까지 웹 애플리케이션 개발의 전 과정에 걸쳐 안정성과 확장성을 고려하여 개발되었습니다.
 
 * **개발 기간**: 2026.03 ~ 2026.06
-* **핵심 도메인**: 
-  * **프론트엔드 (쇼핑몰)**: 통합 회원 인증, 도서 카탈로그, 장바구니, 포트원 PG 결제, 마이룸, 상품 리뷰
-  * **백오피스 (사내 시스템)**: 마스터 데이터 관리(도서/저자/출판사/카테고리), WMS(재고 관리), 발주 및 정산 관리
+* **개발 인원**: 백엔드 1명 (개인 프로젝트)
+* **담당 역할**: 백엔드 개발, 데이터베이스 설계 및 구축, PG 결제 연동
 
 ---
 
 ## 🛠 Tech Stack
-* **Language**: Java 
-* **Framework**: Spring Framework (Spring Legacy), MyBatis
+* **Language**: Java 11
+* **Framework**: Spring Framework (STS 3, Legacy), MyBatis
 * **Frontend**: JSP, JSTL, HTML/CSS, JavaScript (jQuery)
 * **Database**: Oracle Database
 * **Payment Gateway**: PortOne (아임포트) SDK
-* **Environment**: STS (Spring Tool Suite), Apache Tomcat
+* **Environment**: Apache Tomcat, Git / GitHub
 
 ---
 
-## 🌟 Key Features & Problem Solving
-단순한 구현을 넘어 **구조적 설계와 문제 해결**에 초점을 맞추었습니다.
+## 🚀 Key Features
 
 ### 1️⃣ 통합 인증 및 권한 분기 시스템 (Unified Authentication)
-* **Problem**: 단일 회원 테이블 구조에서는 사내 관리자와 일반 고객의 권한 충돌 및 보안 취약점 발생 우려.
-* **Solution**: 사내 관리자용 `Employee` 테이블과 쇼핑몰 고객용 `Member` 테이블을 이원화 설계. 공통 로그인 컨트롤러에서 관리자 여부를 선검사하여 성공 권한에 따라 각각 백오피스 메인(`@/backoffice`) 또는 쇼핑몰 메인(`@/shop`)으로 자동 분기 리다이렉트 구현.
+* 사내 관리자용 `Employee` 테이블과 쇼핑몰 고객용 `Member` 테이블을 도메인별로 이원화하여 설계
+* 로그인 요청 시 통합 컨트롤러에서 관리자 계정 유무를 선검사한 뒤, 성공 권한에 따라 각각 백오피스 메인(`@/backoffice`) 또는 쇼핑몰 메인(`@/shop`)으로 자동 분기 리다이렉트 구현
 
-### 2️⃣ 포트원(PortOne) PG 간편결제 및 트랜잭션 정합성 보장 🔒
-* **Solution**: 외부 PG사(이니시스 등) 결제 연동 API를 활용해 신용카드 결제 프로세스 구축. 서버 단에서 결제 검증과 동시에 **`@Transactional`**을 활용하여 주문 데이터 생성, 장바구니 비우기, 창고 재고(`Inventory`) 차감 로직을 하나의 원자적 단위로 묶어 데이터 무결성 확보.
+### 2️⃣ 포트원(PortOne) PG 결제 연동 및 데이터 정합성 보장
+* 아임포트(PortOne) SDK를 연동하여 신용카드 등 외부 PG사 간편결제 프로세스 구축
+* 결제 승인 후 서버 단에서 검증을 거쳐 장바구니 비우기 및 창고 재고(`Inventory`) 자동 차감 처리를 트랜잭션으로 묶어 데이터 정합성 보장
 
-### 3️⃣ 다층 계층형 카테고리와 동적 네비게이션바 🏷️
-* **Solution**: 부모-자식(`parent_id`) 구조의 카테고리 데이터를 자바 단에서 트리 구조로 계층화하여 상단 네비게이션 바에 마우스 호버(Hover) 드롭다운 형태로 동적 렌더링 구현.
+### 3️⃣ 상품 리뷰 및 평점 도메인
+* 구매 고객이 도서별로 평점(1.0~5.0)과 한줄평을 남길 수 있는 리뷰 등록 및 삭제 기능 구현
+* 작성자 회원 정보 조인(`LEFT JOIN`)을 통해 상세 페이지 내 실시간 리뷰 목록 및 작성자 표기 반영
+
+### 4️⃣ 사내 백오피스 WMS(재고) 및 기준 정보 관리
+* 도서, 저자, 출판사, 카테고리 등 쇼핑몰 마스터 데이터의 CRUD 관리 기능 구현
+* 창고 재고 상태(`Inventory`) 실시간 모니터링 및 발주·정산 관리 백오피스 프로세스 구축
+
+### 5️⃣ 장바구니 및 마이룸(주문 내역) 도메인
+* 도서 상세 페이지에서 수량 선택 후 장바구니 담기 및 주문/결제 동선 연결
+* 마이페이지(마이룸)를 통해 회원의 프로필 정보, 보유 충전금 및 과거 주문 내역 상세 조회 기능 제공
+
+---
+
+## 💡 Troubleshooting & Problem Solving
+
+### ⚠️ 세션 권한 충돌 및 예외 처리 문제
+* **문제 상황**: 초기 단일 회원 테이블 구조에서 관리자와 일반 회원을 동시에 처리하려다 보니, 백오피스 접근 시 세션 권한 충돌 및 상세 페이지 진입 시 `NullPointerException` (500 에러) 발생
+* **해결 및 성과**: 관리자(`Employee`)와 고객(`Member`) 테이블을 명확히 분리하고, 로그인 컨트롤러와 세션 매핑(`loginEmployee` / `loginUser`)을 이원화함. 이를 통해 권한 검증 로직을 재설계하여 보안성을 강화하고 시스템 전반의 예외 발생 원인을 근본적으로 차단함.
 
 ---
 
