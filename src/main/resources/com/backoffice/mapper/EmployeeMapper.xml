@@ -1,0 +1,29 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+  "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+  
+<mapper namespace="com.backoffice.mapper.EmployeeMapper">
+
+    <select id="readEmployee" resultType="com.backoffice.model.EmployeeVO">
+        SELECT employee_id, login_id, password, name, role
+        FROM Employee
+        WHERE login_id = #{loginId}
+    </select>
+
+	<select id="selectEmployeeList" resultType="com.backoffice.model.EmployeeVO">
+        SELECT 
+            employee_id AS employeeId, 
+            login_id AS loginId, 
+            name, 
+            role
+        FROM Employee
+        ORDER BY employee_id ASC
+    </select>
+
+    <!--  [HR 관리용 추가 2] 사원 직급(Role) 변경 -->
+    <update id="updateEmployeeRole">
+        UPDATE Employee 
+        SET role = #{role} 
+        WHERE employee_id = #{employeeId}
+    </update>
+</mapper>

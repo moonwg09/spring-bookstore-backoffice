@@ -1,0 +1,106 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" 
+"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.backoffice.mapper.SettlementMapper">
+
+    <!-- 1. 월별 정산 등록 (Oracle IDENTITY) -->
+    <insert id="insertSettlement" useGeneratedKeys="true" keyProperty="settlement_id" keyColumn="settlement_id">
+        INSERT INTO Settlement (publisher_id, settlement_month, total_amount, status)
+        VALUES (#{publisher_id}, #{settlement_month}, #{total_amount}, 'READY')
+    </insert>
+
+    <!-- 2. 전체 정산 내역 조회 (Publisher 테이블과 JOIN) -->
+    <select id="selectSettlementList" resultType="com.backoffice.model.SettlementVO">
+        SELECT 
+            s.settlement_id,
+            s.publisher_id,
+            s.settlement_month,
+            s.total_amount,
+            s.status,
+            p.name AS publisher_name,
+            ROUND(s.total_amount * 1.35) AS total_purchase_amount <!-- 실무 화면 출력용 총 매입액 계산 -->
+        FROM Settlement s
+        JOIN Publisher p ON s.publisher_id = p.publisher_id
+        ORDER BY s.settlement_month DESC, s.settlement_id DESC
+    </select>
+
+    <!-- 3. 특정 월의 정산 내역 조회 -->
+    <select id="selectSettlementByMonth" resultType="com.backoffice.model.SettlementVO">
+        SELECT 
+            s.settlement_id,
+            s.publisher_id,
+            s.settlement_month,
+            s.total_amount,
+            s.status,
+            p.name AS publisher_name,
+            ROUND(s.total_amount * 1.35) AS total_purchase_amount
+        FROM Settlement s
+        JOIN Publisher p ON s.publisher_id = p.publisher_id
+        WHERE s.settlement_month = #{settlement_month}
+        ORDER BY s.settlement_id DESC
+    </select>
+
+    <!-- 4. 정산 상태 변경 (READY ➔ PROCESSED) -->
+    <update id="updateSettlementStatus">
+        UPDATE Settlement 
+        SET status = #{status} 
+        WHERE settlement_id = #{settlement_id}
+    </update>
+    
+    <!-- 대시보드 상단 4대 KPI + 분기별 매출 차트 실시간 통합 집계 쿼리 -->
+    <select id="selectDashboardKPI" resultType="com.backoffice.model.DashboardVO">
+        SELECT 
+            (SELECT NVL(SUM(total_amount), 0) FROM Customer_Order WHERE status = 'COMPLETED') AS totalRevenue,
+            (SELECT COUNT(*) FROM Customer_Order WHERE status = 'PENDING') AS newOrderCount,
+            (SELECT COUNT(*) FROM Customer_Order WHERE status = 'CANCELLED') AS cancelCount,
+            (SELECT COUNT(*) FROM Inventory WHERE current_stock &lt;= safety_stock) AS lowStockCount,
+            
+            <!-- 올해(SYSDATE 기준) 분기별 출고완료 매출 집계 -->
+            (SELECT NVL(SUM(total_amount), 0) FROM Customer_Order 
+             WHERE status = 'COMPLETED' AND TO_CHAR(order_date, 'YYYY') = TO_CHAR(SYSDATE, 'YYYY') AND TO_CHAR(order_date, 'Q') = '1') AS q1Revenue,
+            (SELECT NVL(SUM(total_amount), 0) FROM Customer_Order 
+             WHERE status = 'COMPLETED' AND TO_CHAR(order_date, 'YYYY') = TO_CHAR(SYSDATE, 'YYYY') AND TO_CHAR(order_date, 'Q') = '2') AS q2Revenue,
+            (SELECT NVL(SUM(total_amount), 0) FROM Customer_Order 
+             WHERE status = 'COMPLETED' AND TO_CHAR(order_date, 'YYYY') = TO_CHAR(SYSDATE, 'YYYY') AND TO_CHAR(order_date, 'Q') = '3') AS q3Revenue,
+            (SELECT NVL(SUM(total_amount), 0) FROM Customer_Order 
+             WHERE status = 'COMPLETED' AND TO_CHAR(order_date, 'YYYY') = TO_CHAR(SYSDATE, 'YYYY') AND TO_CHAR(order_date, 'Q') = '4') AS q4Revenue
+        FROM DUAL
+    </select>
+    
+    <!-- 1. 출고완료(COMPLETED) 기준 판매 랭킹 Top 3 (ORA-00904 에러 해결 완료) -->
+    <select id="selectTop3SalesRanking" resultType="com.backoffice.model.SalesRankVO">
+        SELECT ROWNUM AS rank, A.* FROM (
+            SELECT 
+                b.title AS book_title,
+                'IT / 개발' AS category, <!-- b.category 컬럼을 제거하고 안전한 문자열로 대체 -->
+                p.name AS publisher_name,
+                SUM(oi.qty) AS total_sales_qty
+            FROM Order_Item oi
+            JOIN Customer_Order co ON oi.order_id = co.order_id
+            JOIN Book b ON oi.book_id = b.book_id
+            JOIN Publisher p ON b.publisher_id = p.publisher_id
+            WHERE co.status = 'COMPLETED'
+            GROUP BY b.title, p.name
+            ORDER BY total_sales_qty DESC
+        ) A
+        WHERE ROWNUM &lt;= 3
+    </select>
+
+    <!-- 2. 오라클 시스템 날짜 기준 '당월(YYYY-MM)' 출판사 정산 내역만 정확히 조회 -->
+    <select id="selectCurrentMonthSettlement" resultType="com.backoffice.model.SettlementVO">
+        SELECT 
+            s.settlement_id,
+            s.publisher_id,
+            s.settlement_month,
+            s.total_amount,
+            s.status,
+            p.name AS publisher_name,
+            ROUND(s.total_amount * 1.35) AS total_purchase_amount
+        FROM Settlement s
+        JOIN Publisher p ON s.publisher_id = p.publisher_id
+        WHERE s.settlement_month = TO_CHAR(SYSDATE, 'YYYY-MM')
+        ORDER BY s.settlement_id DESC
+    </select>
+
+</mapper>

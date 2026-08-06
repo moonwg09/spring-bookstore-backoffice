@@ -1,0 +1,141 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+  "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+  
+<mapper namespace="com.backoffice.mapper.BookMapper">
+
+    <!-- 1. 목록 조회 -->
+    <select id="getList" resultType="com.backoffice.model.BookVO">
+        SELECT * FROM Book 
+        ORDER BY book_id DESC
+    </select>
+
+    <!-- 2. 도서 등록 -->
+    <insert id="insert">
+        <selectKey keyProperty="book_id" resultType="long" order="AFTER">
+            SELECT MAX(book_id) FROM Book
+        </selectKey>
+        
+        INSERT INTO Book (title, price, publish_date, isbn, publisher_id, category_id)
+        VALUES (#{title}, #{price}, #{publish_date, jdbcType=DATE}, #{isbn, jdbcType=VARCHAR}, #{publisher_id}, #{category_id})
+    </insert>
+
+    <!-- 3. 단건 조회 -->
+    <select id="read" resultType="com.backoffice.model.BookVO">
+        SELECT * FROM Book 
+        WHERE book_id = #{book_id}
+    </select>
+
+    <!-- 4. 수정 -->
+    <update id="update">
+        UPDATE Book
+        SET title = #{title},
+            price = #{price},
+            publish_date = #{publish_date, jdbcType=DATE},
+            isbn = #{isbn, jdbcType=VARCHAR},
+            publisher_id = #{publisher_id},
+            category_id = #{category_id}
+        WHERE book_id = #{book_id}
+    </update>
+    
+    <!-- 5. 삭제 (ON DELETE CASCADE 설정이 있다면 매핑 테이블도 자동 삭제됩니다) -->
+    <delete id="delete">
+        DELETE FROM Book 
+        WHERE book_id = #{book_id}
+    </delete>
+
+
+    <!-- ================= [도서-저자 매핑 테이블 쿼리] ================= -->
+    
+    <insert id="insertBookAuthor">
+        INSERT INTO Book_Author_Map (book_id, author_id)
+        VALUES (#{book_id}, #{author_id})
+    </insert>
+
+    <delete id="deleteBookAuthor">
+        DELETE FROM Book_Author_Map
+        WHERE book_id = #{book_id}
+    </delete>
+
+    <select id="getAuthorIdsByBook" resultType="long">
+        SELECT author_id 
+        FROM Book_Author_Map 
+        WHERE book_id = #{book_id}
+    </select>
+    
+    <!-- ================= [쇼핑몰 확장 쿼리] ================= -->
+
+    <!-- 평점순 상품 조회 (TOP 4) -->
+    <select id="getBooksByRating" resultType="com.backoffice.model.BookVO">
+        SELECT * FROM (
+            SELECT 
+                b.book_id,
+                b.title,
+                b.price,
+                b.cover_image,
+                NVL(AVG(r.rating), 0) AS average_rating
+            FROM Book b
+            LEFT JOIN Book_Review r ON b.book_id = r.book_id
+            GROUP BY b.book_id, b.title, b.price, b.cover_image
+            ORDER BY average_rating DESC, b.book_id DESC
+        )
+        WHERE ROWNUM &lt;= 4
+    </select>
+
+    <!-- 쇼핑몰 상세 페이지 조회 (출판사, 카테고리명 및 실시간 재고 포함) -->
+    <select id="getBookDetailShop" resultType="com.backoffice.model.BookVO">
+        SELECT 
+            b.book_id,
+            b.title,
+            b.price,
+            b.publish_date,
+            b.isbn,
+            b.cover_image,
+            p.name AS publisher_name,
+            c.name AS category_name,
+            i.current_stock
+        FROM Book b
+        LEFT JOIN Publisher p ON b.publisher_id = p.publisher_id
+        LEFT JOIN Category c ON b.category_id = c.category_id
+        LEFT JOIN Inventory i ON b.book_id = i.book_id
+        WHERE b.book_id = #{book_id}
+    </select>
+
+    <!-- 도서 통합 검색 (제목, 저자, 출판사별 동적 쿼리) -->
+    <select id="searchBooks" resultType="com.backoffice.model.BookVO">
+        SELECT DISTINCT
+            b.book_id,
+            b.title,
+            b.price,
+            b.cover_image,
+            p.name AS publisher_name
+        FROM Book b
+        LEFT JOIN Publisher p ON b.publisher_id = p.publisher_id
+        LEFT JOIN Book_Author_Map bam ON b.book_id = bam.book_id
+        LEFT JOIN Author a ON bam.author_id = a.author_id
+        <where>
+            <choose>
+                <when test="searchType == 'title'">
+                    b.title LIKE '%' || #{keyword} || '%'
+                </when>
+                <when test="searchType == 'author'">
+                    a.name LIKE '%' || #{keyword} || '%'
+                </when>
+                <when test="searchType == 'publisher'">
+                    p.name LIKE '%' || #{keyword} || '%'
+                </when>
+                <otherwise>
+                    b.title LIKE '%' || #{keyword} || '%'
+                </otherwise>
+            </choose>
+        </where>
+        ORDER BY b.book_id DESC
+    </select>
+    
+    <select id="getBooksByCategory" parameterType="long" resultType="com.backoffice.model.BookVO">
+    SELECT book_id, title, price, publish_date, isbn, publisher_id, category_id, cover_image 
+    FROM Book 
+    WHERE category_id = #{categoryId}
+</select>
+
+</mapper>

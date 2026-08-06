@@ -1,0 +1,56 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" 
+"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.backoffice.mapper.CustomerOrderMapper">
+
+    <!-- 1. 주문 마스터 등록 -->
+    <insert id="insertCustomerOrder" useGeneratedKeys="true" keyProperty="order_id" keyColumn="order_id">
+        INSERT INTO Customer_Order (member_id, status, total_amount, order_date)
+        VALUES (#{member_id}, 'PENDING', #{total_amount}, SYSTIMESTAMP)
+    </insert>
+
+    <!-- 2. 주문 상세 품목 등록 -->
+    <insert id="insertOrderItem">
+        INSERT INTO Order_Item (order_id, book_id, qty, price)
+        VALUES (#{order_id}, #{book_id}, #{qty}, #{price})
+    </insert>
+
+    <!-- 3. 주문 마스터 목록 조회 (고객명 JOIN) -->
+    <select id="selectCustomerOrderList" resultType="com.backoffice.model.CustomerOrderVO">
+        SELECT 
+            co.order_id,
+            co.member_id,
+            co.status,
+            co.total_amount,
+            co.order_date,
+            c.name AS customer_name
+        FROM Customer_Order co
+        JOIN Member c ON co.member_id = c.member_id
+        ORDER BY co.order_id DESC
+    </select>
+
+    <!-- 4. 특정 주문 번호의 상세 품목 조회 (도서 정보 JOIN) -->
+    <select id="selectOrderItemsByOrderId" resultType="com.backoffice.model.OrderItemVO">
+        SELECT 
+            oi.order_item_id,
+            oi.order_id,
+            oi.book_id,
+            oi.qty,
+            oi.price,
+            b.title AS book_title,
+            b.isbn
+        FROM Order_Item oi
+        JOIN Book b ON oi.book_id = b.book_id
+        WHERE oi.order_id = #{order_id}
+        ORDER BY oi.order_item_id ASC
+    </select>
+
+    <!-- 5. 주문 상태 변경 -->
+    <update id="updateOrderStatus">
+        UPDATE Customer_Order 
+        SET status = #{status} 
+        WHERE order_id = #{order_id}
+    </update>
+
+</mapper>

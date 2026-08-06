@@ -1,0 +1,49 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" 
+"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.backoffice.mapper.OrderMapper">
+
+    <!-- 주문 마스터 등록 -->
+    <insert id="insertOrder">
+        <selectKey keyProperty="order_id" resultType="long" order="AFTER">
+            SELECT MAX(order_id) FROM Customer_Order
+        </selectKey>
+        INSERT INTO Customer_Order (order_id, member_id, status, total_amount)
+        VALUES (customer_order_seq.NEXTVAL, #{member_id}, 'COMPLETED', #{total_amount})
+    </insert>
+
+    <!-- 주문 상세 품목 등록 -->
+    <insert id="insertOrderItem">
+        INSERT INTO Order_Item (order_item_id, order_id, book_id, qty, price)
+        VALUES (order_item_seq.NEXTVAL, #{order_id}, #{book_id}, #{qty}, #{price})
+    </insert>
+
+    <!-- 회원 충전금 차감 -->
+    <update id="updateMemberBalance">
+        UPDATE Member
+        SET balance = balance - #{balance}
+        WHERE member_id = #{member_id}
+    </update>
+
+    <!-- 재고 수량 차감 -->
+    <update id="updateInventoryStock">
+        UPDATE Inventory
+        SET current_stock = current_stock - #{qty}
+        WHERE book_id = #{book_id}
+    </update>
+
+    <!-- 주문 내역 조회 -->
+    <select id="getOrderList" resultType="com.backoffice.model.CustomerOrderVO">
+        SELECT order_id, member_id, status, total_amount, order_date
+        FROM Customer_Order
+        WHERE member_id = #{member_id}
+        ORDER BY order_id DESC
+    </select>
+
+    <!-- 장바구니 비우기 -->
+    <delete id="clearCart">
+        DELETE FROM Cart
+        WHERE member_id = #{member_id}
+    </delete>
+
+</mapper>

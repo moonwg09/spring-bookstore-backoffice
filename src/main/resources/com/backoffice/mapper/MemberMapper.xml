@@ -1,0 +1,46 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" 
+"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.backoffice.mapper.MemberMapper">
+
+    <!-- 회원 가입 -->
+    <insert id="insertMember">
+        INSERT INTO Member (member_id, login_id, password, name, email, kakao_id, balance, point, role)
+        VALUES (member_seq.NEXTVAL, #{loginId}, #{password}, #{name}, #{email}, #{kakaoId}, 0, 0, 'USER')
+    </insert>
+
+    <!-- 로그인 ID 조회 -->
+    <select id="selectMemberById" resultType="com.backoffice.model.MemberVO">
+        SELECT 
+            member_id AS member_Id,
+            login_id AS login_Id,
+            password,
+            name,
+            email,
+            kakao_id AS kakao_Id,
+            balance,
+            point,
+            role,
+            created_at AS createdAt
+        FROM Member
+        WHERE login_id = #{loginId}
+    </select>
+
+    <!-- 카카오 ID 조회 -->
+    <select id="selectMemberByKakaoId" resultType="com.backoffice.model.MemberVO">
+        SELECT 
+            member_id AS member_Id,
+            login_id AS login_Id,
+            password,
+            name,
+            email,
+            kakao_id AS kakao_Id,
+            balance,
+            point,
+            role,
+            created_at AS createdAt
+        FROM Member
+        WHERE kakao_id = #{kakao_Id}
+    </select>
+
+</mapper>

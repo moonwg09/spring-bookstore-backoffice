@@ -1,0 +1,50 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" 
+"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.backoffice.mapper.InventoryHistoryMapper">
+
+    <!-- 1. 재고 변동 로그 기록 (Oracle IDENTITY) -->
+    <insert id="insertHistory">
+        INSERT INTO Inventory_History (book_id, employee_id, change_qty, reason, created_at)
+        VALUES (#{book_id}, #{employee_id}, #{change_qty}, #{reason}, SYSTIMESTAMP)
+    </insert>
+
+    <!-- 2. 전체 변동 이력 조회 (도서명, 담당자명 JOIN) -->
+    <select id="selectHistoryList" resultType="com.backoffice.model.InventoryHistoryVO">
+        SELECT 
+            h.history_id,
+            h.book_id,
+            h.employee_id,
+            h.change_qty,
+            h.reason,
+            h.created_at,
+            b.title AS book_title,
+            b.isbn,
+            e.name AS employee_name
+        FROM Inventory_History h
+        JOIN Book b ON h.book_id = b.book_id
+        LEFT JOIN Employee e ON h.employee_id = e.employee_id
+        ORDER BY h.history_id DESC
+    </select>
+
+    <!-- 3. 특정 도서의 변동 이력 조회 -->
+    <select id="selectHistoryByBookId" resultType="com.backoffice.model.InventoryHistoryVO">
+        SELECT 
+            h.history_id,
+            h.book_id,
+            h.employee_id,
+            h.change_qty,
+            h.reason,
+            h.created_at,
+            b.title AS book_title,
+            b.isbn,
+            e.name AS employee_name
+        FROM Inventory_History h
+        JOIN Book b ON h.book_id = b.book_id
+        LEFT JOIN Employee e ON h.employee_id = e.employee_id
+        WHERE h.book_id = #{book_id}
+        ORDER BY h.history_id DESC
+    </select>
+
+</mapper>

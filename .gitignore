@@ -1,0 +1,14 @@
+# Maven 빌드 폴더 (가장 중요)
+/target/
+.apt_generated/
+.classpath
+.project
+.settings/
+
+# STS / Eclipse 임시 파일
+.sts_cache/
+*.log
+.DS_Store
+
+# 운영체제 생성 파일
+Thumbs.db

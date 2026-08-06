@@ -1,0 +1,35 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+  "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+ 
+ 
+ <mapper namespace="com.backoffice.mapper.AuthorMapper">
+
+    <select id="getList" resultType="com.backoffice.model.AuthorVO">
+        SELECT * FROM Author 
+        ORDER BY author_id DESC
+    </select>
+
+    <insert id="insert">
+        INSERT INTO Author (name, bio)
+        VALUES (#{name}, #{bio, jdbcType=VARCHAR})
+    </insert>
+
+    <select id="read" resultType="com.backoffice.model.AuthorVO">
+        SELECT * FROM Author 
+        WHERE author_id = #{author_id}
+    </select>
+
+    <update id="update">
+        UPDATE Author
+        SET name = #{name}, 
+            bio = #{bio, jdbcType=VARCHAR}
+        WHERE author_id = #{author_id}
+    </update>
+
+    <delete id="delete">
+        DELETE FROM Author 
+        WHERE author_id = #{author_id}
+    </delete>
+
+</mapper>
