@@ -1,4 +1,4 @@
-# 📚 VBook - 도서 쇼핑몰 및 사내 백오피스 통합 플랫폼
+# 📚 MBook - 도서 쇼핑몰 및 사내 백오피스 통합 플랫폼
 > **일반 사용자를 위한 도서 이커머스 프론트엔드와 재고(WMS)·발주·정산·상품 마스터 데이터를 관리하는 사내 백오피스를 유기적으로 결합한 통합 웹 플랫폼**
 
 [![Java](https://img.shields.io/badge/Java-11-007396?style=for-the-badge&logo=java&logoColor=white)](https://www.oracle.com/java/)
