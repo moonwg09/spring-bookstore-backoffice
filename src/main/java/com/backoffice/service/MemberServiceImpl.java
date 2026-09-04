@@ -21,26 +21,26 @@ public class MemberServiceImpl implements MemberService{
     public MemberVO login(String loginId, String password) {
         MemberVO member = memberMapper.selectMemberById(loginId);
         if (member != null && member.getPassword().equals(password)) {
-            return member; // ·Î±×ÀÎ ¼º°ø
+            return member; // ï¿½Î±ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½
         }
-        return null; // ·Î±×ÀÎ ½ÇÆÐ
+        return null; // ï¿½Î±ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½
     }
 
     @Override
     public MemberVO kakaoLoginOrRegister(String kakaoId, String nickname, String email) {
-        // 1. ÀÌ¹Ì °¡ÀÔµÈ Ä«Ä«¿À È¸¿øÀÎÁö Á¶È¸
+        // 1. ï¿½Ì¹ï¿½ ï¿½ï¿½ï¿½Ôµï¿½ Ä«Ä«ï¿½ï¿½ È¸ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½È¸
         MemberVO member = memberMapper.selectMemberByKakaoId(kakaoId);
         if (member != null) {
-            return member; // ±âÁ¸ È¸¿ø ·Î±×ÀÎ Ã³¸®
+            return member; // ï¿½ï¿½ï¿½ï¿½ È¸ï¿½ï¿½ ï¿½Î±ï¿½ï¿½ï¿½ Ã³ï¿½ï¿½
         }
         
-        // 2. ½Å±Ô Ä«Ä«¿À È¸¿ø ÀÚµ¿ È¸¿ø°¡ÀÔ ÁøÇà
+        // 2. ï¿½Å±ï¿½ Ä«Ä«ï¿½ï¿½ È¸ï¿½ï¿½ ï¿½Úµï¿½ È¸ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½
         MemberVO newMember = new MemberVO();
         newMember.setKakao_Id(kakaoId);
         newMember.setName(nickname);
         newMember.setEmail(email != null ? email : kakaoId + "@kakao.com");
         newMember.setLogin_Id("kakao_" + kakaoId);
-        newMember.setPassword("KAKAO_SOCIAL_LOGIN"); // ¼Ò¼È È¸¿øÀº ºñ¹ø ¹«°ü
+        newMember.setPassword("KAKAO_SOCIAL_LOGIN"); // ï¿½Ò¼ï¿½ È¸ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½
         
         memberMapper.insertMember(newMember);
         return memberMapper.selectMemberByKakaoId(kakaoId);
