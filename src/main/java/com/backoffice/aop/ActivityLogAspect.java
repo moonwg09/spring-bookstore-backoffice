@@ -1,4 +1,4 @@
-﻿package com.backoffice.aop;
+package com.backoffice.aop;
 
 import java.lang.reflect.Method;
 

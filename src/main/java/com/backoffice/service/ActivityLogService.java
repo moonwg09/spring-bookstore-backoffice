@@ -1,4 +1,4 @@
-﻿package com.backoffice.service;
+package com.backoffice.service;
 
 public interface ActivityLogService {
 	

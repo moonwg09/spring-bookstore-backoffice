@@ -1,4 +1,4 @@
-﻿package com.backoffice.model;
+package com.backoffice.model;
 
 import java.util.Date;
 import lombok.Data;

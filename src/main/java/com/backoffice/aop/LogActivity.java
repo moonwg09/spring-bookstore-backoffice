@@ -1,4 +1,4 @@
-﻿package com.backoffice.aop;
+package com.backoffice.aop;
 
 import java.lang.annotation.ElementType;
 import java.lang.annotation.Retention;

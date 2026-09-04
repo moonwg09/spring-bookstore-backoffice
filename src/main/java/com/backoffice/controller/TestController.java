@@ -1,4 +1,4 @@
-﻿package com.backoffice.controller;
+package com.backoffice.controller;
 
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.GetMapping;

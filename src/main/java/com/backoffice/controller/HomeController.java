@@ -1,4 +1,4 @@
-﻿package com.backoffice.controller;
+package com.backoffice.controller;
 
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
