@@ -1,4 +1,4 @@
-package com.backoffice.controller;
+ï»¿package com.backoffice.controller;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -19,13 +19,13 @@ public class DashboardController {
 
     @GetMapping("/dashboard")
     public String dashboard(Model model) {
-        // 1. »ó´Ü ½Ç½Ã°£ Åë°è KPI Áı°è
+        // 1. ìƒë‹¨ ì‹¤ì‹œê°„ í†µê³„ KPI ì§‘ê³„
         model.addAttribute("kpi", settlementService.getDashboardKPI());
         
-        //  [½Å±Ô Ãß°¡!] 2. ½Ç½Ã°£ µµ¼­ ÆÇ¸Å ·©Å· Top 3
+        //  [ì‹ ê·œ ì¶”ê°€!] 2. ì‹¤ì‹œê°„ ë„ì„œ íŒë§¤ ë­í‚¹ Top 3
         model.addAttribute("rankList", settlementService.getTop3SalesRanking());
         
-        //  [¼öÁ¤ ¿Ï·á!] 3. '´ç¿ù ±âÁØ' ÃâÆÇ»ç ¸ÅÀÔ ´ë±İ Á¤»ê ³»¿ª
+        //  [ìˆ˜ì • ì™„ë£Œ!] 3. 'ë‹¹ì›” ê¸°ì¤€' ì¶œíŒì‚¬ ë§¤ì… ëŒ€ê¸ˆ ì •ì‚° ë‚´ì—­
         model.addAttribute("settlementList", settlementService.getCurrentMonthSettlement());
         
         return "admin/dashboard/index";

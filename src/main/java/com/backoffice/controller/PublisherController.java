@@ -1,4 +1,4 @@
-package com.backoffice.controller;
+ï»¿package com.backoffice.controller;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -18,8 +18,8 @@ public class PublisherController {
 	@Autowired
 	private PublisherService publisherService;
 	
-	// ÃâÆÇ»ç ¸ñ·Ï ÆäÀÌÁö ÀÌµ¿ ¹× µ¥ÀÌÅÍ Àü´Ş
-	@LogActivity("ÃâÆÇ»ç ¸ñ·Ï Á¶È¸ È­¸é Á¢¼Ó")
+	// ì¶œíŒì‚¬ ëª©ë¡ í˜ì´ì§€ ì´ë™ ë° ë°ì´í„° ì „ë‹¬
+	@LogActivity("ì¶œíŒì‚¬ ëª©ë¡ ì¡°íšŒ í™”ë©´ ì ‘ì†")
 	@GetMapping("/list")
 	public String publisherList(Model model) {
 		
@@ -28,16 +28,16 @@ public class PublisherController {
 		return "admin/publisher/list";
 	}
 	
-	// ÃâÆÇ»ç µî·Ï È­¸éÀ¸·Î ÀÌµ¿(GET¹æ½Ä)
-	@LogActivity("ÃâÆÇ»ç µî·Ï È­¸é Á¢¼Ó")
+	// ì¶œíŒì‚¬ ë“±ë¡ í™”ë©´ìœ¼ë¡œ ì´ë™(GETë°©ì‹)
+	@LogActivity("ì¶œíŒì‚¬ ë“±ë¡ í™”ë©´ ì ‘ì†")
 	@GetMapping("/register")
 	public String registerForm() {
 		
 		return "admin/publisher/register";
 	}
 	
-	// ½ÇÁ¦ ÃâÆÇ»ç µî·Ï Ã³¸®(Post¹æ½Ä)
-	@LogActivity("»õ ÃâÆÇ»ç DB µî·Ï Ã³¸®")
+	// ì‹¤ì œ ì¶œíŒì‚¬ ë“±ë¡ ì²˜ë¦¬(Postë°©ì‹)
+	@LogActivity("ìƒˆ ì¶œíŒì‚¬ DB ë“±ë¡ ì²˜ë¦¬")
 	@PostMapping("/register")
 	public String registerProcess(PublisherVO publisher) {
 		
@@ -46,8 +46,8 @@ public class PublisherController {
 		return "redirect:/admin/publisher/list";
 	}
 	
-	// ÃâÆÇ»ç ¼öÁ¤ È­¸éÀ¸·Î ÀÌµ¿(GET)
-	@LogActivity("ÃâÆÇ»ç ¼öÁ¤ È­¸é Á¢¼Ó")
+	// ì¶œíŒì‚¬ ìˆ˜ì • í™”ë©´ìœ¼ë¡œ ì´ë™(GET)
+	@LogActivity("ì¶œíŒì‚¬ ìˆ˜ì • í™”ë©´ ì ‘ì†")
 	@GetMapping("/modify")
 	public String modifyForm(Long publisher_id, Model model) {
 		
@@ -55,8 +55,8 @@ public class PublisherController {
 		return "/admin/publisher/modify";	
 	}
 	
-	// ½ÇÁ¦ ÃâÆÇ»ç ¼öÁ¤ Ã³¸®(POST)
-	@LogActivity("ÃâÆÇ»ç Á¤º¸ ¼öÁ¤ Ã³¸®")
+	// ì‹¤ì œ ì¶œíŒì‚¬ ìˆ˜ì • ì²˜ë¦¬(POST)
+	@LogActivity("ì¶œíŒì‚¬ ì •ë³´ ìˆ˜ì • ì²˜ë¦¬")
 	@PostMapping("/modify")
 	public String modifyProcess(PublisherVO publisher) {
 		
@@ -64,11 +64,12 @@ public class PublisherController {
 		return "redirect:/admin/publisher/list";
 	}
 	
-	// ÃâÆÇ»ç »èÁ¦ Ã³¸®(POST)
-	@LogActivity("ÃâÆÇ»ç »èÁ¦ Ã³¸®")
+	// ì¶œíŒì‚¬ ì‚­ì œ ì²˜ë¦¬(POST)
+	@LogActivity("ì¶œíŒì‚¬ ì‚­ì œ ì²˜ë¦¬")
 	@PostMapping("/delete")
 	public String deleteProcess(Long publisher_id) {
 		publisherService.removePublisher(publisher_id);
 		return "redirect:/admin/publisher/list";
 	}
 }
+

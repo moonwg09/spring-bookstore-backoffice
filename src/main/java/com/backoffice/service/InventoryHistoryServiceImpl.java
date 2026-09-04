@@ -1,4 +1,4 @@
-package com.backoffice.service;
+ï»¿package com.backoffice.service;
 
 import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -22,23 +22,23 @@ public class InventoryHistoryServiceImpl implements InventoryHistoryService {
     @Transactional
     @Override
     public boolean addStockWithHistory(InventoryVO invVO, Long employee_id, String reason) {
-        // 1. Inventory Å×ÀÌºíÀÇ ½ÇÀç°í ¼ö·® Áõ°¨ ¹İ¿µ (UPDATE)
+        // 1. Inventory í…Œì´ë¸”ì˜ ì‹¤ì¬ê³  ìˆ˜ëŸ‰ ì¦ê° ë°˜ì˜ (UPDATE)
         int updateResult = inventoryMapper.updateAddStock(invVO);
         
-        //  [½Ç¹« ¹æ¾î ·ÎÁ÷ Ãß°¡] ´ë»ó µµ¼­ÀÇ Àç°í ·¹ÄÚµå°¡ ¾ø¾î¼­ ¾÷µ¥ÀÌÆ®°¡ ¾È µÇ¾ú´Ù¸é?
+        //  [ì‹¤ë¬´ ë°©ì–´ ë¡œì§ ì¶”ê°€] ëŒ€ìƒ ë„ì„œì˜ ì¬ê³  ë ˆì½”ë“œê°€ ì—†ì–´ì„œ ì—…ë°ì´íŠ¸ê°€ ì•ˆ ë˜ì—ˆë‹¤ë©´?
         if (updateResult == 0) {
-            // ¿¡·¯¸¦ ³»Áö ¾Ê°í, ÇØ´ç book_id·Î ±âÃÊ Àç°í(0±Ç) ·¹ÄÚµå¸¦ »õ·Î »ı¼ºÇØ Áİ´Ï´Ù!
+            // ì—ëŸ¬ë¥¼ ë‚´ì§€ ì•Šê³ , í•´ë‹¹ book_idë¡œ ê¸°ì´ˆ ì¬ê³ (0ê¶Œ) ë ˆì½”ë“œë¥¼ ìƒˆë¡œ ìƒì„±í•´ ì¤ë‹ˆë‹¤!
             InventoryVO newInv = new InventoryVO();
             newInv.setBook_id(invVO.getBook_id());
             newInv.setCurrent_stock(0);
-            newInv.setSafety_stock(5); // ±âº» ¾ÈÀüÀç°í 5±Ç ¼¼ÆÃ
+            newInv.setSafety_stock(5); // ê¸°ë³¸ ì•ˆì „ì¬ê³  5ê¶Œ ì„¸íŒ…
             inventoryMapper.insertInventory(newInv);
             
-            // ±âÃÊ ·¹ÄÚµå°¡ »ı°åÀ¸´Ï ´Ù½Ã ÇÑ¹ø Áõ°¨ ¹İ¿µÀ» ½ÃµµÇÕ´Ï´Ù.
+            // ê¸°ì´ˆ ë ˆì½”ë“œê°€ ìƒê²¼ìœ¼ë‹ˆ ë‹¤ì‹œ í•œë²ˆ ì¦ê° ë°˜ì˜ì„ ì‹œë„í•©ë‹ˆë‹¤.
             updateResult = inventoryMapper.updateAddStock(invVO);
         }
         
-        // 2. Inventory_History Å×ÀÌºí¿¡ °¨»ç(Audit) ·Î±× ±â·Ï (INSERT)
+        // 2. Inventory_History í…Œì´ë¸”ì— ê°ì‚¬(Audit) ë¡œê·¸ ê¸°ë¡ (INSERT)
         InventoryHistoryVO historyVO = new InventoryHistoryVO();
         historyVO.setBook_id(invVO.getBook_id());
         historyVO.setEmployee_id(employee_id);

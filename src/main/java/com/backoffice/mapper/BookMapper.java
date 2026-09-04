@@ -1,4 +1,4 @@
-package com.backoffice.mapper;
+ï»¿package com.backoffice.mapper;
 
 import java.util.List;
 
@@ -18,25 +18,26 @@ public interface BookMapper {
 	
 	public int delete(Long book_id);
 	
-	// µµ¼­¿Í ÀúÀÚ ¿¬°á µ¥ÀÌÅÍ µî·Ï
+	// ë„ì„œì™€ ì €ì ì—°ê²° ë°ì´í„° ë“±ë¡
 	public void insertBookAuthor(@Param("book_id") Long book_id, @Param("author_id") Long author_id);
 	
-	// Æ¯Á¤ µµ¼­¿Í ¿¬°á µ¥ÀÌÅÍ ¸ğµÎ »èÁ¦(¼öÁ¤ ½Ã ±âÁ¸ ¸ÅÇÎÀ» ³¯¸®°í »õ·Î ³Ö±â À§ÇÔ)
+	// íŠ¹ì • ë„ì„œì™€ ì—°ê²° ë°ì´í„° ëª¨ë‘ ì‚­ì œ(ìˆ˜ì • ì‹œ ê¸°ì¡´ ë§¤í•‘ì„ ë‚ ë¦¬ê³  ìƒˆë¡œ ë„£ê¸° ìœ„í•¨)
 	public void deleteBookAuthor(Long book_id);
 	
-	// Æ¯Á¤ µµ¼­¿¡ ¿¬°áµÈ ÀúÀÚ ID ¸ñ·Ï¸¸ ½ï »Ì¾Æ¿À±â
+	// íŠ¹ì • ë„ì„œì— ì—°ê²°ëœ ì €ì ID ëª©ë¡ë§Œ ì™ ë½‘ì•„ì˜¤ê¸°
 	public List<Long> getAuthorIdsByBook(Long book_id);
 	
-	// ÆòÁ¡¼ø »óÇ° Á¶È¸(top 4)
+	// í‰ì ìˆœ ìƒí’ˆ ì¡°íšŒ(top 4)
 	public List<BookVO> getBooksByRating();
 	
-	// ¼îÇÎ¸ô »ó¼¼ ÆäÀÌÁö Á¶È¸(Àç°í, ÃâÆÇ»ç, Ä«Å×°í¸® Æ÷ÇÔ)
+	// ì‡¼í•‘ëª° ìƒì„¸ í˜ì´ì§€ ì¡°íšŒ(ì¬ê³ , ì¶œíŒì‚¬, ì¹´í…Œê³ ë¦¬ í¬í•¨)
 	public BookVO getBookDetailShop(Long book_id);
 	
-	// µµ¼­ ÅëÇÕ °Ë»ö(Á¦¸ñ, ÀúÀÚ, ÃâÆÇ»ç)
+	// ë„ì„œ í†µí•© ê²€ìƒ‰(ì œëª©, ì €ì, ì¶œíŒì‚¬)
 	public List<BookVO> searchBooks(@Param("searchType") String searchType, @Param("keyword") String keyword);
 	
-	// Ä«Å×°í¸®º° µµ¼­ Á¶È¸
+	// ì¹´í…Œê³ ë¦¬ë³„ ë„ì„œ ì¡°íšŒ
 	public List<BookVO> getBooksByCategory(Long categoryId);
 	
 }
+

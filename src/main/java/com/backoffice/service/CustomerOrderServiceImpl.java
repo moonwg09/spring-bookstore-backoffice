@@ -1,4 +1,4 @@
-package com.backoffice.service;
+ï»¿package com.backoffice.service;
 
 import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -17,15 +17,15 @@ public class CustomerOrderServiceImpl implements CustomerOrderService {
     private CustomerOrderMapper orderMapper;
     
     @Autowired
-    private InventoryHistoryService historyService; // 2´Ü°è¿¡¼­ ¸¸µç ¹°·ù ÅëÇÕ ¼­ºñ½º ÁÖÀÔ
+    private InventoryHistoryService historyService; // 2ë‹¨ê³„ì—ì„œ ë§Œë“  ë¬¼ë¥˜ í†µí•© ì„œë¹„ìŠ¤ ì£¼ì…
 
     @Transactional
     @Override
     public void registerOrder(CustomerOrderVO orderVO) {
-        // 1. ÁÖ¹® ¸¶½ºÅÍ µî·Ï (po_idÃ³·³ »ı¼ºµÈ order_id°¡ VO¿¡ ÀÚµ¿ ÁÖÀÔµÊ)
+        // 1. ì£¼ë¬¸ ë§ˆìŠ¤í„° ë“±ë¡ (po_idì²˜ëŸ¼ ìƒì„±ëœ order_idê°€ VOì— ìë™ ì£¼ì…ë¨)
         orderMapper.insertCustomerOrder(orderVO);
         
-        // 2. »ó¼¼ Ç°¸ñ ¸®½ºÆ® µî·Ï
+        // 2. ìƒì„¸ í’ˆëª© ë¦¬ìŠ¤íŠ¸ ë“±ë¡
         if (orderVO.getItemList() != null) {
             for (OrderItemVO item : orderVO.getItemList()) {
                 item.setOrder_id(orderVO.getOrder_id());
@@ -37,7 +37,7 @@ public class CustomerOrderServiceImpl implements CustomerOrderService {
     @Override
     public List<CustomerOrderVO> getOrderList() {
         List<CustomerOrderVO> list = orderMapper.selectCustomerOrderList();
-        // °¢ ÁÖ¹® ¸¶½ºÅÍ¸¶´Ù ÇÏÀ§ »ó¼¼ Ç°¸ñ ¸®½ºÆ®¸¦ DB¿¡¼­ Á¶È¸ÇØ Ã¤¿öÁÜ
+        // ê° ì£¼ë¬¸ ë§ˆìŠ¤í„°ë§ˆë‹¤ í•˜ìœ„ ìƒì„¸ í’ˆëª© ë¦¬ìŠ¤íŠ¸ë¥¼ DBì—ì„œ ì¡°íšŒí•´ ì±„ì›Œì¤Œ
         for (CustomerOrderVO order : list) {
             order.setItemList(orderMapper.selectOrderItemsByOrderId(order.getOrder_id()));
         }
@@ -53,10 +53,10 @@ public class CustomerOrderServiceImpl implements CustomerOrderService {
         return orderVO;
     }
 
-    @Transactional(rollbackFor = Exception.class) // Àç°í ºÎÁ· µî ¿¹¿Ü ¹ß»ı ½Ã ÁÖ¹® »óÅÂ º¯°æ±îÁö ÀüÃ¼ ·Ñ¹é
+    @Transactional(rollbackFor = Exception.class) // ì¬ê³  ë¶€ì¡± ë“± ì˜ˆì™¸ ë°œìƒ ì‹œ ì£¼ë¬¸ ìƒíƒœ ë³€ê²½ê¹Œì§€ ì „ì²´ ë¡¤ë°±
     @Override
     public boolean modifyOrderStatus(Long order_id, String targetStatus, Long employee_id, String reason) {
-        // 1. ÁÖ¹® »óÅÂ ¾÷µ¥ÀÌÆ®
+        // 1. ì£¼ë¬¸ ìƒíƒœ ì—…ë°ì´íŠ¸
         CustomerOrderVO orderVO = new CustomerOrderVO();
         orderVO.setOrder_id(order_id);
         orderVO.setStatus(targetStatus);
@@ -64,10 +64,10 @@ public class CustomerOrderServiceImpl implements CustomerOrderService {
         
         if (updateResult == 0) return false;
 
-        // 2. ¹°·ù Æ®·£Àè¼Ç ¿¬µ¿ (Ãâ°í¿Ï·á or Ãë¼Ò¿øº¹ ÀÏ ¶§¸¸ Àç°í º¯µ¿ ½ÇÇà)
+        // 2. ë¬¼ë¥˜ íŠ¸ëœì­ì…˜ ì—°ë™ (ì¶œê³ ì™„ë£Œ or ì·¨ì†Œì›ë³µ ì¼ ë•Œë§Œ ì¬ê³  ë³€ë™ ì‹¤í–‰)
         if ("COMPLETED".equals(targetStatus) || "CANCELLED".equals(targetStatus)) {
             
-            // ÇØ´ç ÁÖ¹®¿¡ Æ÷ÇÔµÈ µµ¼­ Ç°¸ñµé Á¶È¸
+            // í•´ë‹¹ ì£¼ë¬¸ì— í¬í•¨ëœ ë„ì„œ í’ˆëª©ë“¤ ì¡°íšŒ
             List<OrderItemVO> items = orderMapper.selectOrderItemsByOrderId(order_id);
             
             for (OrderItemVO item : items) {
@@ -77,16 +77,16 @@ public class CustomerOrderServiceImpl implements CustomerOrderService {
                 String logReason = "";
                 
                 if ("COMPLETED".equals(targetStatus)) {
-                    // [Ãâ°í Ã³¸®]: ÁÖ¹® ¼ö·®¸¸Å­ Àç°í ¸¶ÀÌ³Ê½º(-) Â÷°¨
+                    // [ì¶œê³  ì²˜ë¦¬]: ì£¼ë¬¸ ìˆ˜ëŸ‰ë§Œí¼ ì¬ê³  ë§ˆì´ë„ˆìŠ¤(-) ì°¨ê°
                     invVO.setCurrent_stock(-item.getQty()); 
-                    logReason = "[ÁÖ¹®Ãâ°í] ORD-" + order_id + " Ãâ°í ¿Ï·á (" + reason + ")";
+                    logReason = "[ì£¼ë¬¸ì¶œê³ ] ORD-" + order_id + " ì¶œê³  ì™„ë£Œ (" + reason + ")";
                 } else if ("CANCELLED".equals(targetStatus)) {
-                    // [Ãë¼Ò ½ÂÀÎ]: ºüÁ®³ª°¬´ø ¼ö·®¸¸Å­ Àç°í ÇÃ·¯½º(+) ¿øº¹
+                    // [ì·¨ì†Œ ìŠ¹ì¸]: ë¹ ì ¸ë‚˜ê°”ë˜ ìˆ˜ëŸ‰ë§Œí¼ ì¬ê³  í”ŒëŸ¬ìŠ¤(+) ì›ë³µ
                     invVO.setCurrent_stock(item.getQty());  
-                    logReason = "[ÁÖ¹®Ãë¼Ò/¿øº¹] ORD-" + order_id + " Ãë¼Ò ½ÂÀÎ (" + reason + ")";
+                    logReason = "[ì£¼ë¬¸ì·¨ì†Œ/ì›ë³µ] ORD-" + order_id + " ì·¨ì†Œ ìŠ¹ì¸ (" + reason + ")";
                 }
                 
-                // 2´Ü°è ¹°·ù ÅëÇÕ ¼­ºñ½º È£Ãâ (½ÇÀç°í Áõ°¨ + Audit Log µ¿½Ã ±â·Ï)
+                // 2ë‹¨ê³„ ë¬¼ë¥˜ í†µí•© ì„œë¹„ìŠ¤ í˜¸ì¶œ (ì‹¤ì¬ê³  ì¦ê° + Audit Log ë™ì‹œ ê¸°ë¡)
                 historyService.addStockWithHistory(invVO, employee_id, logReason);
             }
         }

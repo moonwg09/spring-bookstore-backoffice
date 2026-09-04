@@ -1,4 +1,4 @@
-package com.backoffice.service;
+ï»¿package com.backoffice.service;
 
 import java.util.List;
 
@@ -21,7 +21,7 @@ public class OrderServiceImpl implements OrderService {
     @Transactional
     @Override
     public boolean processOrder(CustomerOrderVO order, MemberVO loginUser, List<CartVO> cartList) {
-        // 1. ÀÜ¾× °ËÁõ
+        // 1. ì”ì•¡ ê²€ì¦
         long totalAmount = 0;
         for (CartVO cart : cartList) {
             totalAmount += (long) cart.getPrice() * cart.getQuantity();
@@ -29,15 +29,15 @@ public class OrderServiceImpl implements OrderService {
 
         
 
-        // 2. ÁÖ¹® ¸¶½ºÅÍ µî·Ï
+        // 2. ì£¼ë¬¸ ë§ˆìŠ¤í„° ë“±ë¡
         order.setMember_id(loginUser.getMember_Id());
         order.setTotal_amount(totalAmount);
         order.setStatus("COMPLETED");
         
-        // ÁÖ¹® ¸¶½ºÅÍ µî·Ï
+        // ì£¼ë¬¸ ë§ˆìŠ¤í„° ë“±ë¡
         orderMapper.insertOrder(order);
 
-        // 3. ÁÖ¹® »ó¼¼ µî·Ï ¹× Àç°í Â÷°¨
+        // 3. ì£¼ë¬¸ ìƒì„¸ ë“±ë¡ ë° ì¬ê³  ì°¨ê°
         for (CartVO cart : cartList) {
             OrderItemVO item = new OrderItemVO();
             item.setOrder_id(order.getOrder_id());
@@ -50,7 +50,7 @@ public class OrderServiceImpl implements OrderService {
         }
 
 
-        // 5. Àå¹Ù±¸´Ï ºñ¿ì±â
+        // 5. ì¥ë°”êµ¬ë‹ˆ ë¹„ìš°ê¸°
         orderMapper.clearCart(loginUser.getMember_Id());
 
 

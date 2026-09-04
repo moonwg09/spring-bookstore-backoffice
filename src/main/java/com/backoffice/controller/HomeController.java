@@ -1,4 +1,4 @@
-package com.backoffice.controller;
+ï»¿package com.backoffice.controller;
 
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
@@ -10,12 +10,12 @@ import org.springframework.web.bind.annotation.GetMapping;
 public class HomeController {
 
     /**
-     * 1. ½Ã½ºÅÛ ¸ŞÀÎ ´ë½Ãº¸µå ÆäÀÌÁö (GET)
-     * ·Î±×ÀÎ ¼º°ø ÈÄ ¸®´ÙÀÌ·ºÆ®µÇ¾î µé¾î¿À´Â ÁÖ¼ÒÀÔ´Ï´Ù.
+     * 1. ì‹œìŠ¤í…œ ë©”ì¸ ëŒ€ì‹œë³´ë“œ í˜ì´ì§€ (GET)
+     * ë¡œê·¸ì¸ ì„±ê³µ í›„ ë¦¬ë‹¤ì´ë ‰íŠ¸ë˜ì–´ ë“¤ì–´ì˜¤ëŠ” ì£¼ì†Œì…ë‹ˆë‹¤.
      */
     @GetMapping({"/", "/main"})
     public String mainPage(HttpSession session, HttpServletResponse response) {
-        // º¸¾È °ËÁõ: ¼¼¼Ç¿¡ ·Î±×ÀÎÇÑ »ç¿ø Á¤º¸(loginUser)°¡ ¾ø´Ù¸é ·Î±×ÀÎ ÆäÀÌÁö·Î °­Á¦ Ãß¹æ!
+        // ë³´ì•ˆ ê²€ì¦: ì„¸ì…˜ì— ë¡œê·¸ì¸í•œ ì‚¬ì› ì •ë³´(loginUser)ê°€ ì—†ë‹¤ë©´ ë¡œê·¸ì¸ í˜ì´ì§€ë¡œ ê°•ì œ ì¶”ë°©!
         if (session.getAttribute("loginUser") == null) {
             return "redirect:/shop/main";
         }
@@ -26,7 +26,7 @@ public class HomeController {
         
         response.setDateHeader("Expires", 0);
         
-        // ¼¼¼ÇÀÌ ÀÖ´Ù¸é Á¤»óÀûÀ¸·Î /WEB-INF/views/main.jsp È­¸éÀ» º¸¿©Áİ´Ï´Ù.
+        // ì„¸ì…˜ì´ ìˆë‹¤ë©´ ì •ìƒì ìœ¼ë¡œ /WEB-INF/views/main.jsp í™”ë©´ì„ ë³´ì—¬ì¤ë‹ˆë‹¤.
         return "main";
     }
 

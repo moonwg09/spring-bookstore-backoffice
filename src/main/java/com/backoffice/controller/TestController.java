@@ -1,4 +1,4 @@
-package com.backoffice.controller;
+ï»¿package com.backoffice.controller;
 
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -11,14 +11,14 @@ import com.backoffice.aop.LogActivity;
 @RequestMapping("/test")
 public class TestController {
 
-    @LogActivity("AOP ÄÁÆ®·Ñ·¯ °¡·ÎÃ¤±â Å×½ºÆ®")
+    @LogActivity("AOP ì»¨íŠ¸ë¡¤ëŸ¬ ê°€ë¡œì±„ê¸° í…ŒìŠ¤íŠ¸")
     @GetMapping("/log")
     @ResponseBody
     public String testLogAop() {
-        System.out.println("--- 1. ÄÁÆ®·Ñ·¯ÀÇ ½ÇÁ¦ ºñÁî´Ï½º ·ÎÁ÷ÀÌ ½ÇÇàµÇ¾ú½À´Ï´Ù. ---");
+        System.out.println("--- 1. ì»¨íŠ¸ë¡¤ëŸ¬ì˜ ì‹¤ì œ ë¹„ì¦ˆë‹ˆìŠ¤ ë¡œì§ì´ ì‹¤í–‰ë˜ì—ˆìŠµë‹ˆë‹¤. ---");
         
-        //  ÀÌ ÄÁÆ®·Ñ·¯°¡ AOP Æ÷ÀåÁö(CGLIB)¿¡ Àß °¨½ÎÁ® ÀÖ´ÂÁö È®ÀÎÇÏ´Â °áÁ¤Àû ´Ü¼­!
-        System.out.println("ÇöÀç Å¬·¡½ºÀÇ ÁøÂ¥ Á¤Ã¼: " + this.getClass().getName());
+        //  ì´ ì»¨íŠ¸ë¡¤ëŸ¬ê°€ AOP í¬ì¥ì§€(CGLIB)ì— ì˜ ê°ì‹¸ì ¸ ìˆëŠ”ì§€ í™•ì¸í•˜ëŠ” ê²°ì •ì  ë‹¨ì„œ!
+        System.out.println("í˜„ì¬ í´ë˜ìŠ¤ì˜ ì§„ì§œ ì •ì²´: " + this.getClass().getName());
         
         return "AOP Test Complete!";
     }

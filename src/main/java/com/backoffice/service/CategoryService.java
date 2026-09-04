@@ -1,4 +1,4 @@
-package com.backoffice.service;
+ï»¿package com.backoffice.service;
 
 import java.util.List;
 
@@ -6,19 +6,20 @@ import com.backoffice.model.CategoryVO;
 
 public interface CategoryService {
 	
-	// Ä«Å×°í¸® ¸ñ·Ï Á¶È¸
+	// ì¹´í…Œê³ ë¦¬ ëª©ë¡ ì¡°íšŒ
 	public List<CategoryVO> getCategoryList();
 	
-	// Ä«Å×°í¸® µî·Ï
+	// ì¹´í…Œê³ ë¦¬ ë“±ë¡
 	public void registerCategory(CategoryVO category);
 	
-	// Ä«Å×°í¸® »ó¼¼ Á¶È¸
+	// ì¹´í…Œê³ ë¦¬ ìƒì„¸ ì¡°íšŒ
 	public CategoryVO getCategory(Long category_id);
 	
-	// Ä«Å×°í¸® ¼öÁ¤
+	// ì¹´í…Œê³ ë¦¬ ìˆ˜ì •
 	public boolean modifyCategory(CategoryVO category);
 	
-	// Ä«Å×°í¸® »èÁ¦
+	// ì¹´í…Œê³ ë¦¬ ì‚­ì œ
 	public boolean removeCategory(Long category_id);
 
 }
+

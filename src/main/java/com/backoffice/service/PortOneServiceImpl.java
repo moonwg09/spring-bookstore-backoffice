@@ -1,4 +1,4 @@
-package com.backoffice.service;
+Ôªøpackage com.backoffice.service;
 
 import java.net.URI;
 import java.net.http.HttpClient;
@@ -31,7 +31,7 @@ public class PortOneServiceImpl implements PortOneService {
 
             if (apiKey == null || apiSecret == null) {
                 throw new IllegalStateException(
-                    "PortOne API »Ø∞Ê∫Øºˆ∞° º≥¡§µ«¡ˆ æ æ“Ω¿¥œ¥Ÿ."
+                    "PortOne API ÌôòÍ≤ΩÎ≥ÄÏàòÍ∞Ä ÏÑ§Ï†ïÎêòÏßÄ ÏïäÏïòÏäµÎãàÎã§."
                 );
             }
 
@@ -56,7 +56,7 @@ public class PortOneServiceImpl implements PortOneService {
 
             if (response.statusCode() != 200) {
                 throw new RuntimeException(
-                    "PortOne Access Token πﬂ±ﬁ Ω«∆–: HTTP "
+                    "PortOne Access Token Î∞úÍ∏â Ïã§Ìå®: HTTP "
                     + response.statusCode()
                 );
             }
@@ -66,7 +66,7 @@ public class PortOneServiceImpl implements PortOneService {
 
             if (root.get("code").asInt() != 0) {
                 throw new RuntimeException(
-                    "PortOne Access Token πﬂ±ﬁ Ω«∆–: "
+                    "PortOne Access Token Î∞úÍ∏â Ïã§Ìå®: "
                     + root.get("message").asText()
                 );
             }
@@ -78,7 +78,7 @@ public class PortOneServiceImpl implements PortOneService {
 
         } catch (Exception e) {
             throw new RuntimeException(
-                "PortOne Access Token √≥∏Æ ¡ﬂ ø¿∑˘ πﬂª˝",
+                "PortOne Access Token Ï≤òÎ¶¨ Ï§ë Ïò§Î•ò Î∞úÏÉù",
                 e
             );
         }
@@ -92,13 +92,13 @@ public class PortOneServiceImpl implements PortOneService {
 
             String accessToken = getAccessToken();
 
-            System.out.println("=== PortOne ∞·¡¶ ¡∂»∏ ===");
+            System.out.println("=== PortOne Í≤∞Ï†ú Ï°∞Ìöå ===");
             System.out.println("impUid = [" + impUid + "]");
 
             String paymentUrl =
                     PORTONE_API_URL + "/payments/" + impUid + "?include_sandbox=true";
 
-            System.out.println("¡∂»∏ URL = [" + paymentUrl + "]");
+            System.out.println("Ï°∞Ìöå URL = [" + paymentUrl + "]");
 
             HttpRequest request =
                     HttpRequest.newBuilder()
@@ -125,7 +125,7 @@ public class PortOneServiceImpl implements PortOneService {
 
             if (response.statusCode() != 200) {
                 throw new RuntimeException(
-                    "PortOne ∞·¡¶ ¡∂»∏ Ω«∆–: HTTP "
+                    "PortOne Í≤∞Ï†ú Ï°∞Ìöå Ïã§Ìå®: HTTP "
                     + response.statusCode()
                     + " / "
                     + response.body()
@@ -137,7 +137,7 @@ public class PortOneServiceImpl implements PortOneService {
 
             if (root.get("code").asInt() != 0) {
                 throw new RuntimeException(
-                    "PortOne ∞·¡¶ ¡∂»∏ Ω«∆–: "
+                    "PortOne Í≤∞Ï†ú Ï°∞Ìöå Ïã§Ìå®: "
                     + root.get("message").asText()
                 );
             }
@@ -169,7 +169,7 @@ public class PortOneServiceImpl implements PortOneService {
         } catch (Exception e) {
 
             throw new RuntimeException(
-                "PortOne ∞·¡¶¡§∫∏ ¡∂»∏ ¡ﬂ ø¿∑˘ πﬂª˝",
+                "PortOne Í≤∞Ï†úÏ†ïÎ≥¥ Ï°∞Ìöå Ï§ë Ïò§Î•ò Î∞úÏÉù",
                 e
             );
         }
@@ -219,7 +219,7 @@ public class PortOneServiceImpl implements PortOneService {
 
 	        if (response.statusCode() != 200) {
 	            throw new RuntimeException(
-	                "PortOne ∞·¡¶ √Îº“ Ω«∆–: HTTP "
+	                "PortOne Í≤∞Ï†ú Ï∑®ÏÜå Ïã§Ìå®: HTTP "
 	                + response.statusCode()
 	            );
 	        }
@@ -229,7 +229,7 @@ public class PortOneServiceImpl implements PortOneService {
 
 	        if (root.get("code").asInt() != 0) {
 	            throw new RuntimeException(
-	                "PortOne ∞·¡¶ √Îº“ Ω«∆–: "
+	                "PortOne Í≤∞Ï†ú Ï∑®ÏÜå Ïã§Ìå®: "
 	                + root.get("message").asText()
 	            );
 	        }
@@ -239,7 +239,7 @@ public class PortOneServiceImpl implements PortOneService {
 	    } catch (Exception e) {
 
 	        throw new RuntimeException(
-	            "PortOne ∞·¡¶ √Îº“ √≥∏Æ ¡ﬂ ø¿∑˘ πﬂª˝",
+	            "PortOne Í≤∞Ï†ú Ï∑®ÏÜå Ï≤òÎ¶¨ Ï§ë Ïò§Î•ò Î∞úÏÉù",
 	            e
 	        );
 	    }

@@ -1,4 +1,4 @@
-package com.backoffice.model;
+ï»¿package com.backoffice.model;
 
 
 import lombok.Data;
@@ -6,13 +6,14 @@ import lombok.Data;
 @Data
 public class PurchaseOrderItemVO {
 	
-	private Long po_item_id;		// ¹ßÁÖ »ó¼¼ ¹øÈ£
-	private Long po_id;				// ¹ßÁÖ ¸¶½ºÅÍ ¹øÈ£
-	private Long book_id;			// µµ¼­ ¹øÈ£
-	private int order_qty;			// ¹ßÁÖ ½ÅÃ» ¼ö·®
-	private int receive_qty;		// ½ÇÁ¦ ÀÔ°í ¼ö·®
+	private Long po_item_id;		// ë°œì£¼ ìƒì„¸ ë²ˆí˜¸
+	private Long po_id;				// ë°œì£¼ ë§ˆìŠ¤í„° ë²ˆí˜¸
+	private Long book_id;			// ë„ì„œ ë²ˆí˜¸
+	private int order_qty;			// ë°œì£¼ ì‹ ì²­ ìˆ˜ëŸ‰
+	private int receive_qty;		// ì‹¤ì œ ì…ê³  ìˆ˜ëŸ‰
 	
-	// join Á¶È¸¿ë È­¸é Ãâ·Â ÇÊµå
+	// join ì¡°íšŒìš© í™”ë©´ ì¶œë ¥ í•„ë“œ
 	private String book_title;
 	private String isbn; 
 }
+

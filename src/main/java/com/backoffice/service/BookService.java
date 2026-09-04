@@ -1,4 +1,4 @@
-package com.backoffice.service;
+ï»¿package com.backoffice.service;
 
 import java.util.List;
 
@@ -6,31 +6,32 @@ import com.backoffice.model.BookVO;
 
 public interface BookService {
 	
-	// µµ¼­ ¸ñ·Ï Á¶È¸
+	// ë„ì„œ ëª©ë¡ ì¡°íšŒ
 	public List<BookVO> getBookList();
 	
-	// µµ¼­ µî·Ï(µµ¼­ Á¤º¸ + ÀúÀÚ ¸ÅÇÎ)
+	// ë„ì„œ ë“±ë¡(ë„ì„œ ì •ë³´ + ì €ì ë§¤í•‘)
 	public void registerBook(BookVO book);
 	
-	// µµ¼­ »ó¼¼ Á¶È¸(ÀúÀÚ ¸ÅÇÎ Á¤º¸ Æ÷ÇÔ)
+	// ë„ì„œ ìƒì„¸ ì¡°íšŒ(ì €ì ë§¤í•‘ ì •ë³´ í¬í•¨)
 	public BookVO getBook(Long book_id);
 	
-	// µµ¼­ ¼öÁ¤(µµ¼­ Á¤º¸ ¾÷µ¥ÀÌÆ® + ±âÁ¸ ¸ÅÇÎ »èÁ¦ ÈÄ Àçµî·Ï)
+	// ë„ì„œ ìˆ˜ì •(ë„ì„œ ì •ë³´ ì—…ë°ì´íŠ¸ + ê¸°ì¡´ ë§¤í•‘ ì‚­ì œ í›„ ì¬ë“±ë¡)
 	public boolean modifyBook(BookVO book);
 	
-	// µµ¼­ »èÁ¦
+	// ë„ì„œ ì‚­ì œ
 	public boolean removeBook(Long book_id);
 	
-	// ÆòÁ¡¼ø »óÇ° Á¶È¸
+	// í‰ì ìˆœ ìƒí’ˆ ì¡°íšŒ
 	public List<BookVO> getBooksByRating();
 	
-	// ¼îÇÎ¸ô »ó¼¼ ÆäÀÌÁö Á¶È¸
+	// ì‡¼í•‘ëª° ìƒì„¸ í˜ì´ì§€ ì¡°íšŒ
 	public BookVO getBookDetailShop(Long book_id);
 	
-	// µµ¼­ ÅëÇÕ °Ë»ö
+	// ë„ì„œ í†µí•© ê²€ìƒ‰
 	public List<BookVO> searchBooks(String searchType, String keyword);
 	
-	// Ä«Å×°í¸®º° µµ¼­ ¸ñ·Ï Á¶È¸
+	// ì¹´í…Œê³ ë¦¬ë³„ ë„ì„œ ëª©ë¡ ì¡°íšŒ
 	public List<BookVO> getBooksByCategory(Long categoryId);
 
 }
+

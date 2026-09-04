@@ -1,4 +1,4 @@
-package com.backoffice.mapper;
+﻿package com.backoffice.mapper;
 
 import com.backoffice.model.MemberVO;
 
@@ -11,3 +11,4 @@ public interface MemberMapper {
 	public MemberVO selectMemberByKakaoId(String kakaoId);
 
 }
+

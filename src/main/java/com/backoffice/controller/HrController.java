@@ -1,4 +1,4 @@
-package com.backoffice.controller;
+ï»¿package com.backoffice.controller;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -10,7 +10,7 @@ import org.springframework.web.bind.annotation.RequestParam;
 
 import com.backoffice.aop.LogActivity;
 import com.backoffice.mapper.EmployeeMapper;
-import com.backoffice.mapper.ActivityLogMapper; // Ãß°¡
+import com.backoffice.mapper.ActivityLogMapper; // ì¶”ê°€
 import com.backoffice.model.EmployeeVO;
 
 @Controller
@@ -21,17 +21,17 @@ public class HrController {
     private EmployeeMapper empMapper;
 
     @Autowired
-    private ActivityLogMapper logMapper; // Ãß°¡
+    private ActivityLogMapper logMapper; // ì¶”ê°€
 
-    @LogActivity("»ç¿ø ¹× º¸¾È °ü¸® È­¸é Á¢¼Ó")
+    @LogActivity("ì‚¬ì› ë° ë³´ì•ˆ ê´€ë¦¬ í™”ë©´ ì ‘ì†")
     @GetMapping("/list")
     public String hrList(Model model) {
         model.addAttribute("empList", empMapper.selectEmployeeList());
-        model.addAttribute("logList", logMapper.selectActivityLogList()); // ·Î±× ¸ñ·Ï Àü´Ş
+        model.addAttribute("logList", logMapper.selectActivityLogList()); // ë¡œê·¸ ëª©ë¡ ì „ë‹¬
         return "admin/hr/list";
     }
 
-    @LogActivity("»ç¿ø ±ÇÇÑ(Role) º¯°æ Ã³¸®")
+    @LogActivity("ì‚¬ì› ê¶Œí•œ(Role) ë³€ê²½ ì²˜ë¦¬")
     @PostMapping("/role")
     public String modifyRole(@RequestParam("employeeId") Long employeeId,
                              @RequestParam("role") String role) {

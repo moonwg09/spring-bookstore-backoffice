@@ -1,4 +1,4 @@
-package com.backoffice.mapper;
+ï»¿package com.backoffice.mapper;
 
 import java.util.List;
 
@@ -6,19 +6,20 @@ import com.backoffice.model.PublisherVO;
 
 public interface PublisherMapper {
 	
-	// 1. ÃâÆÇ»ç ÀüÃ¼ ¸ñ·Ï Á¶È¸
+	// 1. ì¶œíŒì‚¬ ì „ì²´ ëª©ë¡ ì¡°íšŒ
 	public List<PublisherVO> getList();
 	
-	// 2. ÃâÆÇ»ç µî·Ï
+	// 2. ì¶œíŒì‚¬ ë“±ë¡
 	public void insert(PublisherVO publisher);
 	
-	// 3. Æ¯Á¤ ÃâÆÇ»ç ´Ü°Ç Á¶È¸
+	// 3. íŠ¹ì • ì¶œíŒì‚¬ ë‹¨ê±´ ì¡°íšŒ
 	public PublisherVO read(Long publisher_id);
 	
-	// 4. ÃâÆÇ»ç Á¤º¸ ¼öÁ¤ (¼º°ø ½Ã 1 ¹İÈ¯)
+	// 4. ì¶œíŒì‚¬ ì •ë³´ ìˆ˜ì • (ì„±ê³µ ì‹œ 1 ë°˜í™˜)
 	public int update(PublisherVO publisher);
 	
-	// 5. ÃâÆÇ»ç »èÁ¦ (¼º°ø ½Ã 1 ¹İÈ¯)
+	// 5. ì¶œíŒì‚¬ ì‚­ì œ (ì„±ê³µ ì‹œ 1 ë°˜í™˜)
 	public int delete(Long publisher_id);
 
 }
+

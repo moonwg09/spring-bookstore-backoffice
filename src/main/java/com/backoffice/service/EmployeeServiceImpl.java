@@ -1,4 +1,4 @@
-package com.backoffice.service;
+ï»¿package com.backoffice.service;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -9,7 +9,7 @@ import lombok.RequiredArgsConstructor;
 
 @Service
 @RequiredArgsConstructor
-//  @Log4j¸¦ Áö¿ì°í, ÀÚ¹Ù Ç¥ÁØ SLF4J ÆÑÅä¸®¸¦ »ç¿ëÇØ ·Î±× °´Ã¼¸¦ Á÷Á¢ »ı¼ºÇÕ´Ï´Ù. ÀÌ·¯¸é log4j ¿¡·¯°¡ ¿øÃµ Â÷´ÜµË´Ï´Ù.
+//  @Log4jë¥¼ ì§€ìš°ê³ , ìë°” í‘œì¤€ SLF4J íŒ©í† ë¦¬ë¥¼ ì‚¬ìš©í•´ ë¡œê·¸ ê°ì²´ë¥¼ ì§ì ‘ ìƒì„±í•©ë‹ˆë‹¤. ì´ëŸ¬ë©´ log4j ì—ëŸ¬ê°€ ì›ì²œ ì°¨ë‹¨ë©ë‹ˆë‹¤.
 public class EmployeeServiceImpl implements EmployeeService {
 
     private static final Logger log = LoggerFactory.getLogger(EmployeeServiceImpl.class);
@@ -18,16 +18,16 @@ public class EmployeeServiceImpl implements EmployeeService {
 
     @Override
     public EmployeeVO login(String loginId, String password) {
-        log.info("--- [¼­ºñ½º ·¹ÀÌ¾î] ·Î±×ÀÎ ÀÎÁõ ½Ãµµ ID: {} ---", loginId);
+        log.info("--- [ì„œë¹„ìŠ¤ ë ˆì´ì–´] ë¡œê·¸ì¸ ì¸ì¦ ì‹œë„ ID: {} ---", loginId);
         
         EmployeeVO vo = employeeMapper.readEmployee(loginId);
         
         if (vo != null && vo.getPassword().equals(password)) {
-            log.info("ÀÎÁõ ¼º°ø! »ç¿ø¸í: {}", vo.getName());
+            log.info("ì¸ì¦ ì„±ê³µ! ì‚¬ì›ëª…: {}", vo.getName());
             return vo;
         }
         
-        log.warn("ÀÎÁõ ½ÇÆĞ! ID°¡ ¾ø°Å³ª ºñ¹Ğ¹øÈ£°¡ ÀÏÄ¡ÇÏÁö ¾Ê½À´Ï´Ù.");
+        log.warn("ì¸ì¦ ì‹¤íŒ¨! IDê°€ ì—†ê±°ë‚˜ ë¹„ë°€ë²ˆí˜¸ê°€ ì¼ì¹˜í•˜ì§€ ì•ŠìŠµë‹ˆë‹¤.");
         return null;
     }
 }

@@ -1,4 +1,4 @@
-package com.backoffice.controller;
+ï»¿package com.backoffice.controller;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -18,28 +18,28 @@ public class CategoryController {
 	@Autowired
 	private CategoryService categoryService;
 	
-	@LogActivity("Ä«Å×°í¸® ¸ñ·Ï Á¶È¸ È­¸é Á¢¼Ó")
+	@LogActivity("ì¹´í…Œê³ ë¦¬ ëª©ë¡ ì¡°íšŒ í™”ë©´ ì ‘ì†")
 	@GetMapping("/list")
 	public String categoryList(Model model) {
 		model.addAttribute("list", categoryService.getCategoryList());
 		return "/admin/category/list";
 	}
 	
-	// 2. Ä«Å×°í¸® µî·Ï È­¸éÀ¸·Î ÀÌµ¿ (GET)
-    @LogActivity("Ä«Å×°í¸® µî·Ï È­¸é Á¢¼Ó")
+	// 2. ì¹´í…Œê³ ë¦¬ ë“±ë¡ í™”ë©´ìœ¼ë¡œ ì´ë™ (GET)
+    @LogActivity("ì¹´í…Œê³ ë¦¬ ë“±ë¡ í™”ë©´ ì ‘ì†")
     @GetMapping("/register")
     public String registerForm(Model model) {
-        // ¼ÒºĞ·ù¸¦ µî·ÏÇÒ ¶§ 'ºÎ¸ğ Ä«Å×°í¸®(´ëºĞ·ù)'¸¦ ¼±ÅÃÇÒ ¼ö ÀÖµµ·Ï 
-        // ÀüÃ¼ Ä«Å×°í¸® ¸ñ·ÏÀ» ÇÔ²² º¸³À´Ï´Ù.
+        // ì†Œë¶„ë¥˜ë¥¼ ë“±ë¡í•  ë•Œ 'ë¶€ëª¨ ì¹´í…Œê³ ë¦¬(ëŒ€ë¶„ë¥˜)'ë¥¼ ì„ íƒí•  ìˆ˜ ìˆë„ë¡ 
+        // ì „ì²´ ì¹´í…Œê³ ë¦¬ ëª©ë¡ì„ í•¨ê»˜ ë³´ëƒ…ë‹ˆë‹¤.
         model.addAttribute("categoryList", categoryService.getCategoryList());
         return "admin/category/register";
     }
 
-    // 3. ½ÇÁ¦ Ä«Å×°í¸® µî·Ï Ã³¸® (POST)
-    @LogActivity("»õ Ä«Å×°í¸® DB µî·Ï Ã³¸®")
+    // 3. ì‹¤ì œ ì¹´í…Œê³ ë¦¬ ë“±ë¡ ì²˜ë¦¬ (POST)
+    @LogActivity("ìƒˆ ì¹´í…Œê³ ë¦¬ DB ë“±ë¡ ì²˜ë¦¬")
     @PostMapping("/register")
     public String registerProcess(CategoryVO category) {
-        // ´ëºĞ·ùÀÏ °æ¿ì parent_id°¡ null(¶Ç´Â 0)·Î µé¾î¿É´Ï´Ù.
+        // ëŒ€ë¶„ë¥˜ì¼ ê²½ìš° parent_idê°€ null(ë˜ëŠ” 0)ë¡œ ë“¤ì–´ì˜µë‹ˆë‹¤.
         if (category.getParent_id() != null && category.getParent_id() == 0) {
             category.setParent_id(null);
         }
@@ -47,17 +47,17 @@ public class CategoryController {
         return "redirect:/admin/category/list";
     }
 
-    // 4. Ä«Å×°í¸® ¼öÁ¤ È­¸éÀ¸·Î ÀÌµ¿ (GET)
-    @LogActivity("Ä«Å×°í¸® ¼öÁ¤ È­¸é Á¢¼Ó")
+    // 4. ì¹´í…Œê³ ë¦¬ ìˆ˜ì • í™”ë©´ìœ¼ë¡œ ì´ë™ (GET)
+    @LogActivity("ì¹´í…Œê³ ë¦¬ ìˆ˜ì • í™”ë©´ ì ‘ì†")
     @GetMapping("/modify")
     public String modifyForm(Long category_id, Model model) {
         model.addAttribute("category", categoryService.getCategory(category_id));
-        model.addAttribute("categoryList", categoryService.getCategoryList()); // ºÎ¸ğ º¯°æ¿ë
+        model.addAttribute("categoryList", categoryService.getCategoryList()); // ë¶€ëª¨ ë³€ê²½ìš©
         return "admin/category/modify";
     }
 
-    // 5. ½ÇÁ¦ Ä«Å×°í¸® ¼öÁ¤ Ã³¸® (POST)
-    @LogActivity("Ä«Å×°í¸® Á¤º¸ ¼öÁ¤ Ã³¸®")
+    // 5. ì‹¤ì œ ì¹´í…Œê³ ë¦¬ ìˆ˜ì • ì²˜ë¦¬ (POST)
+    @LogActivity("ì¹´í…Œê³ ë¦¬ ì •ë³´ ìˆ˜ì • ì²˜ë¦¬")
     @PostMapping("/modify")
     public String modifyProcess(CategoryVO category) {
         if (category.getParent_id() != null && category.getParent_id() == 0) {
@@ -67,8 +67,8 @@ public class CategoryController {
         return "redirect:/admin/category/list";
     }
 
-    // 6. Ä«Å×°í¸® »èÁ¦ Ã³¸® (POST)
-    @LogActivity("Ä«Å×°í¸® »èÁ¦ Ã³¸®")
+    // 6. ì¹´í…Œê³ ë¦¬ ì‚­ì œ ì²˜ë¦¬ (POST)
+    @LogActivity("ì¹´í…Œê³ ë¦¬ ì‚­ì œ ì²˜ë¦¬")
     @PostMapping("/delete")
     public String deleteProcess(Long category_id) {
         categoryService.removeCategory(category_id);
@@ -76,3 +76,4 @@ public class CategoryController {
     }
 
 }
+

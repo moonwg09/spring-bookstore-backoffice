@@ -1,4 +1,4 @@
-package com.backoffice.model;
+﻿package com.backoffice.model;
 
 import java.util.Date;
 
@@ -19,3 +19,4 @@ public class CartVO {
 	private String publisher_name;
 	
 }
+

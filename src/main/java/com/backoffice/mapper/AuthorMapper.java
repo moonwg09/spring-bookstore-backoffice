@@ -1,4 +1,4 @@
-package com.backoffice.mapper;
+ï»¿package com.backoffice.mapper;
 
 import java.util.List;
 
@@ -6,19 +6,20 @@ import com.backoffice.model.AuthorVO;
 
 public interface AuthorMapper {
 	
-	// ÀúÀÚ ÀüÃ¼ ¸ñ·Ï Á¶È¸
+	// ì €ì ì „ì²´ ëª©ë¡ ì¡°íšŒ
 	public List<AuthorVO> getList();
 	
-	// ÀúÀÚ µî·Ï
+	// ì €ì ë“±ë¡
 	public void insert(AuthorVO author);
 	
-	// Æ¯Á¤ ÀúÀÚ ´Ü°Ç Á¶È¸
+	// íŠ¹ì • ì €ì ë‹¨ê±´ ì¡°íšŒ
 	public AuthorVO read(Long author_id);
 	
-	// ÀúÀÚ Á¤º¸ ¼öÁ¤
+	// ì €ì ì •ë³´ ìˆ˜ì •
 	public int update(AuthorVO author);
 	
-	// ÀúÀÚ »èÁ¦
+	// ì €ì ì‚­ì œ
 	public int delete(Long author_id);
 
 }
+

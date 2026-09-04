@@ -1,4 +1,4 @@
-package com.backoffice.model;
+ï»¿package com.backoffice.model;
 
 import java.util.Date;
 import java.util.List;
@@ -15,11 +15,12 @@ public class PurchaseOrderVO {
 	private String status;
 	private Date order_date;
 	
-	// join Á¶È¸¿ë Ãß°¡ ÇÊµå(µµ¼­¸í, ÃâÆÇ»ç¸í µî È­¸é Ãâ·Â¿ë)
+	// join ì¡°íšŒìš© ì¶”ê°€ í•„ë“œ(ë„ì„œëª…, ì¶œíŒì‚¬ëª… ë“± í™”ë©´ ì¶œë ¥ìš©)
 	private String publisher_name;
 	private String employee_name;
 	
-	// 1:N °ü°èÀÇ »ó¼¼ Ç°¸ñ ¸®½ºÆ®¸¦ ´ãÀ» ÄÃ·º¼Ç
+	// 1:N ê´€ê³„ì˜ ìƒì„¸ í’ˆëª© ë¦¬ìŠ¤íŠ¸ë¥¼ ë‹´ì„ ì»¬ë ‰ì…˜
 	private List<PurchaseOrderItemVO> itemList;
 	
 }
+

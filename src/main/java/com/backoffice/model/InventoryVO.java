@@ -1,4 +1,4 @@
-package com.backoffice.model;
+ï»¿package com.backoffice.model;
 
 import lombok.Data;
 
@@ -10,8 +10,9 @@ public class InventoryVO {
 	private int current_stock;
 	private int safety_stock;
 	
-	// join Á¶È¸¿ë È­¸é Ãâ·Â ÇÊµå(µµ¼­ Á¤º¸)
+	// join ì¡°íšŒìš© í™”ë©´ ì¶œë ¥ í•„ë“œ(ë„ì„œ ì •ë³´)
 	private String book_title;
 	private String isbn;
 	private int price;
 }
+

@@ -1,4 +1,4 @@
-package com.backoffice.controller;
+ï»¿package com.backoffice.controller;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -30,16 +30,16 @@ public class BookController {
     @Autowired
     private AuthorService authorService;
 
-    // 1. µµ¼­ ¸ñ·Ï ÆäÀÌÁö ÀÌµ¿
-    @LogActivity("µµ¼­ ¸ñ·Ï Á¶È¸ È­¸é Á¢¼Ó")
+    // 1. ë„ì„œ ëª©ë¡ í˜ì´ì§€ ì´ë™
+    @LogActivity("ë„ì„œ ëª©ë¡ ì¡°íšŒ í™”ë©´ ì ‘ì†")
     @GetMapping("/list")
     public String bookList(Model model) {
         model.addAttribute("list", bookService.getBookList());
         return "admin/book/list";
     }
 
-    // 2. µµ¼­ µî·Ï È­¸éÀ¸·Î ÀÌµ¿ (GET)
-    @LogActivity("µµ¼­ µî·Ï È­¸é Á¢¼Ó")
+    // 2. ë„ì„œ ë“±ë¡ í™”ë©´ìœ¼ë¡œ ì´ë™ (GET)
+    @LogActivity("ë„ì„œ ë“±ë¡ í™”ë©´ ì ‘ì†")
     @GetMapping("/register")
     public String registerForm(Model model) {
         model.addAttribute("publisherList", publisherService.getPublisherList());
@@ -48,16 +48,16 @@ public class BookController {
         return "admin/book/register";
     }
 
-    // 3. ½ÇÁ¦ µµ¼­ µî·Ï Ã³¸® (POST)
-    @LogActivity("»õ µµ¼­ DB µî·Ï Ã³¸®")
+    // 3. ì‹¤ì œ ë„ì„œ ë“±ë¡ ì²˜ë¦¬ (POST)
+    @LogActivity("ìƒˆ ë„ì„œ DB ë“±ë¡ ì²˜ë¦¬")
     @PostMapping("/register")
     public String registerProcess(BookVO book) {
         bookService.registerBook(book);
         return "redirect:/admin/book/list";
     }
 
-    // 4. µµ¼­ ¼öÁ¤ È­¸éÀ¸·Î ÀÌµ¿ (GET)
-    @LogActivity("µµ¼­ ¼öÁ¤ È­¸é Á¢¼Ó")
+    // 4. ë„ì„œ ìˆ˜ì • í™”ë©´ìœ¼ë¡œ ì´ë™ (GET)
+    @LogActivity("ë„ì„œ ìˆ˜ì • í™”ë©´ ì ‘ì†")
     @GetMapping("/modify")
     public String modifyForm(Long book_id, Model model) {
         model.addAttribute("book", bookService.getBook(book_id));
@@ -67,16 +67,16 @@ public class BookController {
         return "admin/book/modify";
     }
 
-    // 5. ½ÇÁ¦ µµ¼­ ¼öÁ¤ Ã³¸® (POST)
-    @LogActivity("µµ¼­ Á¤º¸ ¼öÁ¤ Ã³¸®")
+    // 5. ì‹¤ì œ ë„ì„œ ìˆ˜ì • ì²˜ë¦¬ (POST)
+    @LogActivity("ë„ì„œ ì •ë³´ ìˆ˜ì • ì²˜ë¦¬")
     @PostMapping("/modify")
     public String modifyProcess(BookVO book) {
         bookService.modifyBook(book);
         return "redirect:/admin/book/list";
     }
 
-    // 6. µµ¼­ »èÁ¦ Ã³¸® (POST)
-    @LogActivity("µµ¼­ »èÁ¦ Ã³¸®")
+    // 6. ë„ì„œ ì‚­ì œ ì²˜ë¦¬ (POST)
+    @LogActivity("ë„ì„œ ì‚­ì œ ì²˜ë¦¬")
     @PostMapping("/delete")
     public String deleteProcess(Long book_id) {
         bookService.removeBook(book_id);

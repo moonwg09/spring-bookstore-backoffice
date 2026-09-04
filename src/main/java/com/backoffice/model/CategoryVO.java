@@ -1,4 +1,4 @@
-package com.backoffice.model;
+ï»¿package com.backoffice.model;
 
 import java.util.List;
 
@@ -8,9 +8,10 @@ import lombok.Data;
 public class CategoryVO {
 	
 	private Long category_id;
-	private Long parent_id; // »óÀ§ Ä«Å×°í¸® Id(´ëºĞ·ùÀÇ °æ¿ì null)
+	private Long parent_id; // ìƒìœ„ ì¹´í…Œê³ ë¦¬ Id(ëŒ€ë¶„ë¥˜ì˜ ê²½ìš° null)
 	private String name;
 	
 	private List<CategoryVO> children;
 
 }
+

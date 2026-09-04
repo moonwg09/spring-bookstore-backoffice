@@ -1,19 +1,19 @@
-package com.backoffice.model;
+ï»¿package com.backoffice.model;
 
 import java.util.Date;
 import lombok.Data;
 
 @Data
 public class InventoryHistoryVO {
-    private Long history_id;     // È÷½ºÅä¸® ¹øÈ£ (PK)
-    private Long book_id;        // µµ¼­ ¹øÈ£ (FK - Book)
-    private Long employee_id;    // Ã³¸®ÀÚ/´ã´çÀÚ ¹øÈ£ (FK - Employee)
-    private int change_qty;      // º¯µ¿ ¼ö·® (¾ç¼ö: +ÀÔ°í/Á¶Á¤, À½¼ö: -Ãâ°í/ÆÄ¼Õ)
-    private String reason;       // º¯µ¿ »çÀ¯ (¿¹: '¹ßÁÖ ÀÔ°í', '°í°´ ÁÖ¹® Ãâ°í', 'ÆÄ¼Õ Æó±â', 'Àç°í ½Ç»ç Á¶Á¤')
-    private Date created_at;     // º¯µ¿ ÀÏ½Ã
+    private Long history_id;     // íˆìŠ¤í† ë¦¬ ë²ˆí˜¸ (PK)
+    private Long book_id;        // ë„ì„œ ë²ˆí˜¸ (FK - Book)
+    private Long employee_id;    // ì²˜ë¦¬ì/ë‹´ë‹¹ì ë²ˆí˜¸ (FK - Employee)
+    private int change_qty;      // ë³€ë™ ìˆ˜ëŸ‰ (ì–‘ìˆ˜: +ì…ê³ /ì¡°ì •, ìŒìˆ˜: -ì¶œê³ /íŒŒì†)
+    private String reason;       // ë³€ë™ ì‚¬ìœ  (ì˜ˆ: 'ë°œì£¼ ì…ê³ ', 'ê³ ê° ì£¼ë¬¸ ì¶œê³ ', 'íŒŒì† íê¸°', 'ì¬ê³  ì‹¤ì‚¬ ì¡°ì •')
+    private Date created_at;     // ë³€ë™ ì¼ì‹œ
     
-    // JOIN Á¶È¸¿ë È­¸é Ãâ·Â ÇÊµå
-    private String book_title;   // µµ¼­¸í
+    // JOIN ì¡°íšŒìš© í™”ë©´ ì¶œë ¥ í•„ë“œ
+    private String book_title;   // ë„ì„œëª…
     private String isbn;         // ISBN
-    private String employee_name;// ´ã´çÀÚ ÀÌ¸§
+    private String employee_name;// ë‹´ë‹¹ì ì´ë¦„
 }

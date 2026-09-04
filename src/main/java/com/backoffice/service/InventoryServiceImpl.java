@@ -1,4 +1,4 @@
-package com.backoffice.service;
+ï»¿package com.backoffice.service;
 
 import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -29,10 +29,10 @@ public class InventoryServiceImpl implements InventoryService {
         return invMapper.selectInventoryByBookId(book_id);
     }
 
-    @Transactional // ÃßÈÄ Å¸°Ù 3(Inventory_History) µî·Ï ±â´É°ú 1°³ÀÇ Æ®·£Àè¼ÇÀ¸·Î °áÇÕµÉ ÇÙ½É ¿µ¿ªÀÔ´Ï´Ù.
+    @Transactional // ì¶”í›„ íƒ€ê²Ÿ 3(Inventory_History) ë“±ë¡ ê¸°ëŠ¥ê³¼ 1ê°œì˜ íŠ¸ëœì­ì…˜ìœ¼ë¡œ ê²°í•©ë  í•µì‹¬ ì˜ì—­ì…ë‹ˆë‹¤.
     @Override
     public boolean modifyStock(InventoryVO vo) {
-        // ½ÇÀç°í ¼ö·® Áõ°¨ ¹İ¿µ
+        // ì‹¤ì¬ê³  ìˆ˜ëŸ‰ ì¦ê° ë°˜ì˜
         return invMapper.updateAddStock(vo) == 1;
     }
 

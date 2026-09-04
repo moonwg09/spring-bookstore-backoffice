@@ -1,4 +1,4 @@
-package com.backoffice.mapper;
+ï»¿package com.backoffice.mapper;
 
 import java.util.List;
 
@@ -8,20 +8,21 @@ import com.backoffice.model.OrderItemVO;
 
 public interface OrderMapper {
 	
-	// ÁÖ¹® ¸¶½ºÅÍ »ı¼º
+	// ì£¼ë¬¸ ë§ˆìŠ¤í„° ìƒì„±
 	public void insertOrder(CustomerOrderVO order);
 	
-	// ÁÖ¹® »ó¼¼ Ç°¸ñ »ı¼º
+	// ì£¼ë¬¸ ìƒì„¸ í’ˆëª© ìƒì„±
 	public void insertOrderItem(OrderItemVO item);
 	
 	
-	// µµ¼­ Àç°í Âü°¡ ¾÷µ¥ÀÌÆ®
+	// ë„ì„œ ì¬ê³  ì°¸ê°€ ì—…ë°ì´íŠ¸
 	public int updateInventoryStock(OrderItemVO item);
 	
-	// È¸¿øÀÇ ÁÖ¹® ³»¿ª ¸ñ·Ï Á¶È¸
+	// íšŒì›ì˜ ì£¼ë¬¸ ë‚´ì—­ ëª©ë¡ ì¡°íšŒ
 	public List<CustomerOrderVO> getOrderList(Long member_id);
 	
-	// Àå¹Ù±¸´Ï ºñ¿ì±â
+	// ì¥ë°”êµ¬ë‹ˆ ë¹„ìš°ê¸°
 	public void clearCart(Long member_id);
 
 }
+

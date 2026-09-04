@@ -1,4 +1,4 @@
-package com.backoffice.controller;
+ï»¿package com.backoffice.controller;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -27,45 +27,45 @@ public class InventoryController {
     @Autowired
     private InventoryHistoryService historyService;
 
-    // 1. Ã¢°í Àç°í ¹× ¹°·ù °ü¸® (WMS) ¸ŞÀÎ È­¸é ÀÌµ¿
+    // 1. ì°½ê³  ì¬ê³  ë° ë¬¼ë¥˜ ê´€ë¦¬ (WMS) ë©”ì¸ í™”ë©´ ì´ë™
     @GetMapping("/list")
     public String inventoryList(Model model) {
-        // ¨ç Ã¢°í µµ¼­ ½ÇÀç°í ÇöÈ² Á¶È¸
+        // â‘  ì°½ê³  ë„ì„œ ì‹¤ì¬ê³  í˜„í™© ì¡°íšŒ
         model.addAttribute("inventoryList", inventoryService.getInventoryList());
         
-        // ¨è ÃâÆÇ»ç B2B ¹ßÁÖ ´ë±â/½ÂÀÎ ³»¿ª Á¶È¸
+        // â‘¡ ì¶œíŒì‚¬ B2B ë°œì£¼ ëŒ€ê¸°/ìŠ¹ì¸ ë‚´ì—­ ì¡°íšŒ
         model.addAttribute("poList", poService.getPurchaseOrderList());
         
-        // ¨é ¼öµ¿ Àç°í Á¶Á¤ ÀÌ·Â (Stock Log) Á¶È¸
+        // â‘¢ ìˆ˜ë™ ì¬ê³  ì¡°ì • ì´ë ¥ (Stock Log) ì¡°íšŒ
         model.addAttribute("historyList", historyService.getHistoryList());
         
         return "admin/inventory/list";
     }
 
-    // 2. ¹ßÁÖ ÀÔ°í ½ÂÀÎ Ã³¸® (ÇÁ·ÎÅäÅ¸ÀÔÀÇ 'ÀÔ°í ½ÂÀÎ (Àç°í ÀÚµ¿ÇÕ»ê)' ¹öÆ° ¾×¼Ç)
+    // 2. ë°œì£¼ ì…ê³  ìŠ¹ì¸ ì²˜ë¦¬ (í”„ë¡œí† íƒ€ì…ì˜ 'ì…ê³  ìŠ¹ì¸ (ì¬ê³  ìë™í•©ì‚°)' ë²„íŠ¼ ì•¡ì…˜)
     @PostMapping("/receive")
     public String receiveOrder(@RequestParam("po_id") Long po_id, 
                                @RequestParam("book_id") Long book_id,
                                @RequestParam("qty") int qty,
                                @RequestParam("login_emp_id") Long login_emp_id) {
         
-        // ¨ç ¹ßÁÖ »óÅÂ¸¦ 'RECEIVED(ÀÔ°í¿Ï·á)'·Î º¯°æ
+        // â‘  ë°œì£¼ ìƒíƒœë¥¼ 'RECEIVED(ì…ê³ ì™„ë£Œ)'ë¡œ ë³€ê²½
         PurchaseOrderVO poVO = new PurchaseOrderVO();
         poVO.setPo_id(po_id);
         poVO.setStatus("RECEIVED");
         poService.modifyOrderStatus(poVO);
         
-        // ¨è Ã¢°í Àç°í Áõ°¡ ¹× ÀÔ°í È÷½ºÅä¸® µ¿½Ã ±â·Ï (ACID Æ®·£Àè¼Ç º¸Àå!)
+        // â‘¡ ì°½ê³  ì¬ê³  ì¦ê°€ ë° ì…ê³  íˆìŠ¤í† ë¦¬ ë™ì‹œ ê¸°ë¡ (ACID íŠ¸ëœì­ì…˜ ë³´ì¥!)
         InventoryVO invVO = new InventoryVO();
         invVO.setBook_id(book_id);
-        invVO.setCurrent_stock(qty); // ÀÔ°íµÈ ¼ö·®¸¸Å­ ÇÃ·¯½º
+        invVO.setCurrent_stock(qty); // ì…ê³ ëœ ìˆ˜ëŸ‰ë§Œí¼ í”ŒëŸ¬ìŠ¤
         
-        historyService.addStockWithHistory(invVO, login_emp_id, "B2B ¹ßÁÖ ÀÔ°í ½ÂÀÎ [PO-" + po_id + "]");
+        historyService.addStockWithHistory(invVO, login_emp_id, "B2B ë°œì£¼ ì…ê³  ìŠ¹ì¸ [PO-" + po_id + "]");
         
         return "redirect:/admin/inventory/list";
     }
 
-    // 3. ¼öµ¿ Àç°í Á¶Á¤ Ã³¸® (ÇÁ·ÎÅäÅ¸ÀÔÀÇ '¼öµ¿Á¶Á¤' ÆË¾÷ ¾×¼Ç)
+    // 3. ìˆ˜ë™ ì¬ê³  ì¡°ì • ì²˜ë¦¬ (í”„ë¡œí† íƒ€ì…ì˜ 'ìˆ˜ë™ì¡°ì •' íŒì—… ì•¡ì…˜)
     @PostMapping("/adjust")
     public String adjustStock(@RequestParam("book_id") Long book_id,
                               @RequestParam("change_qty") int change_qty,
@@ -74,26 +74,26 @@ public class InventoryController {
         
         InventoryVO invVO = new InventoryVO();
         invVO.setBook_id(book_id);
-        invVO.setCurrent_stock(change_qty); // ¾ç¼ö(+) ¶Ç´Â À½¼ö(-) ÀÔ·Â°ª
+        invVO.setCurrent_stock(change_qty); // ì–‘ìˆ˜(+) ë˜ëŠ” ìŒìˆ˜(-) ì…ë ¥ê°’
         
-        // ½ÇÀç°í Áõ°¨ ¹× Audit Log µ¿½Ã ±â·Ï
-        historyService.addStockWithHistory(invVO, login_emp_id, "[¼öµ¿Á¶Á¤] " + reason);
+        // ì‹¤ì¬ê³  ì¦ê° ë° Audit Log ë™ì‹œ ê¸°ë¡
+        historyService.addStockWithHistory(invVO, login_emp_id, "[ìˆ˜ë™ì¡°ì •] " + reason);
         
         return "redirect:/admin/inventory/list";
     }
- // 4. ÃâÆÇ»ç ¹ßÁÖ ¿äÃ» Ã³¸® (½Å±Ô Ãß°¡)
+ // 4. ì¶œíŒì‚¬ ë°œì£¼ ìš”ì²­ ì²˜ë¦¬ (ì‹ ê·œ ì¶”ê°€)
     @PostMapping("/order")
     public String requestOrder(@RequestParam("book_id") Long book_id,
                                @RequestParam("publisher_id") Long publisher_id,
                                @RequestParam("qty") int qty,
                                @RequestParam("login_emp_id") Long login_emp_id) {
         
-        // ¨ç ¹ßÁÖ ¸¶½ºÅÍ ¼¼ÆÃ
+        // â‘  ë°œì£¼ ë§ˆìŠ¤í„° ì„¸íŒ…
         PurchaseOrderVO poVO = new PurchaseOrderVO();
         poVO.setPublisher_id(publisher_id);
         poVO.setEmployee_id(login_emp_id);
         
-        // ¨è ¹ßÁÖ Ç°¸ñ ¼¼ÆÃ (1:N ±¸Á¶)
+        // â‘¡ ë°œì£¼ í’ˆëª© ì„¸íŒ… (1:N êµ¬ì¡°)
         java.util.List<com.backoffice.model.PurchaseOrderItemVO> itemList = new java.util.ArrayList<>();
         com.backoffice.model.PurchaseOrderItemVO item = new com.backoffice.model.PurchaseOrderItemVO();
         item.setBook_id(book_id);
@@ -102,7 +102,7 @@ public class InventoryController {
         
         poVO.setItemList(itemList);
         
-        // ¨é ¼­ºñ½º Æ®·£Àè¼Ç È£Ãâ (¸¶½ºÅÍ + »ó¼¼ Ç°¸ñ DB ÀúÀå)
+        // â‘¢ ì„œë¹„ìŠ¤ íŠ¸ëœì­ì…˜ í˜¸ì¶œ (ë§ˆìŠ¤í„° + ìƒì„¸ í’ˆëª© DB ì €ì¥)
         poService.registerPurchaseOrder(poVO);
         
         return "redirect:/admin/inventory/list";

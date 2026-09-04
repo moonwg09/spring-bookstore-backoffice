@@ -1,4 +1,4 @@
-package com.backoffice.mapper;
+ï»¿package com.backoffice.mapper;
 
 import java.util.List;
 
@@ -8,6 +8,7 @@ public interface ActivityLogMapper {
 	
 	public int insertLog(ActivityLogVO log);
 	
-	//  [HR °ü¸®¿ë Ãß°¡] ÃÖ½Å È°µ¿ ·Î±× ¸ñ·Ï Á¶È¸ (ÃÖ½Å¼ø 50°Ç)
+	//  [HR ê´€ë¦¬ìš© ì¶”ê°€] ìµœì‹  í™œë™ ë¡œê·¸ ëª©ë¡ ì¡°íšŒ (ìµœì‹ ìˆœ 50ê±´)
 	public List<ActivityLogVO> selectActivityLogList();
 }
+

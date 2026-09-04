@@ -1,4 +1,4 @@
-package com.backoffice.mapper;
+ï»¿package com.backoffice.mapper;
 
 import java.util.List;
 
@@ -8,10 +8,11 @@ public interface EmployeeMapper {
 	
 	public EmployeeVO readEmployee(String loginId);
 	
-	//  [HR °ü¸®¿ë Ãß°¡ 1] ÀüÃ¼ »ç¿ø °èÁ¤ ¸ñ·Ï Á¶È¸
+	//  [HR ê´€ë¦¬ìš© ì¶”ê°€ 1] ì „ì²´ ì‚¬ì› ê³„ì • ëª©ë¡ ì¡°íšŒ
 	public List<EmployeeVO> selectEmployeeList();
 		
-	//  [HR °ü¸®¿ë Ãß°¡ 2] »ç¿ø Á÷±Ş(Role) º¯°æ
+	//  [HR ê´€ë¦¬ìš© ì¶”ê°€ 2] ì‚¬ì› ì§ê¸‰(Role) ë³€ê²½
 	public int updateEmployeeRole(EmployeeVO vo);
 
 }
+

@@ -1,4 +1,4 @@
-package com.backoffice.model;
+﻿package com.backoffice.model;
 
 import java.util.Date;
 
@@ -16,3 +16,4 @@ public class ActivityLogVO {
 	
 
 }
+

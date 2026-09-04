@@ -1,4 +1,4 @@
-package com.backoffice.service;
+ï»¿package com.backoffice.service;
 
 import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -14,14 +14,14 @@ public class CartServiceImpl implements CartService {
 
     @Override
     public boolean addCart(CartVO cart) {
-        // ÀÌ¹Ì Àå¹Ù±¸´Ï¿¡ ´ã±ä »óÇ°ÀÎÁö È®ÀÎ
+        // ì´ë¯¸ ì¥ë°”êµ¬ë‹ˆì— ë‹´ê¸´ ìƒí’ˆì¸ì§€ í™•ì¸
         CartVO existing = cartMapper.checkCart(cart);
         if (existing != null) {
-            // ÀÌ¹Ì Á¸ÀçÇÑ´Ù¸é ±âÁ¸ ¼ö·®¿¡ ´õÇØÁÜ
+            // ì´ë¯¸ ì¡´ì¬í•œë‹¤ë©´ ê¸°ì¡´ ìˆ˜ëŸ‰ì— ë”í•´ì¤Œ
             existing.setQuantity(existing.getQuantity() + cart.getQuantity());
             return cartMapper.updateCartQty(existing) == 1;
         } else {
-            // ½Å±Ô ´ã±â
+            // ì‹ ê·œ ë‹´ê¸°
             return cartMapper.insertCart(cart) == 1;
         }
     }

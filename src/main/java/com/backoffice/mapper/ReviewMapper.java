@@ -1,4 +1,4 @@
-package com.backoffice.mapper;
+ï»¿package com.backoffice.mapper;
 
 import java.util.List;
 
@@ -6,13 +6,14 @@ import com.backoffice.model.BookReviewVO;
 
 public interface ReviewMapper {
 	
-	// ¸®ºä µî·Ï
+	// ë¦¬ë·° ë“±ë¡
 	public int insertReview(BookReviewVO review);
 	
-	// Æ¯Á¤ µµ¼­ÀÇ ¸®ºä ¸ñ·Ï Á¶È¸(ÀÛ¼ºÀÚ ÀÌ¸§ Á¶ÀÎ)
+	// íŠ¹ì • ë„ì„œì˜ ë¦¬ë·° ëª©ë¡ ì¡°íšŒ(ì‘ì„±ì ì´ë¦„ ì¡°ì¸)
 	public List<BookReviewVO> getReviewsByBookId(Long book_id);
 	
-	// ¸®ºä »èÁ¦
+	// ë¦¬ë·° ì‚­ì œ
 	public int deleteReview(Long review_id);
 
 }
+

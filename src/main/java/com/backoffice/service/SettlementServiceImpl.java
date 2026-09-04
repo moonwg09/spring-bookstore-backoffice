@@ -1,4 +1,4 @@
-package com.backoffice.service;
+ï»¿package com.backoffice.service;
 
 import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -34,7 +34,7 @@ public class SettlementServiceImpl implements SettlementService {
     public boolean processSettlement(Long settlement_id) {
         SettlementVO vo = new SettlementVO();
         vo.setSettlement_id(settlement_id);
-        vo.setStatus("PROCESSED"); // Áö±Ş ¿Ï·á »óÅÂ·Î º¯°æ
+        vo.setStatus("PROCESSED"); // ì§€ê¸‰ ì™„ë£Œ ìƒíƒœë¡œ ë³€ê²½
         return settlementMapper.updateSettlementStatus(vo) == 1;
     }
     

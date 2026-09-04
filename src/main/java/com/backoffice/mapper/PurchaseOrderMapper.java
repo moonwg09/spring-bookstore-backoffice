@@ -1,4 +1,4 @@
-package com.backoffice.mapper;
+ï»¿package com.backoffice.mapper;
 
 import java.util.List;
 
@@ -7,19 +7,20 @@ import com.backoffice.model.PurchaseOrderVO;
 
 public interface PurchaseOrderMapper {
 	
-	// 1. ¹ßÁÖ ¸¶½ºÅÍ µî·Ï (µî·Ï ÈÄ po_id ¹İÈ¯)
+	// 1. ë°œì£¼ ë§ˆìŠ¤í„° ë“±ë¡ (ë“±ë¡ í›„ po_id ë°˜í™˜)
     public int insertPurchaseOrder(PurchaseOrderVO vo);
     
-    // 2. ¹ßÁÖ »ó¼¼ Ç°¸ñ µî·Ï
+    // 2. ë°œì£¼ ìƒì„¸ í’ˆëª© ë“±ë¡
     public int insertPurchaseOrderItem(PurchaseOrderItemVO itemVO);
     
-    // 3. ¹ßÁÖ ¸¶½ºÅÍ ÀüÃ¼ ¸ñ·Ï Á¶È¸
+    // 3. ë°œì£¼ ë§ˆìŠ¤í„° ì „ì²´ ëª©ë¡ ì¡°íšŒ
     public List<PurchaseOrderVO> selectPurchaseOrderList();
     
-    // 4. Æ¯Á¤ ¹ßÁÖ(po_id)¿¡ ¼ÓÇÑ »ó¼¼ Ç°¸ñ ¸ñ·Ï Á¶È¸
+    // 4. íŠ¹ì • ë°œì£¼(po_id)ì— ì†í•œ ìƒì„¸ í’ˆëª© ëª©ë¡ ì¡°íšŒ
     public List<PurchaseOrderItemVO> selectPurchaseOrderItemsByPoId(Long po_id);
     
-    // 5. ¹ßÁÖ »óÅÂ º¯°æ (REQUESTED -> APPROVED µî)
+    // 5. ë°œì£¼ ìƒíƒœ ë³€ê²½ (REQUESTED -> APPROVED ë“±)
     public int updateOrderStatus(PurchaseOrderVO vo);
 
 }
+

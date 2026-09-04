@@ -1,4 +1,4 @@
-package com.backoffice.controller;
+ï»¿package com.backoffice.controller;
 
 import java.util.List;
 
@@ -47,16 +47,16 @@ public class ShopController {
     
 
 
-    // 1. ¼îÇÎ¸ô ¸ŞÀÎ ÆäÀÌÁö (ÆòÁ¡¼ø »óÇ° TOP 4 Á¶È¸)
+    // 1. ì‡¼í•‘ëª° ë©”ì¸ í˜ì´ì§€ (í‰ì ìˆœ ìƒí’ˆ TOP 4 ì¡°íšŒ)
     @GetMapping("/main")
     public String mainPage(Model model) {
     	List<BookVO> ratingList = bookService.getBooksByRating(); 
         model.addAttribute("ratingList", ratingList);
         
-        // 1. ÀüÃ¼ Ä«Å×°í¸® Á¶È¸
+        // 1. ì „ì²´ ì¹´í…Œê³ ë¦¬ ì¡°íšŒ
         List<CategoryVO> allCategories = categoryService.getCategoryList();
         
-        // 2. ºÎ¸ğ-ÀÚ½Ä ±¸Á¶·Î °èÃşÈ­ Ã³¸®
+        // 2. ë¶€ëª¨-ìì‹ êµ¬ì¡°ë¡œ ê³„ì¸µí™” ì²˜ë¦¬
         List<CategoryVO> parentCategoryList = new java.util.ArrayList<>();
         java.util.Map<Long, java.util.List<CategoryVO>> childMap = new java.util.HashMap<>();
         
@@ -76,7 +76,7 @@ public class ShopController {
         return "shop/main";
     }
 
- // 2. µµ¼­ »ó¼¼ ÆäÀÌÁö (»ó¼¼ Á¤º¸ + ¸®ºä ¸ñ·Ï ÇÔ²² Á¶È¸ÇÏµµ·Ï ¼öÁ¤)
+ // 2. ë„ì„œ ìƒì„¸ í˜ì´ì§€ (ìƒì„¸ ì •ë³´ + ë¦¬ë·° ëª©ë¡ í•¨ê»˜ ì¡°íšŒí•˜ë„ë¡ ìˆ˜ì •)
     @GetMapping("/detail")
     public String detailPage(@RequestParam("book_id") Long bookId, Model model) {
         BookVO book = bookService.getBookDetailShop(bookId);
@@ -87,7 +87,7 @@ public class ShopController {
         return "shop/detail";
     }
 
-    // 3. µµ¼­ ÅëÇÕ °Ë»ö °á°ú ÆäÀÌÁö (Á¦¸ñ, ÀúÀÚ, ÃâÆÇ»ç Á¶°Çº° °Ë»ö)
+    // 3. ë„ì„œ í†µí•© ê²€ìƒ‰ ê²°ê³¼ í˜ì´ì§€ (ì œëª©, ì €ì, ì¶œíŒì‚¬ ì¡°ê±´ë³„ ê²€ìƒ‰)
     @GetMapping("/search")
     public String searchPage(@RequestParam(value="searchType", required=false) String searchType,
                              @RequestParam(value="keyword", required=false) String keyword,
@@ -98,7 +98,7 @@ public class ShopController {
         return "shop/search";
     }
     
- // 4. Àå¹Ù±¸´Ï ÆäÀÌÁö ÁøÀÔ (·Î±×ÀÎ È¸¿ø ±âÁØ ¸ñ·Ï Á¶È¸)
+ // 4. ì¥ë°”êµ¬ë‹ˆ í˜ì´ì§€ ì§„ì… (ë¡œê·¸ì¸ íšŒì› ê¸°ì¤€ ëª©ë¡ ì¡°íšŒ)
     @GetMapping("/cart")
     public String cartPage(HttpSession session, Model model) {
         MemberVO loginUser = (MemberVO) session.getAttribute("loginUser");
@@ -111,7 +111,7 @@ public class ShopController {
         return "shop/cart";
     }
 
-    // 5. Àå¹Ù±¸´Ï ´ã±â Ã³¸® (»ó¼¼ ÆäÀÌÁö¿¡¼­ È£Ãâ)
+    // 5. ì¥ë°”êµ¬ë‹ˆ ë‹´ê¸° ì²˜ë¦¬ (ìƒì„¸ í˜ì´ì§€ì—ì„œ í˜¸ì¶œ)
     @PostMapping("/cart/add")
     public String addCartProcess(CartVO cart, HttpSession session) {
         MemberVO loginUser = (MemberVO) session.getAttribute("loginUser");
@@ -124,14 +124,14 @@ public class ShopController {
         return "redirect:/shop/cart";
     }
 
-    // 6. Àå¹Ù±¸´Ï Ç×¸ñ »èÁ¦
+    // 6. ì¥ë°”êµ¬ë‹ˆ í•­ëª© ì‚­ì œ
     @GetMapping("/cart/delete")
     public String deleteCartProcess(@RequestParam("cart_id") Long cart_id) {
         cartService.removeCart(cart_id);
         return "redirect:/shop/cart";
     }
     
- // 7. ÁÖ¹®/°áÁ¦ ÆäÀÌÁö ÁøÀÔ
+ // 7. ì£¼ë¬¸/ê²°ì œ í˜ì´ì§€ ì§„ì…
     @GetMapping("/order")
     public String orderPage(HttpSession session, Model model) {
 
@@ -159,7 +159,7 @@ public class ShopController {
         return "shop/order";
     }
 
-    // 8. °áÁ¦ ¹× ÁÖ¹® ¿Ï·á Ã³¸® (POST)
+    // 8. ê²°ì œ ë° ì£¼ë¬¸ ì™„ë£Œ ì²˜ë¦¬ (POST)
     @PostMapping("/order/pay")
     @ResponseBody
     public String orderPayProcess(
@@ -172,7 +172,7 @@ public class ShopController {
 
         try {
 
-            // 1. PortOne °áÁ¦ Á¤º¸ Á¶È¸
+            // 1. PortOne ê²°ì œ ì •ë³´ ì¡°íšŒ
             payment =
                     portOneService.getPayment(order.getImp_uid());
 
@@ -184,7 +184,7 @@ public class ShopController {
                 return "FAIL";
             }
 
-            // 2. ·Î±×ÀÎ È®ÀÎ
+            // 2. ë¡œê·¸ì¸ í™•ì¸
             MemberVO loginUser =
                     (MemberVO) session.getAttribute("loginUser");
 
@@ -192,13 +192,13 @@ public class ShopController {
 
                 portOneService.cancelPayment(
                         payment.getImp_uid(),
-                        "·Î±×ÀÎ Á¤º¸ ¾øÀ½"
+                        "ë¡œê·¸ì¸ ì •ë³´ ì—†ìŒ"
                 );
 
                 return "REFUNDED";
             }
 
-            // 3. Àå¹Ù±¸´Ï Á¶È¸
+            // 3. ì¥ë°”êµ¬ë‹ˆ ì¡°íšŒ
             List<CartVO> cartList =
                     cartService.getCartList(loginUser.getMember_Id());
 
@@ -206,13 +206,13 @@ public class ShopController {
 
                 portOneService.cancelPayment(
                         payment.getImp_uid(),
-                        "Àå¹Ù±¸´Ï Á¤º¸ ¾øÀ½"
+                        "ì¥ë°”êµ¬ë‹ˆ ì •ë³´ ì—†ìŒ"
                 );
 
                 return "REFUNDED";
             }
 
-            // 4. ¼­¹ö ÁÖ¹® ±İ¾× °è»ê
+            // 4. ì„œë²„ ì£¼ë¬¸ ê¸ˆì•¡ ê³„ì‚°
             long serverTotalAmount = 0;
 
             for (CartVO cart : cartList) {
@@ -221,39 +221,39 @@ public class ShopController {
                         * cart.getQuantity();
             }
 
-            // 5. merchant_uid °ËÁõ
+            // 5. merchant_uid ê²€ì¦
             if (order.getMerchant_uid() == null
                     || !order.getMerchant_uid()
                             .equals(payment.getMerchant_uid())) {
 
                 portOneService.cancelPayment(
                         payment.getImp_uid(),
-                        "ÁÖ¹®¹øÈ£ ºÒÀÏÄ¡"
+                        "ì£¼ë¬¸ë²ˆí˜¸ ë¶ˆì¼ì¹˜"
                 );
 
                 return "REFUNDED";
             }
 
-            // 6. ±İ¾× °ËÁõ
+            // 6. ê¸ˆì•¡ ê²€ì¦
             if (payment.getAmount() == null
                     || payment.getAmount().longValue()
                             != serverTotalAmount) {
 
                 portOneService.cancelPayment(
                         payment.getImp_uid(),
-                        "°áÁ¦ ±İ¾× ºÒÀÏÄ¡"
+                        "ê²°ì œ ê¸ˆì•¡ ë¶ˆì¼ì¹˜"
                 );
 
                 return "REFUNDED";
             }
 
-            // 7. ÁÖ¹® µ¥ÀÌÅÍ ¼³Á¤
+            // 7. ì£¼ë¬¸ ë°ì´í„° ì„¤ì •
             order.setTotal_amount(serverTotalAmount);
             order.setImp_uid(payment.getImp_uid());
             order.setMerchant_uid(payment.getMerchant_uid());
             order.setStatus("COMPLETED");
 
-            // 8. DB ÁÖ¹® Ã³¸®
+            // 8. DB ì£¼ë¬¸ ì²˜ë¦¬
             try {
 
                 orderService.processOrder(
@@ -270,7 +270,7 @@ public class ShopController {
 
                 portOneService.cancelPayment(
                         payment.getImp_uid(),
-                        "ÁÖ¹® Ã³¸® ½ÇÆĞ"
+                        "ì£¼ë¬¸ ì²˜ë¦¬ ì‹¤íŒ¨"
                 );
 
                 return "REFUNDED";
@@ -280,14 +280,14 @@ public class ShopController {
 
             e.printStackTrace();
 
-            // PortOne °áÁ¦ Á¤º¸¸¦ Á¶È¸ÇÑ ÀÌÈÄ¶ó¸é Ãë¼Ò ½Ãµµ
+            // PortOne ê²°ì œ ì •ë³´ë¥¼ ì¡°íšŒí•œ ì´í›„ë¼ë©´ ì·¨ì†Œ ì‹œë„
             if (payment != null
                     && "paid".equals(payment.getStatus())) {
 
                 try {
                     portOneService.cancelPayment(
                             payment.getImp_uid(),
-                            "¼­¹ö Ã³¸® ¿À·ù"
+                            "ì„œë²„ ì²˜ë¦¬ ì˜¤ë¥˜"
                     );
                 } catch (Exception cancelException) {
                     cancelException.printStackTrace();
@@ -298,13 +298,13 @@ public class ShopController {
         }
     }
 
-    // 9. ÁÖ¹® ¿Ï·á ¼º°ø È­¸é
+    // 9. ì£¼ë¬¸ ì™„ë£Œ ì„±ê³µ í™”ë©´
     @GetMapping("/order/success")
     public String orderSuccessPage() {
         return "shop/order_success";
     }
     
- // 10. ¸®ºä µî·Ï Ã³¸® (POST)
+ // 10. ë¦¬ë·° ë“±ë¡ ì²˜ë¦¬ (POST)
     @PostMapping("/review/add")
     public String addReviewProcess(com.backoffice.model.BookReviewVO review, HttpSession session) {
         MemberVO loginUser = (MemberVO) session.getAttribute("loginUser");
@@ -317,14 +317,14 @@ public class ShopController {
         return "redirect:/shop/detail?book_id=" + review.getBook_id();
     }
 
-    // 11. ¸®ºä »èÁ¦ Ã³¸®
+    // 11. ë¦¬ë·° ì‚­ì œ ì²˜ë¦¬
     @GetMapping("/review/delete")
     public String deleteReviewProcess(@RequestParam("review_id") Long review_id, @RequestParam("book_id") Long book_id) {
         reviewService.removeReview(review_id);
         return "redirect:/shop/detail?book_id=" + book_id;
     }
     
- // ¸¶ÀÌÆäÀÌÁö (¸¶ÀÌ·ë) ÁøÀÔ - È¸¿ø Á¤º¸ ¹× ÁÖ¹® ³»¿ª Á¶È¸
+ // ë§ˆì´í˜ì´ì§€ (ë§ˆì´ë£¸) ì§„ì… - íšŒì› ì •ë³´ ë° ì£¼ë¬¸ ë‚´ì—­ ì¡°íšŒ
     @GetMapping("/myroom")
     public String myRoomPage(HttpSession session, Model model) {
         MemberVO loginUser = (MemberVO) session.getAttribute("loginUser");
@@ -337,13 +337,13 @@ public class ShopController {
         return "shop/myroom";
     }
     
- // Ä«Å×°í¸®º° µµ¼­ ¸ñ·Ï Á¶È¸ ¸ÅÇÎ Ãß°¡
+ // ì¹´í…Œê³ ë¦¬ë³„ ë„ì„œ ëª©ë¡ ì¡°íšŒ ë§¤í•‘ ì¶”ê°€
     @GetMapping("/category")
     public String categoryBooks(@RequestParam("category_id") Long categoryId, Model model) {
         List<BookVO> bookList = bookService.getBooksByCategory(categoryId);
         List<CategoryVO> categoryList = categoryService.getCategoryList();
         
-        model.addAttribute("ratingList", bookList); // °°Àº ±×¸®µå ·¹ÀÌ¾Æ¿ô Àç»ç¿ë
+        model.addAttribute("ratingList", bookList); // ê°™ì€ ê·¸ë¦¬ë“œ ë ˆì´ì•„ì›ƒ ì¬ì‚¬ìš©
         model.addAttribute("categoryList", categoryList);
         return "shop/main";
     }

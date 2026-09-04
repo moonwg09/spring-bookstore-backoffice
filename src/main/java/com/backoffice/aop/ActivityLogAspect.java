@@ -1,4 +1,4 @@
-package com.backoffice.aop;
+ï»¿package com.backoffice.aop;
 
 import java.lang.reflect.Method;
 
@@ -17,38 +17,38 @@ public class ActivityLogAspect {
 
     public ActivityLogAspect() {
         System.out.println("======================================");
-        System.out.println("   ActivityLogAspect ºó »ı¼º ¼º°ø!   ");
+        System.out.println("   ActivityLogAspect ë¹ˆ ìƒì„± ì„±ê³µ!   ");
         System.out.println("======================================");
     }
 
     @Autowired
     private ActivityLogService logService;
 
-    //  ·¹ÀÌ´õ ¾÷±×·¹ÀÌµå: °æ·Î¸¦ Á÷Á¢ ¸í½ÃÇÏ°í, ½ÇÇà Àü(@Before)¿¡ ¹«Á¶°Ç ³¬¾ÆÃ©´Ï´Ù.
+    //  ë ˆì´ë” ì—…ê·¸ë ˆì´ë“œ: ê²½ë¡œë¥¼ ì§ì ‘ ëª…ì‹œí•˜ê³ , ì‹¤í–‰ ì „(@Before)ì— ë¬´ì¡°ê±´ ë‚šì•„ì±•ë‹ˆë‹¤.
     @Before("@annotation(com.backoffice.aop.LogActivity)")
     public void logBefore(JoinPoint joinPoint) {
-        System.out.println("[AOP ·¹ÀÌ´õ ÀÛµ¿] °¡·ÎÃ¤±â ¼º°ø!");
+        System.out.println("[AOP ë ˆì´ë” ì‘ë™] ê°€ë¡œì±„ê¸° ì„±ê³µ!");
         
         try {
-            // 1. ½ÇÇàµÇ´Â ¸Ş¼­µå Á¤º¸ °­Á¦·Î ¶â¾î¿À±â
+            // 1. ì‹¤í–‰ë˜ëŠ” ë©”ì„œë“œ ì •ë³´ ê°•ì œë¡œ ëœ¯ì–´ì˜¤ê¸°
             MethodSignature signature = (MethodSignature) joinPoint.getSignature();
             Method method = signature.getMethod();
             
-            // 2. ¸Ş¼­µå¿¡ ºÙÀº @LogActivity ¾î³ëÅ×ÀÌ¼Ç Á¤º¸ °¡Á®¿À±â
+            // 2. ë©”ì„œë“œì— ë¶™ì€ @LogActivity ì–´ë…¸í…Œì´ì…˜ ì •ë³´ ê°€ì ¸ì˜¤ê¸°
             LogActivity logActivity = method.getAnnotation(LogActivity.class);
             String action = logActivity.value();
             
-            System.out.println("°¨ÁöµÈ ¾×¼Ç: " + action);
+            System.out.println("ê°ì§€ëœ ì•¡ì…˜: " + action);
 
-            // 3. DB ÀúÀå ·ÎÁ÷ ½ÇÇà (ÀÓ½Ã »ç¿ø¹øÈ£ 1¹ø)
+            // 3. DB ì €ì¥ ë¡œì§ ì‹¤í–‰ (ì„ì‹œ ì‚¬ì›ë²ˆí˜¸ 1ë²ˆ)
             Long employeeId = 1L;
             if (employeeId != null) {
                 logService.registerLog(employeeId, action);
-                System.out.println("[Activity Log ÀúÀå ¼º°ø] " + employeeId + "¹ø »ç¿ø - " + action);
+                System.out.println("[Activity Log ì €ì¥ ì„±ê³µ] " + employeeId + "ë²ˆ ì‚¬ì› - " + action);
             }
 
         } catch (Exception e) {
-            System.out.println("AOP ³»ºÎ Ã³¸® Áß ¿À·ù ¹ß»ı: " + e.getMessage());
+            System.out.println("AOP ë‚´ë¶€ ì²˜ë¦¬ ì¤‘ ì˜¤ë¥˜ ë°œìƒ: " + e.getMessage());
             e.printStackTrace();
         }
     }

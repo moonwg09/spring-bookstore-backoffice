@@ -1,4 +1,4 @@
-package com.backoffice.mapper;
+ï»¿package com.backoffice.mapper;
 
 import java.util.List;
 
@@ -6,19 +6,20 @@ import com.backoffice.model.CategoryVO;
 
 public interface CategoryMapper {
 	
-	// Ä«Å×°í¸® ÀüÃ¼ ¸ñ·Ï Á¶È¸
+	// ì¹´í…Œê³ ë¦¬ ì „ì²´ ëª©ë¡ ì¡°íšŒ
 	public List<CategoryVO> getList();
 	
-	// Ä«Å×°í¸® µî·Ï
+	// ì¹´í…Œê³ ë¦¬ ë“±ë¡
 	public void insert(CategoryVO category);
 	
-	// Æ¯Á¤ Ä«Å×°í¸® ´Ü°Ç Á¶È¸
+	// íŠ¹ì • ì¹´í…Œê³ ë¦¬ ë‹¨ê±´ ì¡°íšŒ
 	public CategoryVO read(Long category_id);
 	
-	// Ä«Å×°í¸® Á¤º¸ ¼öÁ¤
+	// ì¹´í…Œê³ ë¦¬ ì •ë³´ ìˆ˜ì •
 	public int update(CategoryVO category);
 	
-	// Ä«Å×°í¸® »èÁ¦
+	// ì¹´í…Œê³ ë¦¬ ì‚­ì œ
 	public int delete(Long category_id);
 
 }
+

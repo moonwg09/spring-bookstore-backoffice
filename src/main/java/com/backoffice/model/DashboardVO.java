@@ -1,16 +1,16 @@
-package com.backoffice.model;
+ï»¿package com.backoffice.model;
 
 import lombok.Data;
 
 @Data
 public class DashboardVO {
-    private int totalRevenue;   // ÀÌ´ŞÀÇ ÃÑ ¸ÅÃâ (Ãâ°í¿Ï·á COMPLETED ±âÁØ SUM)
-    private int newOrderCount;  // ½Å±Ô ÁÖ¹® °Ç¼ö (ÁÖ¹®Á¢¼ö PENDING ±âÁØ COUNT)
-    private int cancelCount;    // Ãë¼Ò ¿äÃ»/¿Ï·á °Ç¼ö (CANCELLED ±âÁØ COUNT)
-    private int lowStockCount;  // Ç°Àı ÀÓ¹Ú µµ¼­ ¼ö (ÇöÀçÀç°í <= ¾ÈÀüÀç°í ±âÁØ COUNT)
+    private int totalRevenue;   // ì´ë‹¬ì˜ ì´ ë§¤ì¶œ (ì¶œê³ ì™„ë£Œ COMPLETED ê¸°ì¤€ SUM)
+    private int newOrderCount;  // ì‹ ê·œ ì£¼ë¬¸ ê±´ìˆ˜ (ì£¼ë¬¸ì ‘ìˆ˜ PENDING ê¸°ì¤€ COUNT)
+    private int cancelCount;    // ì·¨ì†Œ ìš”ì²­/ì™„ë£Œ ê±´ìˆ˜ (CANCELLED ê¸°ì¤€ COUNT)
+    private int lowStockCount;  // í’ˆì ˆ ì„ë°• ë„ì„œ ìˆ˜ (í˜„ì¬ì¬ê³  <= ì•ˆì „ì¬ê³  ê¸°ì¤€ COUNT)
     
-    private int q1Revenue;      // 1ºĞ±â (1~3¿ù) ¸ÅÃâ
-    private int q2Revenue;      // 2ºĞ±â (4~6¿ù) ¸ÅÃâ
-    private int q3Revenue;      // 3ºĞ±â (7~9¿ù) ¸ÅÃâ
-    private int q4Revenue;      // 4ºĞ±â (10~12¿ù) ¸ÅÃâ
+    private int q1Revenue;      // 1ë¶„ê¸° (1~3ì›”) ë§¤ì¶œ
+    private int q2Revenue;      // 2ë¶„ê¸° (4~6ì›”) ë§¤ì¶œ
+    private int q3Revenue;      // 3ë¶„ê¸° (7~9ì›”) ë§¤ì¶œ
+    private int q4Revenue;      // 4ë¶„ê¸° (10~12ì›”) ë§¤ì¶œ
 }

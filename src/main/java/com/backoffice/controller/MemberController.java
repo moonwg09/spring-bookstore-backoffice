@@ -1,4 +1,4 @@
-package com.backoffice.controller;
+ï»¿package com.backoffice.controller;
 
 import javax.servlet.http.HttpSession;
 
@@ -24,71 +24,71 @@ public class MemberController {
     @Autowired
     private EmployeeService employeeService;
 
-    // 1. ·Î±×ÀÎ ÆäÀÌÁö ÀÌµ¿
+    // 1. ë¡œê·¸ì¸ í˜ì´ì§€ ì´ë™
     @GetMapping("/login")
     public String loginPage() {
         return "shop/login";
     }
 
- // ¼­ºñ½º ÁÖÀÔÀÌ ¾È µÇ¾î ÀÖ´Ù¸é »ó´Ü¿¡ Ãß°¡µÇ¾î ÀÖ´ÂÁö È®ÀÎÇØÁÖ¼¼¿ä.
+ // ì„œë¹„ìŠ¤ ì£¼ì…ì´ ì•ˆ ë˜ì–´ ìˆë‹¤ë©´ ìƒë‹¨ì— ì¶”ê°€ë˜ì–´ ìˆëŠ”ì§€ í™•ì¸í•´ì£¼ì„¸ìš”.
     // @Autowired
     // private EmployeeService employeeService;
 
-    // 2. ÅëÇÕ ·Î±×ÀÎ Ã³¸® (Á÷¿ø ¿ì¼± °Ë»ç ÈÄ ÀÏ¹İ È¸¿ø °Ë»ç)
+    // 2. í†µí•© ë¡œê·¸ì¸ ì²˜ë¦¬ (ì§ì› ìš°ì„  ê²€ì‚¬ í›„ ì¼ë°˜ íšŒì› ê²€ì‚¬)
     @PostMapping("/login")
     public String loginProcess(@RequestParam("loginId") String loginId,
                                @RequestParam("password") String password,
                                HttpSession session) {
         
-        // 1. ¸ÕÀú Employee (¹é¿ÀÇÇ½º °ü¸®ÀÚ/Á÷¿ø) Å×ÀÌºí ·Î±×ÀÎ ½Ãµµ
+        // 1. ë¨¼ì € Employee (ë°±ì˜¤í”¼ìŠ¤ ê´€ë¦¬ì/ì§ì›) í…Œì´ë¸” ë¡œê·¸ì¸ ì‹œë„
         EmployeeVO employee = employeeService.login(loginId, password);
         if (employee != null) {
-            // Á÷¿ø ¼¼¼Ç ÀúÀå
+            // ì§ì› ì„¸ì…˜ ì €ì¥
             session.setAttribute("loginEmployee", employee);
-            // ¹é¿ÀÇÇ½º ¸ŞÀÎ ÆäÀÌÁö·Î ÀÌµ¿ (ÇÁ·ÎÁ§Æ®ÀÇ ¹é¿ÀÇÇ½º ½ÃÀÛ °æ·Î)
+            // ë°±ì˜¤í”¼ìŠ¤ ë©”ì¸ í˜ì´ì§€ë¡œ ì´ë™ (í”„ë¡œì íŠ¸ì˜ ë°±ì˜¤í”¼ìŠ¤ ì‹œì‘ ê²½ë¡œ)
             return "redirect:/admin/hr/list"; 
         }
         
-        // 2. Á÷¿øÀÌ ¾Æ´Ï¶ó¸é ±âÁ¸´ë·Î Member (¼îÇÎ¸ô ÀÏ¹İ È¸¿ø) Å×ÀÌºí ·Î±×ÀÎ ½Ãµµ
+        // 2. ì§ì›ì´ ì•„ë‹ˆë¼ë©´ ê¸°ì¡´ëŒ€ë¡œ Member (ì‡¼í•‘ëª° ì¼ë°˜ íšŒì›) í…Œì´ë¸” ë¡œê·¸ì¸ ì‹œë„
         MemberVO member = memberService.login(loginId, password);
         if (member != null) {
-            // ÀÏ¹İ È¸¿ø ¼¼¼Ç ÀúÀå
+            // ì¼ë°˜ íšŒì› ì„¸ì…˜ ì €ì¥
             session.setAttribute("loginUser", member);
-            // ¼îÇÎ¸ô ¸ŞÀÎ ÆäÀÌÁö·Î ÀÌµ¿
+            // ì‡¼í•‘ëª° ë©”ì¸ í˜ì´ì§€ë¡œ ì´ë™
             return "redirect:/shop/main";
         }
         
-        // 3. µÑ ´Ù ÀÏÄ¡ÇÏ´Â °èÁ¤ÀÌ ¾ø´Â °æ¿ì ·Î±×ÀÎ ÆäÀÌÁö·Î ¸®´ÙÀÌ·ºÆ®
+        // 3. ë‘˜ ë‹¤ ì¼ì¹˜í•˜ëŠ” ê³„ì •ì´ ì—†ëŠ” ê²½ìš° ë¡œê·¸ì¸ í˜ì´ì§€ë¡œ ë¦¬ë‹¤ì´ë ‰íŠ¸
         return "redirect:/shop/login?error=true";
     }
 
-    // 3. ·Î±×¾Æ¿ô Ã³¸®
+    // 3. ë¡œê·¸ì•„ì›ƒ ì²˜ë¦¬
     @GetMapping("/logout")
     public String logout(HttpSession session) {
         session.invalidate();
         return "redirect:/shop/main";
     }
 
-    // 4. È¸¿ø°¡ÀÔ ÆäÀÌÁö ÀÌµ¿
+    // 4. íšŒì›ê°€ì… í˜ì´ì§€ ì´ë™
     @GetMapping("/join")
     public String joinPage() {
         return "shop/join";
     }
 
-    // 5. È¸¿ø°¡ÀÔ Ã³¸®
+    // 5. íšŒì›ê°€ì… ì²˜ë¦¬
     @PostMapping("/join")
     public String joinProcess(MemberVO vo) {
         memberService.register(vo);
         return "redirect:/shop/login";
     }
 
-    // 6. Ä«Ä«¿À ·Î±×ÀÎ °£ÀÌ ¸®´ÙÀÌ·ºÆ® (½Ç¹« OAuth ¿¬µ¿ ÁøÀÔÁ¡)
+    // 6. ì¹´ì¹´ì˜¤ ë¡œê·¸ì¸ ê°„ì´ ë¦¬ë‹¤ì´ë ‰íŠ¸ (ì‹¤ë¬´ OAuth ì—°ë™ ì§„ì…ì )
     @GetMapping("/kakao/callback")
     public String kakaoCallback(@RequestParam("code") String code, HttpSession session) {
-        // ½Ç¹«¿¡¼­´Â ¿©±â¼­ Kakao API ¼­¹ö·Î Access TokenÀ» ¿äÃ»ÇÏ°í À¯Àú Á¤º¸¸¦ °¡Á®¿É´Ï´Ù.
-        // Å×½ºÆ® ÆíÀÇ¸¦ À§ÇØ °¡»óÀÇ Ä«Ä«¿À À¯Àú Á¤º¸·Î ÀÚµ¿ ·Î±×ÀÎ/°¡ÀÔ Ã³¸® ½Ã¹Ä·¹ÀÌ¼Ç
+        // ì‹¤ë¬´ì—ì„œëŠ” ì—¬ê¸°ì„œ Kakao API ì„œë²„ë¡œ Access Tokenì„ ìš”ì²­í•˜ê³  ìœ ì € ì •ë³´ë¥¼ ê°€ì ¸ì˜µë‹ˆë‹¤.
+        // í…ŒìŠ¤íŠ¸ í¸ì˜ë¥¼ ìœ„í•´ ê°€ìƒì˜ ì¹´ì¹´ì˜¤ ìœ ì € ì •ë³´ë¡œ ìë™ ë¡œê·¸ì¸/ê°€ì… ì²˜ë¦¬ ì‹œë®¬ë ˆì´ì…˜
         String mockKakaoId = "999888777";
-        String mockNickname = "Ä«Ä«¿ÀÈ¸¿ø";
+        String mockNickname = "ì¹´ì¹´ì˜¤íšŒì›";
         String mockEmail = "kakao@test.com";
 
         MemberVO member = memberService.kakaoLoginOrRegister(mockKakaoId, mockNickname, mockEmail);

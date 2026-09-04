@@ -1,4 +1,4 @@
-package com.backoffice.model;
+ï»¿package com.backoffice.model;
 
 import java.util.Date;
 import java.util.List;
@@ -14,12 +14,13 @@ public class CustomerOrderVO {
 	private Long total_amount;
 	private Date order_date;
 	
-	// PortOne °áÁ¦ Á¤º¸(Æ÷Æ®¿øÀÌ ¹ß±ŞÇÑ °áÁ¦ °íÀ¯¹øÈ£, ¿ì¸® »çÀÌÆ®¿¡¼­ ¸¸µå´Â ÁÖ¹®¹øÈ£)
+	// PortOne ê²°ì œ ì •ë³´(í¬íŠ¸ì›ì´ ë°œê¸‰í•œ ê²°ì œ ê³ ìœ ë²ˆí˜¸, ìš°ë¦¬ ì‚¬ì´íŠ¸ì—ì„œ ë§Œë“œëŠ” ì£¼ë¬¸ë²ˆí˜¸)
 	private String imp_uid;
 	private String merchant_uid;
 	
-	// join Á¶È¸¿ë È­¸é Ãâ·Â ÇÊµå
+	// join ì¡°íšŒìš© í™”ë©´ ì¶œë ¥ í•„ë“œ
 	private String member_name;
 	
 	private List<OrderItemVO> itemList;
 }
+

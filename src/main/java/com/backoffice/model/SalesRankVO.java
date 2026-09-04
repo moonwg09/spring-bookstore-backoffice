@@ -1,12 +1,12 @@
-package com.backoffice.model;
+ï»¿package com.backoffice.model;
 
 import lombok.Data;
 
 @Data
 public class SalesRankVO {
-    private int rank;             // ÆÇ¸Å ¼øÀ§ (1, 2, 3À§)
-    private String book_title;    // µµ¼­¸í
-    private String category;      // Ä«Å×°í¸® (¿¹: IT/°³¹ß)
-    private String publisher_name;// ÁÖ¿ä °Å·¡Ã³ (ÃâÆÇ»ç¸í)
-    private int total_sales_qty;  // ´©Àû ÆÇ¸Å ¼ö·®
+    private int rank;             // íŒë§¤ ìˆœìœ„ (1, 2, 3ìœ„)
+    private String book_title;    // ë„ì„œëª…
+    private String category;      // ì¹´í…Œê³ ë¦¬ (ì˜ˆ: IT/ê°œë°œ)
+    private String publisher_name;// ì£¼ìš” ê±°ë˜ì²˜ (ì¶œíŒì‚¬ëª…)
+    private int total_sales_qty;  // ëˆ„ì  íŒë§¤ ìˆ˜ëŸ‰
 }

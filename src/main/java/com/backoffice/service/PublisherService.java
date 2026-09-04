@@ -1,4 +1,4 @@
-package com.backoffice.service;
+ï»¿package com.backoffice.service;
 
 import java.util.List;
 
@@ -6,19 +6,20 @@ import com.backoffice.model.PublisherVO;
 
 public interface PublisherService {
 	
-	// ÃâÆÇ»ç ¸ñ·Ï Á¶È¸
+	// ì¶œíŒì‚¬ ëª©ë¡ ì¡°íšŒ
 	public List<PublisherVO> getPublisherList();
 	
-	// ÃâÆÇ»ç µî·Ï
+	// ì¶œíŒì‚¬ ë“±ë¡
 	public void registerPublisher(PublisherVO publisher);
 	
-	// ÃâÆÇ»ç »ó¼¼ Á¶È¸
+	// ì¶œíŒì‚¬ ìƒì„¸ ì¡°íšŒ
 	public PublisherVO getPublisher(Long publisher_id);
 	
-	// ÃâÆÇ»ç Á¤º¸ ¼öÁ¤
+	// ì¶œíŒì‚¬ ì •ë³´ ìˆ˜ì •
 	public boolean modifyPublisher(PublisherVO publisher);
 	
-	// ÃâÆÇ»ç »èÁ¦
+	// ì¶œíŒì‚¬ ì‚­ì œ
 	public boolean removePublisher(Long publisher_id);
 
 }
+

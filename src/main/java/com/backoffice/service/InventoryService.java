@@ -1,21 +1,21 @@
-package com.backoffice.service;
+ï»¿package com.backoffice.service;
 
 import java.util.List;
 import com.backoffice.model.InventoryVO;
 
 public interface InventoryService {
-    // 1. Àç°í ÃÊ±â µî·Ï (½Å±Ô µµ¼­ µî·Ï ½Ã ÃÖÃÊ ½ÇÀç°í 0 ¶Ç´Â ÀÔ°í ¼ö·®À¸·Î »ı¼º)
+    // 1. ì¬ê³  ì´ˆê¸° ë“±ë¡ (ì‹ ê·œ ë„ì„œ ë“±ë¡ ì‹œ ìµœì´ˆ ì‹¤ì¬ê³  0 ë˜ëŠ” ì…ê³  ìˆ˜ëŸ‰ìœ¼ë¡œ ìƒì„±)
     public boolean registerInventory(InventoryVO vo);
     
-    // 2. ÀüÃ¼ Àç°í ÇöÈ² ¸ñ·Ï Á¶È¸
+    // 2. ì „ì²´ ì¬ê³  í˜„í™© ëª©ë¡ ì¡°íšŒ
     public List<InventoryVO> getInventoryList();
     
-    // 3. Æ¯Á¤ µµ¼­ÀÇ Àç°í ´Ü°Ç Á¶È¸
+    // 3. íŠ¹ì • ë„ì„œì˜ ì¬ê³  ë‹¨ê±´ ì¡°íšŒ
     public InventoryVO getInventoryByBookId(Long book_id);
     
-    // 4. Àç°í ÀÔÃâ°í ¼ö·® ¹İ¿µ (¾ç¼ö: ÀÔ°í Áõ°¡, À½¼ö: Ãâ°í/ÆÄ¼Õ °¨¼Ò)
+    // 4. ì¬ê³  ì…ì¶œê³  ìˆ˜ëŸ‰ ë°˜ì˜ (ì–‘ìˆ˜: ì…ê³  ì¦ê°€, ìŒìˆ˜: ì¶œê³ /íŒŒì† ê°ì†Œ)
     public boolean modifyStock(InventoryVO vo);
     
-    // 5. ¾ÈÀü Àç°í ¼³Á¤ º¯°æ
+    // 5. ì•ˆì „ ì¬ê³  ì„¤ì • ë³€ê²½
     public boolean modifySafetyStock(InventoryVO vo);
 }

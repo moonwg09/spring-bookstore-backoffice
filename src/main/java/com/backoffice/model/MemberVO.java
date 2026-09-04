@@ -1,4 +1,4 @@
-package com.backoffice.model;
+ï»¿package com.backoffice.model;
 
 import java.util.Date;
 
@@ -13,8 +13,9 @@ public class MemberVO {
 	private String name;
 	private String email;
 	private String kakao_Id;
-	private Long balance;   // ÃæÀü ±İ¾×
+	private Long balance;   // ì¶©ì „ ê¸ˆì•¡
 	private Long point;
 	private String role;
-	private Date created_at;	// °¡ÀÔÀÏ
+	private Date created_at;	// ê°€ì…ì¼
 }
+

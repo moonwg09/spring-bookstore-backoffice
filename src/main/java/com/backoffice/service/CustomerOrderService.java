@@ -1,18 +1,18 @@
-package com.backoffice.service;
+ï»¿package com.backoffice.service;
 
 import java.util.List;
 import com.backoffice.model.CustomerOrderVO;
 
 public interface CustomerOrderService {
-    // 1. °í°´ ÁÖ¹® Á¢¼ö (¸¶½ºÅÍ + »ó¼¼ Ç°¸ñ ÀÏ°ı µî·Ï Æ®·£Àè¼Ç)
+    // 1. ê³ ê° ì£¼ë¬¸ ì ‘ìˆ˜ (ë§ˆìŠ¤í„° + ìƒì„¸ í’ˆëª© ì¼ê´„ ë“±ë¡ íŠ¸ëœì­ì…˜)
     public void registerOrder(CustomerOrderVO orderVO);
     
-    // 2. ÀüÃ¼ ÁÖ¹® ¸ñ·Ï Á¶È¸ (»ó¼¼ Ç°¸ñ ¸®½ºÆ® ÇÔ²² °áÇÕ)
+    // 2. ì „ì²´ ì£¼ë¬¸ ëª©ë¡ ì¡°íšŒ (ìƒì„¸ í’ˆëª© ë¦¬ìŠ¤íŠ¸ í•¨ê»˜ ê²°í•©)
     public List<CustomerOrderVO> getOrderList();
     
-    // 3. Æ¯Á¤ ÁÖ¹® ´Ü°Ç »ó¼¼ Á¶È¸
+    // 3. íŠ¹ì • ì£¼ë¬¸ ë‹¨ê±´ ìƒì„¸ ì¡°íšŒ
     public CustomerOrderVO getOrder(Long order_id);
     
-    // 4. [ÇÙ½É ¹°·ù ¿¬µ¿] ÁÖ¹® »óÅÂ º¯°æ ¹× Ã¢°í Àç°í ÀÚµ¿ Â÷°¨/¿øº¹ (ACID Æ®·£Àè¼Ç)
+    // 4. [í•µì‹¬ ë¬¼ë¥˜ ì—°ë™] ì£¼ë¬¸ ìƒíƒœ ë³€ê²½ ë° ì°½ê³  ì¬ê³  ìë™ ì°¨ê°/ì›ë³µ (ACID íŠ¸ëœì­ì…˜)
     public boolean modifyOrderStatus(Long order_id, String targetStatus, Long employee_id, String reason);
 }

@@ -1,4 +1,4 @@
-package com.backoffice.service;
+﻿package com.backoffice.service;
 
 import com.backoffice.model.MemberVO;
 
@@ -9,3 +9,4 @@ public interface MemberService {
     public MemberVO kakaoLoginOrRegister(String kakaoId, String nickname, String email);
 
 }
+

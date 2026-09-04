@@ -1,4 +1,4 @@
-package com.backoffice.controller;
+ï»¿package com.backoffice.controller;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -17,22 +17,22 @@ public class OrderController {
     @Autowired
     private CustomerOrderService orderService;
 
-    // 1. °í°´ ÁÖ¹® ³»¿ª ¹× CS °ü¸® ¸ŞÀÎ È­¸é ÀÌµ¿
+    // 1. ê³ ê° ì£¼ë¬¸ ë‚´ì—­ ë° CS ê´€ë¦¬ ë©”ì¸ í™”ë©´ ì´ë™
     @GetMapping("/list")
     public String orderList(Model model) {
-        // ÁÖ¹® ¸¶½ºÅÍ ¹× ÇÏÀ§ Ç°¸ñ ¸®½ºÆ®¸¦ ÇÔ²² Á¶È¸ÇÏ¿© È­¸é¿¡ Àü´Ş
+        // ì£¼ë¬¸ ë§ˆìŠ¤í„° ë° í•˜ìœ„ í’ˆëª© ë¦¬ìŠ¤íŠ¸ë¥¼ í•¨ê»˜ ì¡°íšŒí•˜ì—¬ í™”ë©´ì— ì „ë‹¬
         model.addAttribute("orderList", orderService.getOrderList());
         return "admin/order/list";
     }
 
-    // 2. ÁÖ¹® »óÅÂ º¯°æ ¹× Æ®·£Àè¼Ç Ã³¸® (Ãâ°í Â÷°¨, Ãë¼Ò ¿øº¹ µî)
+    // 2. ì£¼ë¬¸ ìƒíƒœ ë³€ê²½ ë° íŠ¸ëœì­ì…˜ ì²˜ë¦¬ (ì¶œê³  ì°¨ê°, ì·¨ì†Œ ì›ë³µ ë“±)
     @PostMapping("/status")
     public String changeStatus(@RequestParam("order_id") Long order_id,
                                @RequestParam("target_status") String target_status,
                                @RequestParam("reason") String reason,
                                @RequestParam(value = "login_emp_id", defaultValue = "1") Long login_emp_id) {
         
-        // ¼­ºñ½º Æ®·£Àè¼Ç È£Ãâ (»óÅÂ º¯°æ + ½ÇÀç°í Áõ°¨ + Audit Log µ¿½Ã ±â·Ï)
+        // ì„œë¹„ìŠ¤ íŠ¸ëœì­ì…˜ í˜¸ì¶œ (ìƒíƒœ ë³€ê²½ + ì‹¤ì¬ê³  ì¦ê° + Audit Log ë™ì‹œ ê¸°ë¡)
         orderService.modifyOrderStatus(order_id, target_status, login_emp_id, reason);
         
         return "redirect:/admin/order/list";

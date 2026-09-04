@@ -1,4 +1,4 @@
-package com.backoffice.service;
+ï»¿package com.backoffice.service;
 
 import java.util.List;
 
@@ -16,20 +16,20 @@ public class PurchaseOrderServiceImpl implements PurchaseOrderService {
 	@Autowired
 	private PurchaseOrderMapper poMapper;
 	
-	@Transactional // ¸¶½ºÅÍ¿Í »ó¼¼ Ç°¸ñ µî·Ï Áß ÇÏ³ª¶óµµ ½ÇÆĞÇÏ¸é ÀüÃ¼ ·Ñ¹é
+	@Transactional // ë§ˆìŠ¤í„°ì™€ ìƒì„¸ í’ˆëª© ë“±ë¡ ì¤‘ í•˜ë‚˜ë¼ë„ ì‹¤íŒ¨í•˜ë©´ ì „ì²´ ë¡¤ë°±
     @Override
     public void registerPurchaseOrder(PurchaseOrderVO poVO) {
-        // 1. ¹ßÁÖ ¸¶½ºÅÍ µî·Ï (µî·Ï°ú µ¿½Ã¿¡ poVOÀÇ po_id ÇÊµå¿¡ DB ½ÃÄö½º °ªÀÌ Ã¤¿öÁü)
+        // 1. ë°œì£¼ ë§ˆìŠ¤í„° ë“±ë¡ (ë“±ë¡ê³¼ ë™ì‹œì— poVOì˜ po_id í•„ë“œì— DB ì‹œí€€ìŠ¤ ê°’ì´ ì±„ì›Œì§)
         poMapper.insertPurchaseOrder(poVO);
         
-        // 2. Àü´Ş¹ŞÀº »ó¼¼ Ç°¸ñ ¸®½ºÆ®°¡ Á¸ÀçÇÏ´ÂÁö È®ÀÎ
+        // 2. ì „ë‹¬ë°›ì€ ìƒì„¸ í’ˆëª© ë¦¬ìŠ¤íŠ¸ê°€ ì¡´ì¬í•˜ëŠ”ì§€ í™•ì¸
         if (poVO.getItemList() == null || poVO.getItemList().size() == 0) {
             return;
         }
         
-        // 3. »ı¼ºµÈ ¸¶½ºÅÍÀÇ po_id¸¦ °¢ Ç°¸ñ VO¿¡ ¸ÅÇÎÇÑ µÚ °³º° INSERT
+        // 3. ìƒì„±ëœ ë§ˆìŠ¤í„°ì˜ po_idë¥¼ ê° í’ˆëª© VOì— ë§¤í•‘í•œ ë’¤ ê°œë³„ INSERT
         for (PurchaseOrderItemVO item : poVO.getItemList()) {
-            item.setPo_id(poVO.getPo_id()); // ºÎ¸ğ FK ÁÖÀÔ
+            item.setPo_id(poVO.getPo_id()); // ë¶€ëª¨ FK ì£¼ì…
             poMapper.insertPurchaseOrderItem(item);
         }
     }
@@ -38,7 +38,7 @@ public class PurchaseOrderServiceImpl implements PurchaseOrderService {
     public List<PurchaseOrderVO> getPurchaseOrderList() {
         List<PurchaseOrderVO> list = poMapper.selectPurchaseOrderList();
         
-        // [¿¡·¯ ÇØ°á ÇÙ½É] °¢ ¹ßÁÖ ¸¶½ºÅÍ¸¶´Ù ÇÏÀ§ »ó¼¼ Ç°¸ñ ¸®½ºÆ®¸¦ DB¿¡¼­ Á¶È¸ÇØ VO¿¡ Ã¤¿öÁİ´Ï´Ù!
+        // [ì—ëŸ¬ í•´ê²° í•µì‹¬] ê° ë°œì£¼ ë§ˆìŠ¤í„°ë§ˆë‹¤ í•˜ìœ„ ìƒì„¸ í’ˆëª© ë¦¬ìŠ¤íŠ¸ë¥¼ DBì—ì„œ ì¡°íšŒí•´ VOì— ì±„ì›Œì¤ë‹ˆë‹¤!
         for (PurchaseOrderVO po : list) {
             po.setItemList(poMapper.selectPurchaseOrderItemsByPoId(po.getPo_id()));
         }
@@ -48,11 +48,11 @@ public class PurchaseOrderServiceImpl implements PurchaseOrderService {
 
     @Override
     public PurchaseOrderVO getPurchaseOrder(Long po_id) {
-        // 1. Æ¯Á¤ ¹ßÁÖÀÇ »ó¼¼ Ç°¸ñ ¸®½ºÆ®¸¦ Á¶È¸
+        // 1. íŠ¹ì • ë°œì£¼ì˜ ìƒì„¸ í’ˆëª© ë¦¬ìŠ¤íŠ¸ë¥¼ ì¡°íšŒ
         List<PurchaseOrderItemVO> items = poMapper.selectPurchaseOrderItemsByPoId(po_id);
         
-        // 2. ÀüÃ¼ ¸ñ·Ï Áß ÇØ´ç po_id ¸¶½ºÅÍ Ã£±â (È¤Àº ´Ü°Ç Á¶È¸ ¸ÅÆÛ È°¿ë °¡´É)
-        // ¿©±â¼­´Â ¸ÅÆÛ¿¡¼­ Á¶È¸ÇÑ ¾ÆÀÌÅÛ ¸®½ºÆ®¸¦ ¸¶½ºÅÍ VO¿¡ ¹­¾î¼­ ¹İÈ¯ÇÏ±â À§ÇØ ±¸Á¶È­
+        // 2. ì „ì²´ ëª©ë¡ ì¤‘ í•´ë‹¹ po_id ë§ˆìŠ¤í„° ì°¾ê¸° (í˜¹ì€ ë‹¨ê±´ ì¡°íšŒ ë§¤í¼ í™œìš© ê°€ëŠ¥)
+        // ì—¬ê¸°ì„œëŠ” ë§¤í¼ì—ì„œ ì¡°íšŒí•œ ì•„ì´í…œ ë¦¬ìŠ¤íŠ¸ë¥¼ ë§ˆìŠ¤í„° VOì— ë¬¶ì–´ì„œ ë°˜í™˜í•˜ê¸° ìœ„í•´ êµ¬ì¡°í™”
         PurchaseOrderVO poVO = new PurchaseOrderVO();
         poVO.setPo_id(po_id);
         poVO.setItemList(items);
@@ -66,3 +66,4 @@ public class PurchaseOrderServiceImpl implements PurchaseOrderService {
     }
 
 }
+

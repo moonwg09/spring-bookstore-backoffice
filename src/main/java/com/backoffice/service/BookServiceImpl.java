@@ -1,4 +1,4 @@
-package com.backoffice.service;
+ï»¿package com.backoffice.service;
 
 import java.util.List;
 
@@ -20,14 +20,14 @@ public class BookServiceImpl implements BookService{
         return mapper.getList();
     }
 
-    // µµ¼­ µî·Ï°ú ¸ÅÇÎ µî·ÏÀÌ ÇÏ³ªÀÇ ÀÛ¾÷À¸·Î ¹­ÀÌµµ·Ï Æ®·£Àè¼Ç Ã³¸®
+    // ë„ì„œ ë“±ë¡ê³¼ ë§¤í•‘ ë“±ë¡ì´ í•˜ë‚˜ì˜ ì‘ì—…ìœ¼ë¡œ ë¬¶ì´ë„ë¡ íŠ¸ëœì­ì…˜ ì²˜ë¦¬
     @Transactional
     @Override
     public void registerBook(BookVO book) {
-        // 1. µµ¼­ ±âº» Á¤º¸ µî·Ï (ÀÌ¶§ book °´Ã¼ ¾È¿¡ »õ·Î¿î book_id°¡ ¼¼ÆÃµÊ)
+        // 1. ë„ì„œ ê¸°ë³¸ ì •ë³´ ë“±ë¡ (ì´ë•Œ book ê°ì²´ ì•ˆì— ìƒˆë¡œìš´ book_idê°€ ì„¸íŒ…ë¨)
         mapper.insert(book);
         
-        // 2. ¼±ÅÃµÈ ÀúÀÚµéÀÌ ÀÖ´Ù¸é ´Ù´ë´Ù ¸ÅÇÎ Å×ÀÌºí¿¡ °¢°¢ µî·Ï
+        // 2. ì„ íƒëœ ì €ìë“¤ì´ ìˆë‹¤ë©´ ë‹¤ëŒ€ë‹¤ ë§¤í•‘ í…Œì´ë¸”ì— ê°ê° ë“±ë¡
         if (book.getAuthorIds() != null && !book.getAuthorIds().isEmpty()) {
             for (Long authorId : book.getAuthorIds()) {
                 mapper.insertBookAuthor(book.getBook_id(), authorId);
@@ -37,10 +37,10 @@ public class BookServiceImpl implements BookService{
 
     @Override
     public BookVO getBook(Long book_id) {
-        // 1. µµ¼­ ±âº» Á¤º¸ Á¶È¸
+        // 1. ë„ì„œ ê¸°ë³¸ ì •ë³´ ì¡°íšŒ
         BookVO book = mapper.read(book_id);
         
-        // 2. ÇØ´ç µµ¼­¿¡ ¿¬°áµÈ ÀúÀÚ ID ¸ñ·ÏÀ» Á¶È¸ÇÏ¿© VO¿¡ ´ã¾ÆÁÜ
+        // 2. í•´ë‹¹ ë„ì„œì— ì—°ê²°ëœ ì €ì ID ëª©ë¡ì„ ì¡°íšŒí•˜ì—¬ VOì— ë‹´ì•„ì¤Œ
         if (book != null) {
             book.setAuthorIds(mapper.getAuthorIdsByBook(book_id));
         }
@@ -50,13 +50,13 @@ public class BookServiceImpl implements BookService{
     @Transactional
     @Override
     public boolean modifyBook(BookVO book) {
-        // 1. µµ¼­ ±âº» Á¤º¸ ¾÷µ¥ÀÌÆ®
+        // 1. ë„ì„œ ê¸°ë³¸ ì •ë³´ ì—…ë°ì´íŠ¸
         boolean result = mapper.update(book) == 1;
         
-        // 2. ±âÁ¸ ÀúÀÚ ¸ÅÇÎ Á¤º¸ ¸ğµÎ »èÁ¦
+        // 2. ê¸°ì¡´ ì €ì ë§¤í•‘ ì •ë³´ ëª¨ë‘ ì‚­ì œ
         mapper.deleteBookAuthor(book.getBook_id());
         
-        // 3. È­¸é¿¡¼­ »õ·Î ³Ñ¾î¿Â ÀúÀÚ ¸ñ·ÏÀ¸·Î ´Ù½Ã ¸ÅÇÎ Á¤º¸ µî·Ï
+        // 3. í™”ë©´ì—ì„œ ìƒˆë¡œ ë„˜ì–´ì˜¨ ì €ì ëª©ë¡ìœ¼ë¡œ ë‹¤ì‹œ ë§¤í•‘ ì •ë³´ ë“±ë¡
         if (book.getAuthorIds() != null && !book.getAuthorIds().isEmpty()) {
             for (Long authorId : book.getAuthorIds()) {
                 mapper.insertBookAuthor(book.getBook_id(), authorId);
@@ -69,7 +69,7 @@ public class BookServiceImpl implements BookService{
     @Transactional
     @Override
     public boolean removeBook(Long book_id) {
-        // ÀÚ½Ä Å×ÀÌºí(¸ÅÇÎ) ¸ÕÀú »èÁ¦ ÈÄ ºÎ¸ğ Å×ÀÌºí(µµ¼­) »èÁ¦
+        // ìì‹ í…Œì´ë¸”(ë§¤í•‘) ë¨¼ì € ì‚­ì œ í›„ ë¶€ëª¨ í…Œì´ë¸”(ë„ì„œ) ì‚­ì œ
         mapper.deleteBookAuthor(book_id);
         return mapper.delete(book_id) == 1;
     }
@@ -91,8 +91,9 @@ public class BookServiceImpl implements BookService{
     
     @Override
     public List<BookVO> getBooksByCategory(Long categoryId) {
-        // bookMapper ¶Ç´Â bookDAO¸¦ ÅëÇØ Ä«Å×°í¸®º° µµ¼­ Á¶È¸ Äõ¸® È£Ãâ
+        // bookMapper ë˜ëŠ” bookDAOë¥¼ í†µí•´ ì¹´í…Œê³ ë¦¬ë³„ ë„ì„œ ì¡°íšŒ ì¿¼ë¦¬ í˜¸ì¶œ
         return mapper.getBooksByCategory(categoryId);
     }
 
 }
+

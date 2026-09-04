@@ -1,4 +1,4 @@
-package com.backoffice.model;
+ï»¿package com.backoffice.model;
 
 import java.util.Date;
 import java.util.List;
@@ -23,10 +23,11 @@ public class BookVO {
 	private String isbn;
 	private List<Long> authorIds;
 	
-	private String cover_image;  // »óÇ° Ç¥Áö ÀÌ¹ÌÁö °æ·Î/ url
+	private String cover_image;  // ìƒí’ˆ í‘œì§€ ì´ë¯¸ì§€ ê²½ë¡œ/ url
 	
-	private String publisher_name; 			// ÃâÆÇ»ç ÀÌ¸§
-	private String category_name;			// Ä«Å×°í¸® ÀÌ¸§
-	private Double average_rating;			// ÆòÁ¡¼ø »óÇ° Á¤·Ä¿ë Æò±Õ ÆòÁ¡
-	private Integer current_stock;			// »ó¼¼ ÆäÀÌÁö ½Ç½Ã°£ Àç°í Ç¥½Ã¿ë
+	private String publisher_name; 			// ì¶œíŒì‚¬ ì´ë¦„
+	private String category_name;			// ì¹´í…Œê³ ë¦¬ ì´ë¦„
+	private Double average_rating;			// í‰ì ìˆœ ìƒí’ˆ ì •ë ¬ìš© í‰ê·  í‰ì 
+	private Integer current_stock;			// ìƒì„¸ í˜ì´ì§€ ì‹¤ì‹œê°„ ì¬ê³  í‘œì‹œìš©
 }
+

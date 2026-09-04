@@ -1,4 +1,4 @@
-package com.backoffice.model;
+ï»¿package com.backoffice.model;
 
 import lombok.Data;
 
@@ -7,5 +7,6 @@ public class AuthorVO {
 	
 	private Long author_id;
 	private String name;
-	private String bio;		// CLOB Å¸ÀÔÀÌÁö¸¸ java¿¡¼­´Â String
+	private String bio;		// CLOB íƒ€ì…ì´ì§€ë§Œ javaì—ì„œëŠ” String
 }
+

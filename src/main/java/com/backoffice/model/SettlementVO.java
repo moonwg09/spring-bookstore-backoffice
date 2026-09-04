@@ -1,16 +1,16 @@
-package com.backoffice.model;
+ï»¿package com.backoffice.model;
 
 import lombok.Data;
 
 @Data
 public class SettlementVO {
-    private Long settlement_id;       // Á¤»ê °ü¸® ¹øÈ£ (PK)
-    private Long publisher_id;        // ÃâÆÇ»ç ¹øÈ£ (FK)
-    private String settlement_month;  // Á¤»ê ´ë»ó ¿ù (Æ÷¸Ë: 'YYYY-MM', ¿¹: '2026-07')
-    private int total_amount;         // Á¤»ê Áö±Ş ´ë»ó¾× (½ÇÁ¦ Áö±ŞÇÒ ±İ¾×)
-    private String status;            // Á¤»ê »óÅÂ ('READY': Á¤»ê´ë±â, 'PROCESSED': Á¤»ê¿Ï·á)
+    private Long settlement_id;       // ì •ì‚° ê´€ë¦¬ ë²ˆí˜¸ (PK)
+    private Long publisher_id;        // ì¶œíŒì‚¬ ë²ˆí˜¸ (FK)
+    private String settlement_month;  // ì •ì‚° ëŒ€ìƒ ì›” (í¬ë§·: 'YYYY-MM', ì˜ˆ: '2026-07')
+    private int total_amount;         // ì •ì‚° ì§€ê¸‰ ëŒ€ìƒì•¡ (ì‹¤ì œ ì§€ê¸‰í•  ê¸ˆì•¡)
+    private String status;            // ì •ì‚° ìƒíƒœ ('READY': ì •ì‚°ëŒ€ê¸°, 'PROCESSED': ì •ì‚°ì™„ë£Œ)
     
-    // JOIN Á¶È¸¿ë È­¸é Ãâ·Â ÇÊµå (index.html ´ë½Ãº¸µå Ãâ·Â¿ë)
-    private String publisher_name;    // ÃâÆÇ»ç¸í
-    private int total_purchase_amount;// ÃÑ ¸ÅÀÔ ¿ø°¡ (Âü°í¿ë Á¤»ê¾× ±âÁØ¾×)
+    // JOIN ì¡°íšŒìš© í™”ë©´ ì¶œë ¥ í•„ë“œ (index.html ëŒ€ì‹œë³´ë“œ ì¶œë ¥ìš©)
+    private String publisher_name;    // ì¶œíŒì‚¬ëª…
+    private int total_purchase_amount;// ì´ ë§¤ì… ì›ê°€ (ì°¸ê³ ìš© ì •ì‚°ì•¡ ê¸°ì¤€ì•¡)
 }

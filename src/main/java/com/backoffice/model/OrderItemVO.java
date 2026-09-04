@@ -1,17 +1,17 @@
-package com.backoffice.model;
+ï»¿package com.backoffice.model;
 
 import lombok.Data;
 
 @Data
 public class OrderItemVO {
-    private Long order_item_id;  // ÁÖ¹® »ó¼¼ ¹øÈ£ (PK)
-    private Long order_id;       // ÁÖ¹® ¸¶½ºÅÍ ¹øÈ£ (FK)
-    private Long book_id;        // µµ¼­ ¹øÈ£ (FK)
-    private Integer qty;             // ÁÖ¹® ¼ö·®
-    private Long price;           // ÁÖ¹® ´ç½Ã µµ¼­ ´Ü°¡
+    private Long order_item_id;  // ì£¼ë¬¸ ìƒì„¸ ë²ˆí˜¸ (PK)
+    private Long order_id;       // ì£¼ë¬¸ ë§ˆìŠ¤í„° ë²ˆí˜¸ (FK)
+    private Long book_id;        // ë„ì„œ ë²ˆí˜¸ (FK)
+    private Integer qty;             // ì£¼ë¬¸ ìˆ˜ëŸ‰
+    private Long price;           // ì£¼ë¬¸ ë‹¹ì‹œ ë„ì„œ ë‹¨ê°€
     
-    // JOIN Á¶È¸¿ë È­¸é Ãâ·Â ÇÊµå
-    private String book_title;   // µµ¼­ Á¦¸ñ
+    // JOIN ì¡°íšŒìš© í™”ë©´ ì¶œë ¥ í•„ë“œ
+    private String book_title;   // ë„ì„œ ì œëª©
     private String isbn;         // ISBN
     private String cover_image;
 }

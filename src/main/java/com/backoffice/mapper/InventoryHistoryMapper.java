@@ -1,15 +1,15 @@
-package com.backoffice.mapper;
+ï»¿package com.backoffice.mapper;
 
 import java.util.List;
 import com.backoffice.model.InventoryHistoryVO;
 
 public interface InventoryHistoryMapper {
-    // 1. Àç°í º¯µ¿ ³»¿ª ±â·Ï (INSERT ¿ÀÁ÷ 1°³)
+    // 1. ì¬ê³  ë³€ë™ ë‚´ì—­ ê¸°ë¡ (INSERT ì˜¤ì§ 1ê°œ)
     public int insertHistory(InventoryHistoryVO vo);
     
-    // 2. ÀüÃ¼ Àç°í º¯µ¿ È÷½ºÅä¸® Á¶È¸ (ÃÖ½Å¼ø Á¤·Ä)
+    // 2. ì „ì²´ ì¬ê³  ë³€ë™ íˆìŠ¤í† ë¦¬ ì¡°íšŒ (ìµœì‹ ìˆœ ì •ë ¬)
     public List<InventoryHistoryVO> selectHistoryList();
     
-    // 3. Æ¯Á¤ µµ¼­(book_id)ÀÇ ÀÔÃâ°í º¯µ¿ ÀÌ·Â¸¸ Á¶È¸
+    // 3. íŠ¹ì • ë„ì„œ(book_id)ì˜ ì…ì¶œê³  ë³€ë™ ì´ë ¥ë§Œ ì¡°íšŒ
     public List<InventoryHistoryVO> selectHistoryByBookId(Long book_id);
 }

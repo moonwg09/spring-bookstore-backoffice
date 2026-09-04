@@ -1,16 +1,16 @@
-package com.backoffice.service;
+ï»¿package com.backoffice.service;
 
 import java.util.List;
 import com.backoffice.model.InventoryHistoryVO;
 import com.backoffice.model.InventoryVO;
 
 public interface InventoryHistoryService {
-    // 1. [ÅëÇÕ ¹°·ù ·ÎÁ÷] ½ÇÀç°í Áõ°¨ + º¯µ¿ È÷½ºÅä¸® µ¿½Ã ±â·Ï (Æ®·£Àè¼Ç)
+    // 1. [í†µí•© ë¬¼ë¥˜ ë¡œì§] ì‹¤ì¬ê³  ì¦ê° + ë³€ë™ íˆìŠ¤í† ë¦¬ ë™ì‹œ ê¸°ë¡ (íŠ¸ëœì­ì…˜)
     public boolean addStockWithHistory(InventoryVO invVO, Long employee_id, String reason);
     
-    // 2. ÀüÃ¼ Àç°í º¯µ¿ È÷½ºÅä¸® Á¶È¸
+    // 2. ì „ì²´ ì¬ê³  ë³€ë™ íˆìŠ¤í† ë¦¬ ì¡°íšŒ
     public List<InventoryHistoryVO> getHistoryList();
     
-    // 3. Æ¯Á¤ µµ¼­(book_id)ÀÇ º¯µ¿ È÷½ºÅä¸® Á¶È¸
+    // 3. íŠ¹ì • ë„ì„œ(book_id)ì˜ ë³€ë™ íˆìŠ¤í† ë¦¬ ì¡°íšŒ
     public List<InventoryHistoryVO> getHistoryByBookId(Long book_id);
 }

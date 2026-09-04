@@ -1,4 +1,4 @@
-package com.backoffice.mapper;
+ï»¿package com.backoffice.mapper;
 
 import java.util.List;
 
@@ -7,19 +7,20 @@ import com.backoffice.model.OrderItemVO;
 
 public interface CustomerOrderMapper {
 	
-	// 1. ÁÖ¹® ¸¶½ºÅÍ µî·Ï
+	// 1. ì£¼ë¬¸ ë§ˆìŠ¤í„° ë“±ë¡
 	public int insertCustomerOrder(CustomerOrderVO vo);
 	
-	// 2. ÁÖ¹® »ó¼¼ Ç°¸ñ µî·Ï
+	// 2. ì£¼ë¬¸ ìƒì„¸ í’ˆëª© ë“±ë¡
 	public int insertOrderItem(OrderItemVO itemVO);
 	
-	// 3. ÁÖ¹® ¸¶½ºÅÍ ÀüÃ¼ ¸ñ·Ï Á¶È¸
+	// 3. ì£¼ë¬¸ ë§ˆìŠ¤í„° ì „ì²´ ëª©ë¡ ì¡°íšŒ
 	public List<CustomerOrderVO> selectCustomerOrderList();
 	
-	// 4. Æ¯Á¤ ÁÖ¹®(order_id)¿¡ ¼ÓÇÑ »ó¼¼ Ç°¸ñ ¸ñ·Ï Á¶È¸
+	// 4. íŠ¹ì • ì£¼ë¬¸(order_id)ì— ì†í•œ ìƒì„¸ í’ˆëª© ëª©ë¡ ì¡°íšŒ
 	public List<OrderItemVO> selectOrderItemsByOrderId(Long order_id);
 	
-	// 5. ÁÖ¹® »óÅÂ º¯°æ('pending'=> 'completed' µî)
+	// 5. ì£¼ë¬¸ ìƒíƒœ ë³€ê²½('pending'=> 'completed' ë“±)
 	public int updateOrderStatus(CustomerOrderVO vo);
 
 }
+

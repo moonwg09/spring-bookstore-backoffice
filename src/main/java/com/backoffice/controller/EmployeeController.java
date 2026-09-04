@@ -1,4 +1,4 @@
-package com.backoffice.controller;
+ï»¿package com.backoffice.controller;
 
 import javax.servlet.http.HttpSession;
 
@@ -27,7 +27,7 @@ public class EmployeeController {
     
     @GetMapping("/login")
     public void loginPage() {
-    	log.info("--- [ÄÁÆ®·Ñ·¯] ·Î±×ÀÎ ÆäÀÌÁö ÀÌµ¿ --- ");
+    	log.info("--- [ì»¨íŠ¸ë¡¤ëŸ¬] ë¡œê·¸ì¸ í˜ì´ì§€ ì´ë™ --- ");
     }
     
     @PostMapping("/login")
@@ -35,29 +35,30 @@ public class EmployeeController {
     					  @RequestParam("password") String password,
     					  HttpSession session,
     					  RedirectAttributes rttr) {
-    	log.info("--- [ÄÁÆ®·Ñ·¯] ·Î±×ÀÎ Ã³¸® ¿äÃ» ID: {}---", loginId);
+    	log.info("--- [ì»¨íŠ¸ë¡¤ëŸ¬] ë¡œê·¸ì¸ ì²˜ë¦¬ ìš”ì²­ ID: {}---", loginId);
     	
     	EmployeeVO vo = employeeService.login(loginId, password);
     	
     	if(vo != null) {
     		session.setAttribute("loginUser", vo);
-    		log.info("[ÄÁÆ®·Ñ·¯] ·Î±×ÀÎ ¼º°ø! ¸ŞÀÎÆäÀÌÁö·Î ¸®´ÙÀÌ·ºÆ®");
+    		log.info("[ì»¨íŠ¸ë¡¤ëŸ¬] ë¡œê·¸ì¸ ì„±ê³µ! ë©”ì¸í˜ì´ì§€ë¡œ ë¦¬ë‹¤ì´ë ‰íŠ¸");
     		return "redirect:/main";
     	} else {
-    		rttr.addFlashAttribute("errorMsg", "¾ÆÀÌµğ ¶Ç´Â ºñ¹Ğ¹øÈ£°¡ ÀÏÄ¡ÇÏÁö ¾Ê½À´Ï´Ù.");
-    		log.warn("[ÄÁÆ®·Ñ·¯] ·Î±×ÀÎ ½ÇÆĞ! ´Ù½Ã ·Î±×ÀÎ ÆäÀÌÁö·Î ÀÌµ¿");
+    		rttr.addFlashAttribute("errorMsg", "ì•„ì´ë”” ë˜ëŠ” ë¹„ë°€ë²ˆí˜¸ê°€ ì¼ì¹˜í•˜ì§€ ì•ŠìŠµë‹ˆë‹¤.");
+    		log.warn("[ì»¨íŠ¸ë¡¤ëŸ¬] ë¡œê·¸ì¸ ì‹¤íŒ¨! ë‹¤ì‹œ ë¡œê·¸ì¸ í˜ì´ì§€ë¡œ ì´ë™");
     		return "redirect:/employee/login";
     	}
     }
     
     @GetMapping("/logout")
     public String logoutDo(HttpSession session) {
-    	log.info("--- [EmployeeController] ·Î±×¾Æ¿ô ¿äÃ» °¨Áö ---");
+    	log.info("--- [EmployeeController] ë¡œê·¸ì•„ì›ƒ ìš”ì²­ ê°ì§€ ---");
     	
     	session.invalidate();
     	
-    	log.info("¼¼¼Ç ÆÄ±â ¿Ï·á: ·Î±×ÀÎ ÆäÀÌÁö·Î ÀÌµ¿");
+    	log.info("ì„¸ì…˜ íŒŒê¸° ì™„ë£Œ: ë¡œê·¸ì¸ í˜ì´ì§€ë¡œ ì´ë™");
     	return "redirect:/employee/login";
     }
 
 }
+

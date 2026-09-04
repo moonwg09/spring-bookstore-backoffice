@@ -1,4 +1,4 @@
-package com.backoffice.mapper;
+ï»¿package com.backoffice.mapper;
 
 import java.util.List;
 
@@ -6,19 +6,20 @@ import com.backoffice.model.CartVO;
 
 public interface CartMapper {
 	
-	// Àå¹Ù±¸´Ï ´ã±â(ÀÌ¹Ì ´ã±ä Ã¥ÀÌ¸é ¼ö·® Áõ°¡, ¾Æ´Ï¸é ½Å±Ô µî·Ï Ã³¸® °¡´É)
+	// ì¥ë°”êµ¬ë‹ˆ ë‹´ê¸°(ì´ë¯¸ ë‹´ê¸´ ì±…ì´ë©´ ìˆ˜ëŸ‰ ì¦ê°€, ì•„ë‹ˆë©´ ì‹ ê·œ ë“±ë¡ ì²˜ë¦¬ ê°€ëŠ¥)
 	public int insertCart(CartVO cart);
 	
-	// Æ¯Á¤ È¸¿øÀÇ Àå¹Ù±¸´Ï ¸ñ·Ï Á¶È¸(µµ¼­ Á¤º¸ Á¶ÀÎ)
+	// íŠ¹ì • íšŒì›ì˜ ì¥ë°”êµ¬ë‹ˆ ëª©ë¡ ì¡°íšŒ(ë„ì„œ ì •ë³´ ì¡°ì¸)
 	public List<CartVO> getCartList(Long member_id);
 	
-	// Àå¹Ù±¸´Ï ¼ö·® º¯°æ
+	// ì¥ë°”êµ¬ë‹ˆ ìˆ˜ëŸ‰ ë³€ê²½
 	public int updateCartQty(CartVO cart);
 	
-	// Àå¹Ù±¸´Ï °³º° Ç×¸ñ »èÁ¦
+	// ì¥ë°”êµ¬ë‹ˆ ê°œë³„ í•­ëª© ì‚­ì œ
 	public int deleteCart(Long cart_id);
 	
-	// µ¿ÀÏÇÑ È¸¿øÀÌ °°Àº Ã¥À» ÀÌ¹Ì ´ã¾Ò´ÂÁö È®ÀÎ (Áßº¹ Ã¼Å©¿ë)
+	// ë™ì¼í•œ íšŒì›ì´ ê°™ì€ ì±…ì„ ì´ë¯¸ ë‹´ì•˜ëŠ”ì§€ í™•ì¸ (ì¤‘ë³µ ì²´í¬ìš©)
 	public CartVO checkCart(CartVO cart);
 
 }
+

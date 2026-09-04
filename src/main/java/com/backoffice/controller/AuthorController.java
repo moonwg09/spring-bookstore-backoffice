@@ -1,4 +1,4 @@
-package com.backoffice.controller;
+ï»¿package com.backoffice.controller;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -18,47 +18,47 @@ public class AuthorController {
 	@Autowired
 	private AuthorService authorService;
 	
-	// 1. ÀúÀÚ ¸ñ·Ï ÆäÀÌÁö ÀÌµ¿
-    @LogActivity("ÀúÀÚ ¸ñ·Ï Á¶È¸ È­¸é Á¢¼Ó")
+	// 1. ì €ì ëª©ë¡ í˜ì´ì§€ ì´ë™
+    @LogActivity("ì €ì ëª©ë¡ ì¡°íšŒ í™”ë©´ ì ‘ì†")
     @GetMapping("/list")
     public String authorList(Model model) {
         model.addAttribute("list", authorService.getAuthorList());
         return "admin/author/list";
     }
 
-    // 2. ÀúÀÚ µî·Ï È­¸éÀ¸·Î ÀÌµ¿ (GET)
-    @LogActivity("ÀúÀÚ µî·Ï È­¸é Á¢¼Ó")
+    // 2. ì €ì ë“±ë¡ í™”ë©´ìœ¼ë¡œ ì´ë™ (GET)
+    @LogActivity("ì €ì ë“±ë¡ í™”ë©´ ì ‘ì†")
     @GetMapping("/register")
     public String registerForm() {
         return "admin/author/register";
     }
 
-    // 3. ½ÇÁ¦ ÀúÀÚ µî·Ï Ã³¸® (POST)
-    @LogActivity("»õ ÀúÀÚ DB µî·Ï Ã³¸®")
+    // 3. ì‹¤ì œ ì €ì ë“±ë¡ ì²˜ë¦¬ (POST)
+    @LogActivity("ìƒˆ ì €ì DB ë“±ë¡ ì²˜ë¦¬")
     @PostMapping("/register")
     public String registerProcess(AuthorVO author) {
         authorService.registerAuthor(author);
         return "redirect:/admin/author/list";
     }
 
-    // 4. ÀúÀÚ ¼öÁ¤ È­¸éÀ¸·Î ÀÌµ¿ (GET)
-    @LogActivity("ÀúÀÚ ¼öÁ¤ È­¸é Á¢¼Ó")
+    // 4. ì €ì ìˆ˜ì • í™”ë©´ìœ¼ë¡œ ì´ë™ (GET)
+    @LogActivity("ì €ì ìˆ˜ì • í™”ë©´ ì ‘ì†")
     @GetMapping("/modify")
     public String modifyForm(Long author_id, Model model) {
         model.addAttribute("author", authorService.getAuthor(author_id));
         return "admin/author/modify";
     }
 
-    // 5. ½ÇÁ¦ ÀúÀÚ ¼öÁ¤ Ã³¸® (POST)
-    @LogActivity("ÀúÀÚ Á¤º¸ ¼öÁ¤ Ã³¸®")
+    // 5. ì‹¤ì œ ì €ì ìˆ˜ì • ì²˜ë¦¬ (POST)
+    @LogActivity("ì €ì ì •ë³´ ìˆ˜ì • ì²˜ë¦¬")
     @PostMapping("/modify")
     public String modifyProcess(AuthorVO author) {
         authorService.modifyAuthor(author);
         return "redirect:/admin/author/list";
     }
 
-    // 6. ÀúÀÚ »èÁ¦ Ã³¸® (POST)
-    @LogActivity("ÀúÀÚ »èÁ¦ Ã³¸®")
+    // 6. ì €ì ì‚­ì œ ì²˜ë¦¬ (POST)
+    @LogActivity("ì €ì ì‚­ì œ ì²˜ë¦¬")
     @PostMapping("/delete")
     public String deleteProcess(Long author_id) {
         authorService.removeAuthor(author_id);
@@ -66,3 +66,4 @@ public class AuthorController {
     }
 
 }
+

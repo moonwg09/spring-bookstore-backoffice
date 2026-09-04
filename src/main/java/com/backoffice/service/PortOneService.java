@@ -1,10 +1,10 @@
-package com.backoffice.service;
+﻿package com.backoffice.service;
 
 import com.backoffice.model.PortOnePaymentVO;
 
 public interface PortOneService {
 	
-	// PortOne REST API Access Token �߱�
+	// PortOne REST API Access Token 발급
 	String getAccessToken();
 	
 	PortOnePaymentVO getPayment(String impUid);
@@ -12,3 +12,4 @@ public interface PortOneService {
 	boolean cancelPayment(String impUid, String reason);
 
 }
+

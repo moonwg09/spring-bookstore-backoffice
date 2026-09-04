@@ -1,4 +1,4 @@
-package com.backoffice.service;
+ï»¿package com.backoffice.service;
 
 import java.util.List;
 
@@ -7,16 +7,16 @@ import com.backoffice.model.SalesRankVO;
 import com.backoffice.model.SettlementVO;
 
 public interface SettlementService {
-    // 1. ¿ùº° ÃâÆÇ»ç ¸ÅÀÔ Á¤»ê µ¥ÀÌÅÍ »ı¼º ¹× µî·Ï
+    // 1. ì›”ë³„ ì¶œíŒì‚¬ ë§¤ì… ì •ì‚° ë°ì´í„° ìƒì„± ë° ë“±ë¡
     public boolean registerSettlement(SettlementVO vo);
     
-    // 2. ÀüÃ¼ Á¤»ê ³»¿ª ¸ñ·Ï Á¶È¸ (´ë½Ãº¸µå Ãâ·Â¿ë)
+    // 2. ì „ì²´ ì •ì‚° ë‚´ì—­ ëª©ë¡ ì¡°íšŒ (ëŒ€ì‹œë³´ë“œ ì¶œë ¥ìš©)
     public List<SettlementVO> getSettlementList();
     
-    // 3. Æ¯Á¤ ¿ù(YYYY-MM) ±âÁØ Á¤»ê ³»¿ª Á¶È¸
+    // 3. íŠ¹ì • ì›”(YYYY-MM) ê¸°ì¤€ ì •ì‚° ë‚´ì—­ ì¡°íšŒ
     public List<SettlementVO> getSettlementByMonth(String month);
     
-    // 4. Á¤»ê ´ë±İ Áö±Ş È®Á¤ ¹× ¸¶°¨ Ã³¸® ('READY' -> 'PROCESSED')
+    // 4. ì •ì‚° ëŒ€ê¸ˆ ì§€ê¸‰ í™•ì • ë° ë§ˆê° ì²˜ë¦¬ ('READY' -> 'PROCESSED')
     public boolean processSettlement(Long settlement_id);
     
     public DashboardVO getDashboardKPI();

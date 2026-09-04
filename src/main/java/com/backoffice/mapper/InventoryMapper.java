@@ -1,4 +1,4 @@
-package com.backoffice.mapper;
+ï»¿package com.backoffice.mapper;
 
 import java.util.List;
 
@@ -6,19 +6,20 @@ import com.backoffice.model.InventoryVO;
 
 public interface InventoryMapper {
 	
-	// 1. Àç°í ÃÊ±â µî·Ï (½Å±Ô µµ¼­ µî·Ï ½Ã ¶Ç´Â ÃÖÃÊ ÀÔ°í ½Ã Àç°í ·¹ÄÚµå »ı¼º)
+	// 1. ì¬ê³  ì´ˆê¸° ë“±ë¡ (ì‹ ê·œ ë„ì„œ ë“±ë¡ ì‹œ ë˜ëŠ” ìµœì´ˆ ì…ê³  ì‹œ ì¬ê³  ë ˆì½”ë“œ ìƒì„±)
     public int insertInventory(InventoryVO vo);
     
-    // 2. ÀüÃ¼ Àç°í ¸ñ·Ï Á¶È¸ (µµ¼­¸í, ISBN µî JOIN)
+    // 2. ì „ì²´ ì¬ê³  ëª©ë¡ ì¡°íšŒ (ë„ì„œëª…, ISBN ë“± JOIN)
     public List<InventoryVO> selectInventoryList();
     
-    // 3. Æ¯Á¤ µµ¼­(book_id)ÀÇ Àç°í ´Ü°Ç Á¶È¸
+    // 3. íŠ¹ì • ë„ì„œ(book_id)ì˜ ì¬ê³  ë‹¨ê±´ ì¡°íšŒ
     public InventoryVO selectInventoryByBookId(Long book_id);
     
-    // 4. Àç°í ¼ö·® Áõ°¨ (ÀÔ°í ½Ã +¼ö·®, Ãâ°í/ÆÄ¼Õ ½Ã -¼ö·® ´õÇÏ±â)
+    // 4. ì¬ê³  ìˆ˜ëŸ‰ ì¦ê° (ì…ê³  ì‹œ +ìˆ˜ëŸ‰, ì¶œê³ /íŒŒì† ì‹œ -ìˆ˜ëŸ‰ ë”í•˜ê¸°)
     public int updateAddStock(InventoryVO vo);
     
-    // 5. ¾ÈÀü Àç°í ¼³Á¤ º¯°æ
+    // 5. ì•ˆì „ ì¬ê³  ì„¤ì • ë³€ê²½
     public int updateSafetyStock(InventoryVO vo);
 
 }
+

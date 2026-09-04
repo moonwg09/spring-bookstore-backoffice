@@ -1,4 +1,4 @@
-package com.backoffice.service;
+﻿package com.backoffice.service;
 
 import java.util.List;
 
@@ -17,3 +17,4 @@ public interface AuthorService {
 	public boolean removeAuthor(Long author_id);
 
 }
+

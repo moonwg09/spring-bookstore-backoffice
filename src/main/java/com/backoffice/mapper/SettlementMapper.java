@@ -1,4 +1,4 @@
-package com.backoffice.mapper;
+ï»¿package com.backoffice.mapper;
 
 import java.util.List;
 
@@ -7,19 +7,19 @@ import com.backoffice.model.SalesRankVO;
 import com.backoffice.model.SettlementVO;
 
 public interface SettlementMapper {
-    // 1. ¿ùº° ÃâÆÇ»ç Á¤»ê µ¥ÀÌÅÍ ½Å±Ô »ı¼º (INSERT)
+    // 1. ì›”ë³„ ì¶œíŒì‚¬ ì •ì‚° ë°ì´í„° ì‹ ê·œ ìƒì„± (INSERT)
     public int insertSettlement(SettlementVO vo);
     
-    // 2. ÀüÃ¼ Á¤»ê ³»¿ª ¸ñ·Ï Á¶È¸ (ÃâÆÇ»ç¸í JOIN, ÃÖ½Å ¿ù ±âÁØ Á¤·Ä)
+    // 2. ì „ì²´ ì •ì‚° ë‚´ì—­ ëª©ë¡ ì¡°íšŒ (ì¶œíŒì‚¬ëª… JOIN, ìµœì‹  ì›” ê¸°ì¤€ ì •ë ¬)
     public List<SettlementVO> selectSettlementList();
     
-    // 3. Æ¯Á¤ ¿ù(YYYY-MM)ÀÇ ÃâÆÇ»çº° Á¤»ê ¸ñ·Ï Á¶È¸
+    // 3. íŠ¹ì • ì›”(YYYY-MM)ì˜ ì¶œíŒì‚¬ë³„ ì •ì‚° ëª©ë¡ ì¡°íšŒ
     public List<SettlementVO> selectSettlementByMonth(String settlement_month);
     
-    // 4. Á¤»ê ¸¶°¨ »óÅÂ º¯°æ ('READY' => 'PROCESSED')
+    // 4. ì •ì‚° ë§ˆê° ìƒíƒœ ë³€ê²½ ('READY' => 'PROCESSED')
     public int updateSettlementStatus(SettlementVO vo);
     
- // ±âÁ¸ ÄÚµå ¾Æ·¡¿¡ Ãß°¡
+ // ê¸°ì¡´ ì½”ë“œ ì•„ë˜ì— ì¶”ê°€
     public DashboardVO selectDashboardKPI();
     
     public List<SalesRankVO> selectTop3SalesRanking();

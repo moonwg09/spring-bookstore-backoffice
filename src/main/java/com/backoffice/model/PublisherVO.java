@@ -1,4 +1,4 @@
-package com.backoffice.model;
+﻿package com.backoffice.model;
 
 import lombok.Data;
 
@@ -9,3 +9,4 @@ public class PublisherVO {
 	private String name;
 	private String contact;
 }
+

@@ -1,4 +1,4 @@
-package com.backoffice.model;
+﻿package com.backoffice.model;
 
 import lombok.Data;
 
@@ -18,3 +18,4 @@ public class EmployeeVO {
 	
 
 }
+
