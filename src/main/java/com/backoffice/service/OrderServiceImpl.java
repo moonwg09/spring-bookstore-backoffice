@@ -27,13 +27,14 @@ public class OrderServiceImpl implements OrderService {
             totalAmount += (long) cart.getPrice() * cart.getQuantity();
         }
 
-        if (loginUser.getBalance() < totalAmount) {
-            return false; // 잔액 부족
-        }
+        
 
         // 2. 주문 마스터 등록
         order.setMember_id(loginUser.getMember_Id());
         order.setTotal_amount(totalAmount);
+        order.setStatus("COMPLETED");
+        
+        // 주문 마스터 등록
         orderMapper.insertOrder(order);
 
         // 3. 주문 상세 등록 및 재고 차감
@@ -48,17 +49,10 @@ public class OrderServiceImpl implements OrderService {
             orderMapper.updateInventoryStock(item);
         }
 
-        // 4. 회원 충전금 차감
-        MemberVO balanceUpdateUser = new MemberVO();
-        balanceUpdateUser.setMember_Id(loginUser.getMember_Id());
-        balanceUpdateUser.setBalance(totalAmount);
-        orderMapper.updateMemberBalance(balanceUpdateUser);
 
         // 5. 장바구니 비우기
         orderMapper.clearCart(loginUser.getMember_Id());
 
-        // 6. 세션 회원 충전금 동기화 반영
-        loginUser.setBalance(loginUser.getBalance() - totalAmount);
 
         return true;
     }

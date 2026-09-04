@@ -1,9 +1,6 @@
 package com.backoffice.controller;
 
-import java.util.ArrayList;
-import java.util.HashMap;
 import java.util.List;
-import java.util.Map;
 
 import javax.servlet.http.HttpSession;
 
@@ -23,10 +20,12 @@ import com.backoffice.model.CartVO;
 import com.backoffice.model.CategoryVO;
 import com.backoffice.model.CustomerOrderVO;
 import com.backoffice.model.MemberVO;
+import com.backoffice.model.PortOnePaymentVO;
 import com.backoffice.service.BookService;
 import com.backoffice.service.CartService;
 import com.backoffice.service.CategoryService;
 import com.backoffice.service.OrderService;
+import com.backoffice.service.PortOneService;
 import com.backoffice.service.ReviewService;
 
 @Controller
@@ -43,6 +42,8 @@ public class ShopController {
     private ReviewService reviewService;
     @Autowired
     private CategoryService categoryService;
+    @Autowired
+    private PortOneService portOneService;
     
 
 
@@ -133,34 +134,168 @@ public class ShopController {
  // 7. 주문/결제 페이지 진입
     @GetMapping("/order")
     public String orderPage(HttpSession session, Model model) {
-        MemberVO loginUser = (MemberVO) session.getAttribute("loginUser");
+
+        MemberVO loginUser =
+                (MemberVO) session.getAttribute("loginUser");
+
         if (loginUser == null) {
             return "redirect:/shop/login";
         }
-        
-        List<CartVO> cartList = cartService.getCartList(loginUser.getMember_Id());
+
+        List<CartVO> cartList =
+                cartService.getCartList(loginUser.getMember_Id());
+
+        long totalSum = 0;
+
+        for (CartVO cart : cartList) {
+            totalSum +=
+                    (long) cart.getPrice()
+                    * cart.getQuantity();
+        }
+
         model.addAttribute("cartList", cartList);
+        model.addAttribute("totalSum", totalSum);
+
         return "shop/order";
     }
 
     // 8. 결제 및 주문 완료 처리 (POST)
     @PostMapping("/order/pay")
     @ResponseBody
-    public String orderPayProcess(@RequestBody CustomerOrderVO order, HttpSession session) {
-        MemberVO loginUser = (MemberVO) session.getAttribute("loginUser");
-        if (loginUser == null) {
+    public String orderPayProcess(
+            @RequestBody CustomerOrderVO order,
+            HttpSession session) {
+
+    	System.out.println("order imp_uid = [" + order.getImp_uid() + "]");
+    	System.out.println("order merchant_uid = [" + order.getMerchant_uid() + "]");
+        PortOnePaymentVO payment = null;
+
+        try {
+
+            // 1. PortOne 결제 정보 조회
+            payment =
+                    portOneService.getPayment(order.getImp_uid());
+
+            if (payment == null) {
+                return "FAIL";
+            }
+
+            if (!"paid".equals(payment.getStatus())) {
+                return "FAIL";
+            }
+
+            // 2. 로그인 확인
+            MemberVO loginUser =
+                    (MemberVO) session.getAttribute("loginUser");
+
+            if (loginUser == null) {
+
+                portOneService.cancelPayment(
+                        payment.getImp_uid(),
+                        "로그인 정보 없음"
+                );
+
+                return "REFUNDED";
+            }
+
+            // 3. 장바구니 조회
+            List<CartVO> cartList =
+                    cartService.getCartList(loginUser.getMember_Id());
+
+            if (cartList == null || cartList.isEmpty()) {
+
+                portOneService.cancelPayment(
+                        payment.getImp_uid(),
+                        "장바구니 정보 없음"
+                );
+
+                return "REFUNDED";
+            }
+
+            // 4. 서버 주문 금액 계산
+            long serverTotalAmount = 0;
+
+            for (CartVO cart : cartList) {
+                serverTotalAmount +=
+                        (long) cart.getPrice()
+                        * cart.getQuantity();
+            }
+
+            // 5. merchant_uid 검증
+            if (order.getMerchant_uid() == null
+                    || !order.getMerchant_uid()
+                            .equals(payment.getMerchant_uid())) {
+
+                portOneService.cancelPayment(
+                        payment.getImp_uid(),
+                        "주문번호 불일치"
+                );
+
+                return "REFUNDED";
+            }
+
+            // 6. 금액 검증
+            if (payment.getAmount() == null
+                    || payment.getAmount().longValue()
+                            != serverTotalAmount) {
+
+                portOneService.cancelPayment(
+                        payment.getImp_uid(),
+                        "결제 금액 불일치"
+                );
+
+                return "REFUNDED";
+            }
+
+            // 7. 주문 데이터 설정
+            order.setTotal_amount(serverTotalAmount);
+            order.setImp_uid(payment.getImp_uid());
+            order.setMerchant_uid(payment.getMerchant_uid());
+            order.setStatus("COMPLETED");
+
+            // 8. DB 주문 처리
+            try {
+
+                orderService.processOrder(
+                        order,
+                        loginUser,
+                        cartList
+                );
+
+                return "SUCCESS";
+
+            } catch (Exception e) {
+
+                e.printStackTrace();
+
+                portOneService.cancelPayment(
+                        payment.getImp_uid(),
+                        "주문 처리 실패"
+                );
+
+                return "REFUNDED";
+            }
+
+        } catch (Exception e) {
+
+            e.printStackTrace();
+
+            // PortOne 결제 정보를 조회한 이후라면 취소 시도
+            if (payment != null
+                    && "paid".equals(payment.getStatus())) {
+
+                try {
+                    portOneService.cancelPayment(
+                            payment.getImp_uid(),
+                            "서버 처리 오류"
+                    );
+                } catch (Exception cancelException) {
+                    cancelException.printStackTrace();
+                }
+            }
+
             return "FAIL";
         }
-        
-        List<CartVO> cartList = cartService.getCartList(loginUser.getMember_Id());
-        if (cartList == null || cartList.isEmpty()) {
-            return "EMPTY";
-        }
-
-        // 주문 처리 서비스 호출 (재고 차감, 장바구니 비우기, 주문 테이블 저장)
-        boolean success = orderService.processOrder(order, loginUser, cartList);
-        
-        return success ? "SUCCESS" : "FAIL";
     }
 
     // 9. 주문 완료 성공 화면
@@ -212,6 +347,7 @@ public class ShopController {
         model.addAttribute("categoryList", categoryList);
         return "shop/main";
     }
+    
     
 
 }

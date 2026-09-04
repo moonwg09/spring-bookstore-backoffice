@@ -7,11 +7,13 @@
         http://www.springframework.org/schema/context http://www.springframework.org/schema/context/spring-context.xsd
         http://mybatis.org/schema/mybatis-spring http://mybatis.org/schema/mybatis-spring-1.2.xsd">
     
+    <context:property-placeholder system-properties-mode="OVERRIDE"/>
+    
     <bean id="hikariConfig" class="com.zaxxer.hikari.HikariConfig">
         <property name="driverClassName" value="oracle.jdbc.OracleDriver"/>
-        <property name="jdbcUrl" value="jdbc:oracle:thin:@localhost:1521:free"/>
-        <property name="username" value="c##backoffice"/> 
-        <property name="password" value="system"/> 
+        <property name="jdbcUrl" value="${DB_URL:jdbc:oracle:thin:@localhost:1521:free}"/>
+        <property name="username" value="${DB_USERNAME:c##backoffice}"/> 
+        <property name="password" value="${DB_PASSWORD:system}"/> 
     </bean>
     
     <bean id="dataSource" class="com.zaxxer.hikari.HikariDataSource" destroy-method="close">

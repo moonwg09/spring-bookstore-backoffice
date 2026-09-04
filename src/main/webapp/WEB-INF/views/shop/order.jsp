@@ -5,10 +5,10 @@
 <html lang="ko">
 <head>
 <meta charset="UTF-8">
-<title>VBook - 주문/결제 (포트원)</title>
+<title>MBook - 주문/결제 (포트원)</title>
 <!-- jQuery 및 포트원 결제 SDK 스크립트 -->
 <script type="text/javascript" src="https://code.jquery.com/jquery-1.12.4.min.js"></script>
-<script type="text/javascript" src="https://cdn.iamport.kr/js/iamport.payment-1.2.0.js"></script>
+<script type="text/javascript" src="https://cdn.iamport.kr/v1/iamport.js"></script>
 <style>
     body { font-family: 'Malgun Gothic'; background: #f8f9fa; padding: 40px; }
     .order-container { max-width: 900px; margin: 0 auto; background: #fff; padding: 40px; border-radius: 8px; box-shadow: 0 4px 15px rgba(0,0,0,0.05); }
@@ -22,39 +22,109 @@
     .btn-pay:hover { background: #218838; }
 </style>
 <script>
-    function requestPay() {
-        var IMP = window.IMP; 
-        IMP.init("imp인증가맹점식별코드"); // 포트원에서 발급받은 가맹점 식별코드 입력
+function requestPay() {
+	
+	console.log("Mbbok portone click");
 
-        IMP.request_pay({
-            pg: "html5_inicis", // PG사 (예: 이니시스)
-            pay_method: "card", // 결제 수단 (신용카드)
-            merchant_uid: "merchant_" + new Date().getTime(), // 주문 번호 (고유값)
-            name: "VBook 도서 주문", // 주문명
-            amount: ${totalSum}, // 결제 총 금액
-            buyer_email: "${sessionScope.loginUser.email}",
-            buyer_name: "${sessionScope.loginUser.name}",
-        }, function (rsp) {
-            if (rsp.success) {
-                // 결제 성공 시 서버로 주문 완료 처리 요청 전송
-                jQuery.ajax({
-                    url: "${pageContext.request.contextPath}/shop/order/pay",
-                    method: "POST",
-                    contentType: "application/json",
-                    data: JSON.stringify({
-                        imp_uid: rsp.imp_uid,
-                        merchant_uid: rsp.merchant_uid,
-                        total_amount: rsp.paid_amount
-                    })
-                }).done(function (data) {
+    var IMP = window.IMP;
+
+    IMP.init("imp04328375");
+
+    var merchantUid =
+        "merchant_" + new Date().getTime();
+
+    IMP.request_pay({
+
+        channelKey: "channel-key-8fdbdfa7-1ae5-4386-8823-c22d89517778",
+        pay_method: "card",
+
+        merchant_uid: merchantUid,
+
+        name: "MBook 도서 주문",
+
+        amount: ${totalSum},
+
+        buyer_email:
+            "${sessionScope.loginUser.email}",
+
+        buyer_name:
+            "${sessionScope.loginUser.name}"
+
+    }, function (rsp) {
+
+        if (rsp.success) {
+
+            jQuery.ajax({
+
+                url:
+                    "${pageContext.request.contextPath}/shop/order/pay",
+
+                method: "POST",
+
+                contentType: "application/json",
+
+                data: JSON.stringify({
+
+                    imp_uid: rsp.imp_uid,
+                    merchant_uid: rsp.merchant_uid
+
+                })
+
+            }).done(function (data) {
+            	
+            	console.log("order/pay response =", data);
+
+                if (data === "SUCCESS") {
+
                     alert("결제가 성공적으로 완료되었습니다!");
-                    location.href = "${pageContext.request.contextPath}/shop/order/success";
-                });
-            } else {
-                alert("결제에 실패하였습니다. 에러 내용: " + rsp.error_msg);
-            }
-        });
-    }
+
+                    location.href =
+                    	"${pageContext.request.contextPath}/shop/main";
+
+                } else if (data === "AMOUNT_MISMATCH") {
+
+                    alert("결제 금액 검증에 실패했습니다.");
+
+                } else if (data === "MERCHANT_UID_MISMATCH") {
+
+                    alert("주문번호 검증에 실패했습니다.");
+
+                } else if (data === "PAYMENT_NOT_PAID") {
+
+                    alert("정상적으로 완료된 결제가 아닙니다.");
+
+                } else if (data === "PAYMENT_NOT_FOUND") {
+
+                    alert("결제 정보를 확인할 수 없습니다.");
+
+                } else if (data === "EMPTY") {
+
+                    alert("장바구니에 상품이 없습니다.");
+
+                } else if (data === "PAYMENT_VERIFY_ERROR") {
+
+                    alert("결제 검증 중 오류가 발생했습니다.");
+
+                } else {
+
+                    alert("주문 처리에 실패했습니다.");
+                }
+
+            }).fail(function () {
+
+                alert("서버와 통신 중 오류가 발생했습니다.");
+
+            });
+
+        } else {
+
+            alert(
+                "결제가 취소되었거나 실패했습니다.\n"
+                + rsp.error_msg
+            );
+        }
+    });
+}
 </script>
 </head>
 <body>
@@ -63,27 +133,41 @@
         
         <div class="section-title">주문 상품 정보</div>
         <table>
-            <thead>
-                <tr>
-                    <th>상품명</th>
-                    <th>판매가</th>
-                    <th>수량</th>
-                    <th>합계</th>
-                </tr>
-            </thead>
-            <tbody>
-                <c:set var="totalSum" value="0"/>
-                <c:forEach items="${cartList}" var="cart">
-                <tr>
-                    <td style="text-align: left; padding-left: 20px;">${cart.title}</td>
-                    <td><fmt:formatNumber value="${cart.price}" pattern="#,###"/>원</td>
-                    <td>${cart.quantity}권</td>
-                    <td style="font-weight: bold; color: #007bff;"><fmt:formatNumber value="${cart.price * cart.quantity}" pattern="#,###"/>원</td>
-                </tr>
-                <c:set var="totalSum" value="${totalSum + (cart.price * cart.quantity)}"/>
-                </c:forEach>
-            </tbody>
-        </table>
+    <thead>
+        <tr>
+            <th>상품명</th>
+            <th>판매가</th>
+            <th>수량</th>
+            <th>합계</th>
+        </tr>
+    </thead>
+
+    <tbody>
+        <c:forEach items="${cartList}" var="cart">
+            <tr>
+                <td style="text-align: left; padding-left: 20px;">
+                    ${cart.title}
+                </td>
+
+                <td>
+                    <fmt:formatNumber
+                        value="${cart.price}"
+                        pattern="#,###"/>원
+                </td>
+
+                <td>
+                    ${cart.quantity}권
+                </td>
+
+                <td style="font-weight: bold; color: #007bff;">
+                    <fmt:formatNumber
+                        value="${cart.price * cart.quantity}"
+                        pattern="#,###"/>원
+                </td>
+            </tr>
+        </c:forEach>
+    </tbody>
+</table>
 
         <div class="pay-box">
             <div>

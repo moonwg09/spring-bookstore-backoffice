@@ -5,11 +5,11 @@
 
     <!-- 주문 마스터 등록 -->
     <insert id="insertOrder">
-        <selectKey keyProperty="order_id" resultType="long" order="AFTER">
-            SELECT MAX(order_id) FROM Customer_Order
+        <selectKey keyProperty="order_id" resultType="long" order="BEFORE">
+            SELECT customer_order_seq.NEXTVAL FROM dual
         </selectKey>
-        INSERT INTO Customer_Order (order_id, member_id, status, total_amount)
-        VALUES (customer_order_seq.NEXTVAL, #{member_id}, 'COMPLETED', #{total_amount})
+        INSERT INTO Customer_Order (order_id, member_id, status, total_amount, imp_uid, merchant_uid)
+        VALUES (#{order_id}, #{member_id}, #{status} , #{total_amount}, #{imp_uid}, #{merchant_uid})
     </insert>
 
     <!-- 주문 상세 품목 등록 -->
@@ -18,12 +18,6 @@
         VALUES (order_item_seq.NEXTVAL, #{order_id}, #{book_id}, #{qty}, #{price})
     </insert>
 
-    <!-- 회원 충전금 차감 -->
-    <update id="updateMemberBalance">
-        UPDATE Member
-        SET balance = balance - #{balance}
-        WHERE member_id = #{member_id}
-    </update>
 
     <!-- 재고 수량 차감 -->
     <update id="updateInventoryStock">
