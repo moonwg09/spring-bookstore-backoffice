@@ -278,7 +278,7 @@ Docker Image는 Amazon ECR을 통해 저장하고 관리했습니다.
 
 ### AWS 최종 시스템 구성
 
-![MBook AWS Architecture](docs/images/AWS 시스템 구성도.png)
+![MBook AWS Architecture](docs/images/mbook-aws-architecture.png)
 
 ```text
                        Internet
