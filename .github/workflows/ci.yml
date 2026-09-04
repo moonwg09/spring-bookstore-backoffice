@@ -5,10 +5,6 @@ on:
     branches:
       - main
 
-permissions:
-  id-token: write
-  contents: read
-
 jobs:
   build:
     runs-on: ubuntu-latest
@@ -26,8 +22,8 @@ jobs:
       - name: Build with Maven
         run: mvn clean package -DskipTests
 
-      - name: Configure AWS credentials
-        uses: aws-actions/configure-aws-credentials@v4
+      - name: Upload WAR artifact
+        uses: actions/upload-artifact@v4
         with:
-          role-to-assume: arn:aws:iam::657942274513:role/MBook-GitHubActions-Role
-          aws-region: ap-northeast-2
+          name: mbook-war
+          path: target/*.war
